@@ -30,6 +30,7 @@ let vision = true;
 // Changes over turns
 let fever = CASE.fever;
 
+
 // Update status
 function turnUpdate(message) 
 {
@@ -42,13 +43,33 @@ function turnUpdate(message)
         return 0;
     }
 
-    // Normal status
+    // Status
     document.getElementById('case').innerHTML = caseName; 
     document.getElementById('pulse').innerHTML = PULSES[pulse];
     document.getElementById('status').innerHTML = (!heart) ? 'HEART STOPPED' : STATES[state];
     document.getElementById('temp').innerHTML = (temp).toFixed(2);
     document.getElementById('site').innerHTML = SITE_CONDITIONS[site];
-    document.getElementById('incisions').innerHTML = incisions;
+
+    // Status 2
+    const exm_items = [
+        ['incisions', incisions],
+        ['broken-bones', brokenBones],
+        ['shattered-bones', shatteredBones]
+    ];
+    for (const item of exm_items)
+    {
+        if (item[1] > 0)
+        {
+            let row = document.getElementById(item[0]);
+            row.childNodes[3].innerHTML = `<code>${item[1]}</code>`;
+            row.removeAttribute('hidden');
+        }
+        else
+        {
+            document.getElementById(item[0]).setAttribute('hidden', '');
+        }
+    }
+
 
     // Check if "problem is visible"
     if (CASE.incisions != 0 && incisions >= problem) 
@@ -59,12 +80,6 @@ function turnUpdate(message)
     {
         document.getElementById('fix-it').setAttribute('disabled', '');
     }
-
-    // Extra message
-    let exm = '';
-    if (brokenBones > 0) { exm += `Broken bones: ${brokenBones}\n`; }
-    if (shatteredBones > 0) { exm += `Shattered bones: ${brokenBones}\n`; }
-    document.getElementById('extra-message').innerHTML = exm;
     
     // Message
     if (message != undefined) { document.getElementById('message').innerHTML = message; }
@@ -95,6 +110,8 @@ function check()
         return [true, "You've cured your patient!"];
     }
 
+
+    // Stat Changes
     if (fever)
     {
         // Increase temperature
@@ -106,6 +123,7 @@ function check()
         temp += (GOOD_TEMP - temp) / 2
     }
 
+    // Keep going
     return [false, ""];
 }
 

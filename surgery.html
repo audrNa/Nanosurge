@@ -20,31 +20,42 @@
     <body>
         <!-- Surgery Info Container -->
         <div class="surgery-status container mx-auto mt-3">
-            <div style="max-width: 100px;">
-                <table class="table table-sm table-borderless">
+            <!-- Status -->
+            <div style="max-width: 20em;">
+                <table class="table-sm">
                     <tr>
                         <th>Case</th>
                         <td id="case" colspan="3"></td>
                     </tr> 
                     <tr>
                         <td>Pulse</td>
-                        <td><div id="pulse" class="code"></div></td>
+                        <td><code style="text-align: left;" id="pulse"></code></td>
                         <td>Status</td>
-                        <td><div id="status" class="code"></div></td>
+                        <td><code style="text-align: left;" id="status"></code></td>
                     </tr>
                     <tr>
                         <td>Temp</td>
-                        <td><div id="temp" class="code"></div></td>
+                        <td><code style="text-align: left;" id="temp"></code></td>
                         <td>Site</td>
-                        <td><div id="site" class="code"></div></td>
+                        <td><code style="text-align: left;" id="site"></code></td>
                     </tr> 
-                    <tr>
-                        <td>Incisions</td>
-                        <td><div id="incisions" class="code"></div></td>
-                    </tr>
                 </table>
             </div>
-            <div id="extra-message" style="white-space: pre;"></div>
+            <table class="table-sm">
+                <tr id="incisions">
+                    <td>Incisions</td>
+                    <td></td>
+                </tr>
+                <tr id="broken-bones">
+                    <td>Broken Bones</td>
+                    <td></td>
+                </tr>
+                <tr id="shattered-bones">
+                    <td>Shattered Bones</td>
+                    <td></td>
+                </tr>
+            </table>
+            <!-- Turn Message -->
             <br>
             <div id="message"></div>
             <hr>
@@ -66,7 +77,7 @@
         </div>
 
         <!-- Button trigger modal -->
-        <!-- yeah i know it's shit design but i didn't want to figure out how bootstrap does it so shut up -->
+        <!-- i know :pensive: -->
         <button id="modal-trigger" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="display: none;">End Surgery</button>
         
         <!-- Surgery Ended Modal -->
