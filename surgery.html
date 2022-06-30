@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        <!-- Custom styles and the code itself -->
+        <link href="styles.css" rel="stylesheet">
+        <script src="surgery_tools.js"></script>
+        <script src="surgery_cases.js"></script>
+        <script src="surgery.js"></script>
+        
+        <title>Surgery</title>
+    </head>
+    <body>
+        <!-- Surgery Info Container -->
+        <div class="surgery-status container mx-auto mt-3">
+            <div style="max-width: 100px;">
+                <table class="table table-sm table-borderless">
+                    <tr>
+                        <th>Case</th>
+                        <td id="case" colspan="3"></td>
+                    </tr> 
+                    <tr>
+                        <td>Pulse</td>
+                        <td><div id="pulse" class="code"></div></td>
+                        <td>Status</td>
+                        <td><div id="status" class="code"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Temp</td>
+                        <td><div id="temp" class="code"></div></td>
+                        <td>Site</td>
+                        <td><div id="site" class="code"></div></td>
+                    </tr> 
+                    <tr>
+                        <td>Incisions</td>
+                        <td><div id="incisions" class="code"></div></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="extra-message" style="white-space: pre;"></div>
+            <br>
+            <div id="message"></div>
+            <hr>
+            <!-- Tools -->
+            <div class="pb-2 mx-auto" style="width: 60%">
+                <button type="button" class="btn btn-primary" onclick="sponge()">Sponge</button>
+                <button type="button" class="btn btn-primary" onclick="splint()">Splint</button>
+                <button type="button" class="btn btn-primary" onclick="antiseptic()">Antiseptic</button>
+                <button type="button" class="btn btn-primary" onclick="antibiotics()">Antibiotics</button>
+                <button type="button" class="btn btn-primary" onclick="anesthetic()">Anesthetic</button>
+                <button type="button" class="btn btn-primary" onclick="scalpel()">Scalpel</button>
+                <button type="button" class="btn btn-primary" onclick="stitches()">Stitches</button>
+                <button type="button" class="btn btn-primary" onclick="pins()">Pins</button>
+                <button type="button" class="btn btn-primary" onclick="transfusion()">Transfusion</button>
+                <button type="button" class="btn btn-primary" onclick="ultrasound()">Ultrasound</button>
+                <button type="button" class="btn btn-primary" onclick="defibrillator()">Defibrillator</button>
+                <button id="fix-it" type="button" class="btn btn-primary" onclick="fixit()" disabled>Fix It</button>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <!-- yeah i know it's shit design but i didn't want to figure out how bootstrap does it so shut up -->
+        <button id="modal-trigger" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="display: none;">End Surgery</button>
+        
+        <!-- Surgery Ended Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Surgery Ended</h5>
+                </div>
+                <div id="modal-message" class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="document.location='./index.html'">Home</button>
+                    <button type="button" class="btn btn-success" onclick="location.reload()">Perform another surgery</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

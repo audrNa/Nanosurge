@@ -1,0 +1,16 @@
+.surgery-status {
+    max-width: 750px; 
+    background-color: #dee2e6;
+}
+
+button {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.code {
+    font-family: monospace;
+    background-color: #000;
+    color: #fff;
+    padding-inline: 3px;
+}
