@@ -1,18 +1,42 @@
 // Cases for initial stats
-class Case {
-    constructor(name, incisions, pulse, temp, brokenBones, shatteredBones, fever) {
-        this.name = name;                       // String
-        this.incisions = incisions;             // Integer
-        this.pulse = pulse;                     // Integer
-        this.temp = temp;                       // Float
-        this.brokenBones = brokenBones;         // Integer
-        this.shatteredBones = shatteredBones;   // Integer
-        this.fever = fever;                     // Boolean
-    }
-}
+
+/* Required Keys */
+// name             String
+// incisions        Number  This is the required number of incisions until Fix It can be used.
+// pulse            Number
+// temp             Number
+// brokenBones      Number
+// shatteredBones   Number
+// fever            Boolean
 
 const CASES = [
-    new Case('Flu', 0, 0, 100, 0, 0, true), 
-    new Case('Broken Everything', 4, 3, 92, 4, 4, false),
-    new Case('COVID-19', 1, 0, 100, 0, 0, true)
+    {
+        name:           'Flu',
+        incisions:      0,
+        pulse:          0,
+        temp:           100,
+        brokenBones:    0,
+        shatteredBones: 0,
+        fever:          true
+    },
+
+    {
+        name:           'Broken Everything',
+        incisions:      4,
+        pulse:          3,
+        temp:           0,
+        brokenBones:    4,
+        shatteredBones: 4,
+        fever:          false
+    },
+
+    {
+        name:           'COVID-19',
+        incisions:      1,
+        pulse:          0,
+        temp:           100,
+        brokenBones:    0,
+        shatteredBones: 0,
+        fever:          true
+    }
 ];
