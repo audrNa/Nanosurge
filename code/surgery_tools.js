@@ -7,6 +7,9 @@ const TOOLS = [
     {
         name: 'Sponge',
         use() {
+            // Kill bacteria up to 25
+            bacteria -= 50;
+            if (bacteria < 25) { bacteria = 25; }
             vision = true;
             return turnUpdate("Mopped up the operation site.");
         }
@@ -29,7 +32,7 @@ const TOOLS = [
     {
         name: 'Antiseptic',
         use() {
-            site = 0;
+            bacteria -=  10;
             return turnUpdate("Disinfected the operation site.");
         }
     },
@@ -58,7 +61,7 @@ const TOOLS = [
     {
         name: 'Anesthetic',
         use() {
-            sleepTime = 15;
+            sleepTime = 25;
             return turnUpdate("The patient is sleeping now.");
         }
     },
@@ -131,6 +134,7 @@ const TOOLS = [
         use() {
             if (!heart) 
             {
+                pulse = 1;
                 heart = true;
                 return turnUpdate("You shocked the patient back to life!");
             }
@@ -142,6 +146,11 @@ const TOOLS = [
     {
         name: 'Fix It',
         use() {
+            if (caseName == '?')
+            {
+                return turnUpdate("You haven't scanned the patient yet.");
+            }
+
             if (problem == 0) 
             {
                 return turnUpdate("There is no problem.");
