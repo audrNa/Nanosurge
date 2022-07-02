@@ -1,7 +1,7 @@
 // + surgery_cases.js, surgery_tools.js
 
 // Definitions
-const STATES = ['AWAKE', 'UNCONSCIOUS', 'COMING TO'];
+const STATES = ['AWAKE', 'COMING TO', 'UNCONSCIOUS'];
 const SITE_CONDITIONS = ['Clean', 'Unsanitized', 'Unsanitary'];
 const PULSES = ['Strong', 'Steady', 'Weak', 'Extremely Weak'];
 const GOOD_TEMP = 99.8;
@@ -29,7 +29,8 @@ let vision = true;
 
 // Changes over turns
 let fever = CASE.fever;
-
+let sleepTime = 0;
+let heartDeadTime = 4;
 
 // Update status
 function turnUpdate(message) 
@@ -47,7 +48,7 @@ function turnUpdate(message)
     document.getElementById('case').innerHTML = caseName; 
     document.getElementById('pulse').innerHTML = PULSES[pulse];
     document.getElementById('status').innerHTML = (!heart) ? 'HEART STOPPED' : STATES[state];
-    document.getElementById('temp').innerHTML = (temp).toFixed(2);
+    document.getElementById('temp').innerHTML = (temp).toFixed(1);
     document.getElementById('site').innerHTML = SITE_CONDITIONS[site];
 
     // Status 2
@@ -91,6 +92,7 @@ function turnUpdate(message)
 function check() 
 {
     // Lose conditions
+
     if (incisions > 0 && state == 0) 
     {
         return [true, "You stabbed the awake patient!"];
@@ -98,11 +100,17 @@ function check()
 
     if (temp > 120)
     {
-        return [true, "The patient died of a fever."]
+        return [true, "The patient died of a fever."];
+    }
+
+    if (!heart && heartDeadTime < 0)
+    {
+        return [true, "You failed to restart the patient's heart in time!"];
     }
 
 
     // Win
+
     if (problem <= 0 && !fever && temp <= 103 && incisions <= 0 && 
         brokenBones <= 0 && shatteredBones <= 0 && heart && pulse <= 1) 
     {
@@ -112,6 +120,7 @@ function check()
 
 
     // Stat Changes
+
     if (fever)
     {
         // Increase temperature
@@ -121,6 +130,49 @@ function check()
     {
         // Get it closer to GOOD_TEMP
         temp += (GOOD_TEMP - temp) / 2
+    }
+
+    // Make time "go" so that the patient will wake up soon
+    if (sleepTime > 0)
+    {
+        sleepTime--;
+    }
+
+    // Determine state of person
+    if (sleepTime <= 0)
+    {
+        // Awake
+        state = 0;
+    }
+    else if (sleepTime <= 3)
+    {
+        // Coming to
+        state = 1;
+    }
+    else
+    {
+        // zzz
+        state = 2;
+    }
+
+    // Pulse gets weaker while asleep
+    if (state != 0 && heart && rng(0, 10) == 0)
+    {
+        pulse++;
+    }
+
+    // No more pulse
+    if (pulse > 3)
+    {
+        pulse = 3;
+        heart = false;
+        heartDeadTime = 4;
+    }
+
+    // Pass time until heart dies
+    if (!heart)
+    {
+        heartDeadTime--;
     }
 
     // Keep going

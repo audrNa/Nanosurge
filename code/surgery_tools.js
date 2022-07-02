@@ -47,7 +47,7 @@ function antibiotics()
 // Put patient to sleep
 function anesthetic() 
 {
-    state = 1;
+    sleepTime = 15;
     return turnUpdate("The patient is sleeping now.");
 }
 
