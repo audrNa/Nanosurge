@@ -1,15 +1,26 @@
 // Surgery tools
 
+// Classn't for tools
+const tool = {
+    name: 'Unnamed',
+    use() 
+    {
+        return turnUpdate("You tried to use air.");
+    }
+}
+
 // Fix vision
-function sponge() 
-{
+const sponge = Object.create(tool);
+sponge.name = 'Sponge';
+sponge.use = () => {
     vision = true;
     return turnUpdate("Mopped up the operation site.");
 }
 
 // Fix broken bones
-function splint() 
-{
+const splint = Object.create(tool);
+splint.name = 'Splint';
+splint.use = () => {
     if (brokenBones > 0)
     {
         brokenBones--;
@@ -19,16 +30,17 @@ function splint()
 }
 
 // Clean site
-function antiseptic() 
-{
+const antiseptic = Object.create(tool);
+antiseptic.name = 'Antiseptic';
+antiseptic.use = () => {
     site = 0;
     return turnUpdate("Disinfected the operation site.");
 }
 
 // Help temperature
-// TODO
-function antibiotics() 
-{
+const antibiotics = Object.create(tool);
+antibiotics.name = 'Antibiotics';
+antibiotics.use = () => {
     temp -= 5;
     // Doesn't do anything when already GOOD_TEMP
     if (temp < GOOD_TEMP)
@@ -45,22 +57,25 @@ function antibiotics()
 }
 
 // Put patient to sleep
-function anesthetic() 
-{
+const anesthetic = Object.create(tool);
+anesthetic.name = 'Anesthetic';
+anesthetic.use = () => {
     sleepTime = 15;
     return turnUpdate("The patient is sleeping now.");
 }
 
 // Cut patient
-function scalpel() 
-{
-    incisions++;
+const scalpel = Object.create(tool);
+scalpel.name = 'Scalpel';
+scalpel.use = () => {
+        incisions++;
     return turnUpdate("Made a neat incision.");
 }
 
 // Fix cuts
-function stitches() 
-{
+const stitches = Object.create(tool);
+stitches.name = 'Stitches';
+stitches.use = () => {
     if (incisions > 0)
     {
         incisions--;
@@ -71,9 +86,11 @@ function stitches()
 }
 
 // Fix shattered bones
-function pins() 
-{
-    if (shatteredBones > 0) {
+const pins = Object.create(tool);
+pins.name = 'Pins';
+pins.use = () => {
+    if (shatteredBones > 0) 
+    {
         shatteredBones--;
         brokenBones++;
         return turnUpdate("Pinned a shattered bone together.");
@@ -82,18 +99,22 @@ function pins()
 }
 
 // Fix blood pulse
-function transfusion() 
-{
-    if (pulse > 0) {
+const transfusion = Object.create(tool);
+transfusion.name = 'Transfusion';
+transfusion.use = () => {
+    if (pulse > 0) 
+    {
         pulse--;
     }
     return turnUpdate("Transfused several pints of bloods into your patient.");
 }
 
 // Get condition of patient
-function ultrasound() {
-
-    if (caseName == '?') {
+const ultrasound = Object.create(tool);
+ultrasound.name = 'Ultrasound';
+ultrasound.use = () => {
+    if (caseName == '?') 
+    {
         caseName = CASE.name;
         return turnUpdate(`The patient has a case of ${caseName}.`);
     }
@@ -101,9 +122,11 @@ function ultrasound() {
 }
 
 // Fix stopped heart
-function defibrillator() 
-{
-    if (!heart) {
+const defibrillator = Object.create(tool);
+defibrillator.name = 'Defibrillator';
+defibrillator.use = () => {
+    if (!heart) 
+    {
         heart = true;
         return turnUpdate("You shocked the patient back to life!");
     }
@@ -111,16 +134,22 @@ function defibrillator()
 }
 
 // Fix problem
-// TODO
-function fixit() 
-{
-    if (problem == 0) {
+const fixit = Object.create(tool);
+fixit.name = 'Fix It';
+fixit.use = () => {
+    if (problem == 0) 
+    {
         return turnUpdate("There is no problem.");
     } 
     
-    if (incisions >= problem) {
+    if (incisions >= problem)
+    {
         problem = 0;
         return turnUpdate("Fixed the problem.");
     }
+
     return turnUpdate("You need to get to the problem first.");
 }
+
+// List of the tools
+const TOOLS = [sponge, splint, antiseptic, antibiotics, anesthetic, scalpel, stitches, pins, transfusion, ultrasound, defibrillator, fixit];
