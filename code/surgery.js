@@ -70,20 +70,9 @@ function turnUpdate(message)
             document.getElementById(item[0]).setAttribute('hidden', '');
         }
     }
-
-
-    // Check if "problem is visible"
-    if (CASE.incisions != 0 && incisions >= problem) 
-    {
-        document.getElementById('fix-it').removeAttribute('disabled');
-    } 
-    else 
-    {
-        document.getElementById('fix-it').setAttribute('disabled', '');
-    }
     
     // Message
-    if (message != undefined) { document.getElementById('message').innerHTML = message; }
+    document.getElementById('message').innerHTML = message;
     return 0;
 }
 
@@ -180,9 +169,27 @@ function check()
 }
 
 
-// Load surgery
+// Load game
 document.addEventListener('DOMContentLoaded', function() {
-    turnUpdate();
+    // Surgery Tools
+    const toolsContainer = document.getElementById('tools');
+    for (const item of TOOLS)
+    {
+        // Make button
+        const button = document.createElement("button");
+        button.innerHTML = item.name;
+        button.setAttribute('type', 'button');
+        button.className = "btn btn-primary";
+ 
+        // Insert to page
+        toolsContainer.insertBefore(button, toolsContainer.lastElementChild.nextSibling);
+
+        // Add function
+        button.addEventListener('click', item.use);
+    }
+
+    // Surgery Data
+    turnUpdate("");    // 2022-07-02 i'll put a message here later
 });
 
 

@@ -60,19 +60,8 @@
             <div id="message"></div>
             <hr>
             <!-- Tools -->
-            <div class="pb-2 mx-auto" style="width: 60%">
-                <button type="button" class="btn btn-primary" onclick="sponge()">Sponge</button>
-                <button type="button" class="btn btn-primary" onclick="splint()">Splint</button>
-                <button type="button" class="btn btn-primary" onclick="antiseptic()">Antiseptic</button>
-                <button type="button" class="btn btn-primary" onclick="antibiotics()">Antibiotics</button>
-                <button type="button" class="btn btn-primary" onclick="anesthetic()">Anesthetic</button>
-                <button type="button" class="btn btn-primary" onclick="scalpel()">Scalpel</button>
-                <button type="button" class="btn btn-primary" onclick="stitches()">Stitches</button>
-                <button type="button" class="btn btn-primary" onclick="pins()">Pins</button>
-                <button type="button" class="btn btn-primary" onclick="transfusion()">Transfusion</button>
-                <button type="button" class="btn btn-primary" onclick="ultrasound()">Ultrasound</button>
-                <button type="button" class="btn btn-primary" onclick="defibrillator()">Defibrillator</button>
-                <button id="fix-it" type="button" class="btn btn-primary" onclick="fixit()" disabled>Fix It</button>
+            <div id="tools" class="pb-2 mx-auto" style="width: 60%">
+                <div hidden></div> <!-- for loading tools because nextSibling moment -->
             </div>
         </div>
 
