@@ -3,7 +3,7 @@
 // Definitions
 const STATES = ['AWAKE', 'COMING TO', 'UNCONSCIOUS'];
 const SITE_CONDITIONS = ['Clean', 'Unsanitized', 'Unsanitary'];
-const PULSES = ['Strong', 'Steady', 'Weak', 'Extremely Weak'];
+const PULSES = ['Strong', 'Steady', 'Weak', 'Extremely Weak', '-'];
 const GOOD_TEMP = 99.8;
 
 // Status
@@ -30,7 +30,11 @@ let vision = true;
 // Changes over turns
 let fever = CASE.fever;
 let sleepTime = 0;
-let heartDeadTime = 4;
+let heartDeadTime = 0;
+let bacteria = 0;
+
+let extraMessage = "";
+
 
 // Update status
 function turnUpdate(message) 
@@ -52,12 +56,12 @@ function turnUpdate(message)
     document.getElementById('site').innerHTML = SITE_CONDITIONS[site];
 
     // Status 2
-    const exm_items = [
+    const bodyInfo = [
         ['incisions', incisions],
         ['broken-bones', brokenBones],
         ['shattered-bones', shatteredBones]
     ];
-    for (const item of exm_items)
+    for (const item of bodyInfo)
     {
         if (item[1] > 0)
         {
@@ -70,9 +74,16 @@ function turnUpdate(message)
             document.getElementById(item[0]).setAttribute('hidden', '');
         }
     }
+
+    // Extra Info
+    document.getElementById('extra-message').innerHTML = extraMessage;
+    extraMessage = "";   // Reset so it can checked again
     
     // Message
     document.getElementById('message').innerHTML = message;
+    
+    // Disable tools if needed
+    toolToggle();
     return 0;
 }
 
@@ -92,7 +103,7 @@ function check()
         return [true, "The patient died of a fever."];
     }
 
-    if (!heart && heartDeadTime < 0)
+    if (!heart && heartDeadTime <= 0)
     {
         return [true, "You failed to restart the patient's heart in time!"];
     }
@@ -109,63 +120,36 @@ function check()
 
 
     // Stat Changes
-
-    if (fever)
-    {
-        // Increase temperature
-        temp += 3 + rng(0, 10) / 10;
-    }
-    else if (temp != GOOD_TEMP)
-    {
-        // Get it closer to GOOD_TEMP
-        temp += (GOOD_TEMP - temp) / 2
-    }
-
-    // Make time "go" so that the patient will wake up soon
-    if (sleepTime > 0)
-    {
-        sleepTime--;
-    }
-
-    // Determine state of person
-    if (sleepTime <= 0)
-    {
-        // Awake
-        state = 0;
-    }
-    else if (sleepTime <= 3)
-    {
-        // Coming to
-        state = 1;
-    }
-    else
-    {
-        // zzz
-        state = 2;
-    }
-
-    // Pulse gets weaker while asleep
-    if (state != 0 && heart && rng(0, 10) == 0)
-    {
-        pulse++;
-    }
-
-    // No more pulse
-    if (pulse > 3)
-    {
-        pulse = 3;
-        heart = false;
-        heartDeadTime = 4;
-    }
-
-    // Pass time until heart dies
-    if (!heart)
-    {
-        heartDeadTime--;
-    }
+    tempChange();
+    statusCheck();
+    heartbeat();
+    bacteriaSpread();
 
     // Keep going
     return [false, ""];
+}
+
+// Toggles buttons depending on condition
+let buttons = [];
+function toolToggle()
+{
+    if (!vision)
+    {
+        for (const button of buttons)
+        {
+            if (button.innerHTML != 'Sponge')
+            {
+                button.setAttribute('disabled', '');
+            }
+        }
+    }
+    else
+    {
+        for (const button of buttons)
+        {
+            button.removeAttribute('disabled');
+        }
+    }
 }
 
 
@@ -179,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const button = document.createElement("button");
         button.innerHTML = item.name;
         button.setAttribute('type', 'button');
-        button.className = "btn btn-primary";
+        button.className = "tool btn btn-primary";
  
         // Insert to page
         toolsContainer.insertBefore(button, toolsContainer.lastElementChild.nextSibling);
@@ -188,8 +172,11 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', item.use);
     }
 
+    // Save for toolToggle()
+    buttons = toolsContainer.getElementsByClassName('tool');
+
     // Surgery Data
-    turnUpdate("");    // 2022-07-02 i'll put a message here later
+    turnUpdate("you are ready to frick the patient");    // 2022-07-02 i'll put a message here later
 });
 
 
