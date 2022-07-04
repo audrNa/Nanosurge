@@ -93,13 +93,19 @@ const TOOLS = [
     {
         name: 'Pins',
         use() {
-            if (shatteredBones > 0) 
+            if (shatteredBones <= 0)
             {
-                shatteredBones--;
-                brokenBones++;
-                return turnUpdate("Pinned a shattered bone together.");
+                return turnUpdate("There are no shattered bones to pin together.");
             }
-            return turnUpdate("There are no shattered bones to pin together.");
+
+            if (incisions <= 0)
+            {
+                return turnUpdate("You need to make an incision first.");
+            }
+
+            shatteredBones--;
+            brokenBones++;
+            return turnUpdate("Pinned a shattered bone together.");
         }
     },
 
