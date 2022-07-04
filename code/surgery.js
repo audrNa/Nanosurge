@@ -130,24 +130,49 @@ function check()
 }
 
 // Toggles buttons depending on condition
-let buttons = [];
+let buttons = [];   // Defined later when game loads
 function toolToggle()
 {
+    // Which buttons to disable this turn
+    let killList = new Set();
+
+
+    // what to disable
+
+    // No vision: disable all except Sponge
     if (!vision)
     {
-        for (const button of buttons)
+        for (let i = 1; i < buttons.length; i++)
         {
-            if (button.innerHTML != 'Sponge')
-            {
-                button.setAttribute('disabled', '');
-            }
+            killList.add(i);
         }
     }
-    else
+
+    // Problem not yet reached: disable Fix It
+    if (caseName == '?' || incisions < problem || problem == 0)
     {
-        for (const button of buttons)
+        killList.add(11);
+    }
+
+    // No incisions: disable Pins
+    if (incisions <= 0)
+    {
+        killList.add(7);
+    }
+
+
+    // Disable buttons in killList
+    for (const i of killList)
+    {
+        buttons[i].setAttribute('disabled', '');
+    }
+
+    // Re-enable disabled buttons if not on killList this turn
+    for (let i = 0; i < buttons.length; i++)
+    {
+        if (buttons[i].getAttribute('disabled') != null && !killList.has(i))
         {
-            button.removeAttribute('disabled');
+            buttons[i].removeAttribute('disabled');
         }
     }
 }
