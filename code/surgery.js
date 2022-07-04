@@ -3,7 +3,7 @@
 // Definitions
 const STATES = ['AWAKE', 'COMING TO', 'UNCONSCIOUS'];
 const SITE_CONDITIONS = ['Clean', 'Unsanitized', 'Unsanitary'];
-const PULSES = ['Strong', 'Steady', 'Weak', 'Extremely Weak', '-'];
+const PULSES = ['Strong', 'Steady', 'Weak', 'Extremely Weak'];
 const GOOD_TEMP = 99.8;
 
 // Status
@@ -30,8 +30,9 @@ let vision = true;
 // Changes over turns
 let fever = CASE.fever;
 let sleepTime = 0;
-let heartDeadTime = 0;
+let resuscitationTime = 0;
 let bacteria = 0;
+let bleeding = 0;
 
 let extraMessage = "";
 
@@ -93,19 +94,14 @@ function check()
 {
     // Lose conditions
 
-    if (incisions > 0 && state == 0) 
-    {
-        return [true, "You stabbed the awake patient!"];
-    }
-
     if (temp > 120)
     {
         return [true, "The patient died of a fever."];
     }
 
-    if (!heart && heartDeadTime <= 0)
+    if (!heart && resuscitationTime <= 0)
     {
-        return [true, "You failed to restart the patient's heart in time!"];
+        return [true, "You failed to resuscitate the patient's heart in time!"];
     }
 
 
@@ -122,6 +118,7 @@ function check()
     // Stat Changes
     tempChange();
     statusCheck();
+    bleed();
     heartbeat();
     bacteriaSpread();
 
@@ -151,13 +148,20 @@ function toolToggle()
     // Problem not yet reached: disable Fix It
     if (caseName == '?' || incisions < problem || problem == 0)
     {
-        killList.add(11);
+        killList.add(12);
     }
 
-    // No incisions: disable Pins
+    // No incisions: disable Pins and Clamps
     if (incisions <= 0)
     {
         killList.add(7);
+        killList.add(8);
+    }
+
+    // Patient awake: disable Scalpel
+    if (state == 0)
+    {
+        killList.add(5);
     }
 
 
@@ -201,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
     buttons = toolsContainer.getElementsByClassName('tool');
 
     // Surgery Data
-    turnUpdate("you are ready to frick the patient");    // 2022-07-02 i'll put a message here later
+    turnUpdate("you are ready to kill the patient");    // 2022-07-02 i'll put a proper message here later
 });
 
 
