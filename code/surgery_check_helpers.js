@@ -42,6 +42,37 @@ function statusCheck()
     }
 }
 
+// Blood loss
+const bleedingTexts = [
+    "The patient is slowly losing blood.",
+    "The patient is losing blood.",
+    "The patient is losing blood fast!"
+];
+function bleed()
+{
+    // If patient wake up while incisions then pain then patient panik then bleed
+    if (incisions > 0 && state == 0)
+    {
+        bleeding += 0.5 + incisions * 0.5;
+    }
+
+    // Min 0 | Max 3
+    if (bleeding < 0) { bleeding = 0; }
+    if (bleeding > 3) { bleeding = 3; }
+
+    // Damage heart
+    if (bleeding > 0 && rng(1, 10 / bleeding) == 1)
+    {
+        pulse++;
+    }
+
+    // Extra Message
+    if (bleeding > 0)
+    {
+        extraMessage += bleedingTexts[Math.floor(bleeding) - 1] + '\n';
+    }
+}
+
 // Heart
 function heartbeat()
 {
@@ -52,22 +83,25 @@ function heartbeat()
     }
 
     // No more pulse
-    if (heart && pulse == 4)
+    if (heart && pulse >= 4)
     {
         heart = false;
-        heartDeadTime = 4;
+        resuscitationTime = 4;
     }
 
     // Pass time until patient dies if heart dead
     if (!heart)
     {
-        heartDeadTime--;
+        resuscitationTime--;
     }
 }
 
 // Bacteria logic
 function bacteriaSpread()
 {
+    // Minimum 0
+    if (bacteria < 0) { bacteria = 0; }
+
     // + Bacteria for tool used
     bacteria += 1 * (1 + incisions * 0.5) * (1 + site * 0.5);
 
@@ -85,7 +119,7 @@ function bacteriaSpread()
     {
         // oh no
         site = 2;
-        extraMessage += "It's getting harder to see.\n";
+        extraMessage += "It's getting harder to see what you're doing.\n";
     }
     else
     {

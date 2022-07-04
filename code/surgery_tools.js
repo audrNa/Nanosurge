@@ -32,7 +32,7 @@ const TOOLS = [
     {
         name: 'Antiseptic',
         use() {
-            bacteria -=  10;
+            bacteria -= 10;
             return turnUpdate("Disinfected the operation site.");
         }
     },
@@ -70,7 +70,21 @@ const TOOLS = [
     {
         name: 'Scalpel',
         use() {
+            // Can't stab awake person
+            if (state == 0)
+            {
+                return turnUpdate("The patient is still awake.");
+            }
+
+            // stabby stabby
             incisions++;
+
+            // 5% chance to give bleeding
+            if (rng(1, 20) == 1)
+            {
+                bleeding++;
+            }
+
             return turnUpdate("Made a neat incision.");
         }
     },
@@ -79,13 +93,23 @@ const TOOLS = [
     {
         name: 'Stitches',
         use() {
-            if (incisions > 0)
+            // Nothing to fix
+            if (incisions <= 0 && bleeding <= 0)
             {
-                incisions--;
-                return turnUpdate("Stitched up an incision.");
+                return turnUpdate("There are no incisions to stich up.");
             }
-        
-            return turnUpdate("There are no incisions to stich up.");
+
+            // No incisions but there is bleeding
+            if (incisions <= 0 && bleeding > 0)
+            {
+                bleeding--;
+                return turnUpdate("Badged up some wounds.");
+            }
+
+            // Fix incisions and bleeding if there is any 
+            bleeding--;
+            incisions--;
+            return turnUpdate("Stitched up some incisions.");
         }
     },
 
@@ -106,6 +130,25 @@ const TOOLS = [
             shatteredBones--;
             brokenBones++;
             return turnUpdate("Pinned a shattered bone together.");
+        }
+    },
+    
+    // Fix bleeding without reducing incisions
+    {
+        name: 'Clamps',
+        use() {
+            if (incisions <= 0)
+            {
+                return turnUpdate("There are no incisions yet.");
+            }
+
+            if (bleeding <= 0)
+            {
+                return turnUpdate("There is no bleeding to fix.");
+            }
+            
+            bleeding--;
+            return turnUpdate("Clamped up some blood vessels.");
         }
     },
 
