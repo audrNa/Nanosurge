@@ -7,6 +7,7 @@ function tempChange()
     {
         // Increase temperature
         temp += 3 + rng(0, 10) / 10;
+        extraMessage += "The patient's temperature is rising.\n";
     }
     else if (temp != GOOD_TEMP)
     {
@@ -102,10 +103,11 @@ function bacteriaSpread()
     // Minimum 0
     if (bacteria < 0) { bacteria = 0; }
 
-    // + Bacteria for tool used
-    bacteria += 1 * (1 + incisions * 0.5) * (1 + site * 0.5);
+    // + Bacteria every turn
+    bacteria += 1 * (1 + incisions * 0.5) * (1 + site * 0.5) * (1 + bleeding * 0.5);
 
     // Bacteria make operation site dirty
+    let feverN = 0;
     if (bacteria <= 25)
     {
         site = 0;
@@ -114,11 +116,13 @@ function bacteriaSpread()
     {
         // it's still fine
         site = 1;
+        feverN = 1;
     }
     else if (bacteria <= 75)
     {
         // oh no
         site = 2;
+        feverN = 2;
         extraMessage += "It's getting harder to see what you're doing.\n";
     }
     else
@@ -126,5 +130,11 @@ function bacteriaSpread()
         // oh fuck
         vision = false;
         extraMessage += "You can't see what you're doing!\n";
+    }
+
+    // Chance to give fever
+    if (feverN != 0 && rng(1, 20 / feverN) == 1)
+    {
+        fever = true;
     }
 }

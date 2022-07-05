@@ -108,7 +108,8 @@ function check()
     // Win
 
     if (problem <= 0 && !fever && temp <= 103 && incisions <= 0 && 
-        brokenBones <= 0 && shatteredBones <= 0 && heart && pulse <= 1) 
+        brokenBones <= 0 && shatteredBones <= 0 && heart && bleeding <= 0
+        && pulse <= 1) 
     {
         
         return [true, "You've cured your patient!"];
@@ -145,7 +146,8 @@ function toolToggle()
         }
     }
 
-    // Problem not yet reached: disable Fix It
+    // Patient not scanned / Problem not yet reached / No problem
+    // -> disable Fix It
     if (caseName == '?' || incisions < problem || problem == 0)
     {
         killList.add(12);

@@ -2,12 +2,13 @@
 
 /* Required Keys */
 // name             String
-// incisions        Number  This is the required number of incisions until Fix It can be used.
+// incisions        Number  *Required number of incisions until Fix It can be used
 // pulse            Number
 // temp             Number
 // brokenBones      Number
 // shatteredBones   Number
 // fever            Boolean
+// bleeding         Number
 
 const CASES = [
     {
@@ -17,7 +18,8 @@ const CASES = [
         temp:           100,
         brokenBones:    0,
         shatteredBones: 0,
-        fever:          true
+        fever:          true,
+        bleeding:       0
     },
 
     {
@@ -27,7 +29,8 @@ const CASES = [
         temp:           0,
         brokenBones:    4,
         shatteredBones: 4,
-        fever:          false
+        fever:          false,
+        bleeding:       2
     },
 
     {
@@ -37,6 +40,7 @@ const CASES = [
         temp:           100,
         brokenBones:    0,
         shatteredBones: 0,
-        fever:          true
+        fever:          true,
+        bleeding:       0
     }
 ];
