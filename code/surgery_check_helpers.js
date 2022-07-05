@@ -77,12 +77,6 @@ function bleed()
 // Heart
 function heartbeat()
 {
-    // Pulse gets weaker while asleep
-    if (state != 0 && heart && rng(0, 10) == 0)
-    {
-        pulse++;
-    }
-
     // No more pulse
     if (heart && pulse >= 4)
     {
