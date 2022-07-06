@@ -1,6 +1,36 @@
+body {
+    background-color: #181a1c;
+    color: #fff;
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
 .surgery-status {
-    max-width: 750px; 
-    background-color: #dee2e6;
+    /* Container */
+    --bg-color: 52, 186, 227;
+    max-width: 450px; 
+    background: rgba(var(--bg-color), 0.3);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(var(--bg-color));
+    border-radius: 3px;
+    /* Margin & Padding */
+    margin-top: 1rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 5px 10px 5px;
+}
+
+hr {
+    margin: 1rem 0;
+    color: inherit;
+    background-color: currentColor;
+    border: 0;
+    opacity: .25;
+    height: 1px;
+}
+
+td {
+    padding: 3px;
 }
 
 button {
@@ -9,6 +39,7 @@ button {
 
 code {
     font-family: monospace;
+    font-size: 14px;
     background-color: #000;
     color: #fff;
     padding-inline: 3px;
