@@ -64,24 +64,20 @@
             </div>
         </div>
 
-        <!-- Button trigger modal -->
-        <!-- i know :pensive: -->
-        <button id="modal-trigger" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="display: none;">End Surgery</button>
-        
-        <!-- Surgery Ended Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Surgery Ended</h5>
+        <!-- Modal -->
+        <div id="modal">
+            <!-- Content -->
+            <div id="modal-content">
+                <div id="modal-header">
+                    <!-- title -->
                 </div>
-                <div id="modal-message" class="modal-body">
-                    ...
+                <div id="modal-desc">
+                    <!-- longer text here -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="document.location='./index.html'">Home</button>
-                    <button type="button" class="btn btn-success" onclick="location.reload()">Perform another surgery</button>
-                </div>
+                <div id="modal-options">
+                    <!-- here -->
+                    <button type="button" class="normal" onclick="document.location='./index.html';">Home</button>
+                    <button type="button" class="good" onclick="location.reload();">Perform another surgery</button>
                 </div>
             </div>
         </div>

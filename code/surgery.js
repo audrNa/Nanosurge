@@ -44,8 +44,9 @@ function turnUpdate(message)
     const checkResult = check();
     if (checkResult[0]) 
     {
-        document.getElementById('modal-message').innerHTML = checkResult[1];
-        document.getElementById('modal-trigger').click();
+        document.getElementById('modal').style.display = 'block';
+        document.getElementById('modal-header').innerText = "Surgery Ended";
+        document.getElementById('modal-desc').innerText = checkResult[1];
         return 0;
     }
 
@@ -195,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.innerHTML = item.name;
         button.setAttribute('type', 'button');
         button.className = "tool";
- 
+
         // Insert to page
         toolsContainer.insertBefore(button, toolsContainer.lastElementChild.nextSibling);
 
