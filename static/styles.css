@@ -1,9 +1,14 @@
+:root {
+    --bg-color: #181a1c;
+}
+
 body {
-    background-color: #181a1c;
+    background-color: var(--bg-color);
     color: #fff;
     font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
+/* Surgery Status and some extra */
 .surgery-status {
     /* Container */
     --iro: 52, 186, 227;
@@ -33,11 +38,9 @@ td {
     padding: 3px;
 }
 
-[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
-    cursor: pointer;
-}
-
-button.tool {
+/* Buttons */
+button {
+    /* make button look cool */
     margin: 2px;
     padding: 5px 10px;
     display: inline-block;
@@ -45,11 +48,54 @@ button.tool {
     line-height: 1.5;
     text-decoration: none;
     vertical-align: middle;
-    user-select: none;
     font-size: 1rem;
     border: 1px solid transparent;
     border-radius: 0.25rem;
+    user-select: none; /* disable selection of button text */
+    font-family: inherit;
+}
 
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+
+button:disabled {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+/* .normal */
+button.normal {
+    color: #fff;
+    background-color: #6c757d;
+}
+
+button.normal:hover {
+    background-color: #5c636a;
+}
+
+/* .good */
+button.good {
+    color: #fff;
+    background-color: #198754;
+}
+
+button.good:hover {
+    background-color: #157347;
+}
+
+/* .danger */
+button.danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+button.danger:hover {
+    background-color: #bb2d3b;
+}
+
+/* Tools */
+button.tool {
     font-family: inherit;
     color: #fff;
     background-color: rgba(108, 117, 125, 0.5);
@@ -61,9 +107,46 @@ button.tool:hover {
     border-color: rgb(200, 200, 200);
 }
 
-button.tool:disabled {
-    pointer-events: none;
-    opacity: 0.65;
+/* Modal background */
+#modal {
+    display: none; /* Hidden by default */
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+}
+
+/* main thing in the middle */
+#modal-content {
+    background-color: var(--bg-color);
+    margin: 15% auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    border-radius: 3px;
+    max-width: 500px; /* Could be more or less, depending on screen size */
+}
+
+#modal-header {
+    border-bottom: 1px solid #888;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#modal-desc {
+    border-bottom: 1px solid #888;
+    padding: 10px;
+}
+
+#modal-options {
+    padding: 5px;
+}
+
+#modal-options {
+    display: flex;
+    justify-content: flex-end;
 }
 
 code {
@@ -72,4 +155,5 @@ code {
     background-color: #000;
     color: #fff;
     padding-inline: 3px;
+    border-radius: 2px;
 }
