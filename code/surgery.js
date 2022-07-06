@@ -1,4 +1,4 @@
-// + surgery_cases.js, surgery_tools.js
+// + surgery_cases.js, surgery_tools.js, surgery_check_helpers.js, surgery_modal.js
 
 // Definitions
 const STATES = ['AWAKE', 'COMING TO', 'UNCONSCIOUS'];
@@ -44,9 +44,9 @@ function turnUpdate(message)
     const checkResult = check();
     if (checkResult[0]) 
     {
-        document.getElementById('modal').style.display = 'block';
-        document.getElementById('modal-header').innerText = "Surgery Ended";
-        document.getElementById('modal-desc').innerText = checkResult[1];
+        modals.surgeryEnd.header = "Surgery Successful";
+        modals.surgeryEnd.desc = checkResult[1];
+        modal(modals.surgeryEnd);
         return 0;
     }
 
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
     for (const item of TOOLS)
     {
         // Make button
-        const button = document.createElement("button");
+        const button = document.createElement('button');
         button.innerHTML = item.name;
         button.setAttribute('type', 'button');
         button.className = "tool";
