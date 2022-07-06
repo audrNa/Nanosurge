@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const button = document.createElement("button");
         button.innerHTML = item.name;
         button.setAttribute('type', 'button');
-        button.className = "tool btn btn-primary";
+        button.className = "tool";
  
         // Insert to page
         toolsContainer.insertBefore(button, toolsContainer.lastElementChild.nextSibling);
