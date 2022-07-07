@@ -28,10 +28,10 @@ const CASES = [
         name:           'Broken Everything',
         incisions:      4,
         pulse:          3,
-        temp:           0,
+        temp:           100,
         brokenBones:    4,
         shatteredBones: 4,
-        fever:          false,
+        fever:          true,
         bleeding:       2,
         bacteria:       50
     },
@@ -46,5 +46,17 @@ const CASES = [
         fever:          true,
         bleeding:       0,
         bacteria:       76
+    },
+
+    {
+        name:           'osu!',
+        incisions:      8,
+        pulse:          0,
+        temp:           99.8,
+        brokenBones:    3,
+        shatteredBones: 1,
+        fever:          true,
+        bleeding:       1,
+        bacteria:       75
     }
 ];

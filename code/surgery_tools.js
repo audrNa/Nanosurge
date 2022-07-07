@@ -10,7 +10,6 @@ const TOOLS = [
             // Kill bacteria up to 25
             bacteria -= 50;
             if (bacteria < 25) { bacteria = 25; }
-            vision = true;
             return turnUpdate("Mopped up the operation site.");
         }
     },
@@ -61,7 +60,7 @@ const TOOLS = [
     {
         name: 'Anesthetic',
         use() {
-            sleepTime = 25;
+            sleepTime = 26;
             return turnUpdate("The patient is sleeping now.");
         }
     },
