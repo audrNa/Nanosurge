@@ -1,5 +1,6 @@
-// Modal when starting / Surgery ended
+// Modal 
 
+// Makes modals
 // modalItems           Object
 //  header              String
 //  desc                String
@@ -31,14 +32,14 @@ function modal(modalItems)
     }
 
     // Make modal visible
-    document.getElementById('modal').style.display = 'block';
+    document.getElementById('modal').style.display = 'block';   // 'none' to hide modal
 }
 
 // Predefined modals
 const modals = {
     surgeryEnd: {
         header: 'Surgery Ended',
-        desc: 'you suck',
+        desc: 'congrats',
         buttons: [
             {
                 class: 'normal',
