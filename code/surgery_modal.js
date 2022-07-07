@@ -14,8 +14,15 @@ function modal(modalItems)
     document.getElementById('modal-header').innerText = modalItems.header;
     document.getElementById('modal-desc').innerText = modalItems.desc;
 
-    // Make buttons
     const modalOptions = document.getElementById('modal-options');
+    
+    // Delete previously created buttons
+    while (modalOptions.children.length > 1)
+    {
+        modalOptions.removeChild(modalOptions.lastChild);
+    }
+
+    // Make buttons
     for (const item of modalItems.buttons)
     {
         // Make the button
@@ -50,7 +57,25 @@ const modals = {
             {
                 class: 'good',
                 text: 'Perform another surgery',
-                code() { location.reload(); }
+                code() { start(); document.getElementById('modal').style.display = 'none'; }
+            }
+        ]
+    },
+
+    surgeryStart: {
+        header: 'Are you sure?',
+        desc: 'You are about to start a surgery.',
+        buttons: [
+            {
+                class: 'danger',
+                text: 'No, go back home',
+                code() { document.location='./index.html'; }
+            },
+
+            {
+                class: 'good',
+                text: 'Yes, I am ready',
+                code() { start(); document.getElementById('modal').style.display = 'none'; }
             }
         ]
     }

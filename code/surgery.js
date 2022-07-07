@@ -7,35 +7,69 @@ const PULSES = ['Strong', 'Steady', 'Weak', 'Extremely Weak'];
 const GOOD_TEMP = 99.8;
 
 // Status
-const CASE = CASES[rng(0, CASES.length - 1)];   // Get random case
+let CASE;
 
-let caseName = '?';
-let problem = CASE.incisions;
+let caseName;
+let problem;
 
 // Status variables 1
-let pulse = CASE.pulse;
-let state = 0;
-let temp = CASE.temp;
-let site = 0;
+let pulse;
+let state;
+let temp;
+let site;
 
 // Status variables 2
-let incisions = 0;
-let brokenBones = CASE.brokenBones;
-let shatteredBones = CASE.shatteredBones;
+let incisions;
+let brokenBones;
+let shatteredBones;
 
 // Status variables 3
-let heart = true;
-let vision = true;
+let heart;
+let vision;
 
 // Changes over turns
-let fever = CASE.fever;
-let sleepTime = 0;
-let resuscitationTime = 0;
-let bacteria = 0;
-let bleeding = 0;
+let fever;
+let sleepTime;
+let resuscitationTime;
+let bacteria;
+let bleeding;
 
 let extraMessage = "";
 
+// Start a surgery
+function start()
+{
+    // Get a random case
+    CASE = CASES[rng(0, CASES.length - 1)];
+
+    caseName = '?';
+    problem = CASE.incisions;
+    
+    // Status variables 1
+    pulse = CASE.pulse;
+    state = 0;
+    temp = CASE.temp;
+    site = 0;
+    
+    // Status variables 2
+    incisions = 0;
+    brokenBones = CASE.brokenBones;
+    shatteredBones = CASE.shatteredBones;
+    
+    // Status variables 3
+    heart = true;
+    vision = true;
+    
+    // Changes over turns
+    fever = CASE.fever;
+    sleepTime = 0;
+    resuscitationTime = 0;
+    bacteria = CASE.bacteria;
+    bleeding = CASE.bleeding;
+
+    // Start game
+    turnUpdate('You are ready to kill the patient');
+}
 
 // Update status
 function turnUpdate(message) 
@@ -148,9 +182,9 @@ function toolToggle()
         }
     }
 
-    // Patient not scanned / Problem not yet reached / No problem
+    // Patient not scanned / No problem / Problem not yet reached
     // -> disable Fix It
-    if (caseName == '?' || incisions < problem || problem == 0)
+    if (caseName == '?' || problem == 0 || incisions < problem)
     {
         killList.add(12);
     }
@@ -208,8 +242,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Save for toolToggle()
     buttons = toolsContainer.getElementsByClassName('tool');
 
-    // Surgery Data
-    turnUpdate("you are ready to kill the patient");    // 2022-07-02 i'll put a proper message here later
+    // Confirmation modal
+    modal(modals.surgeryStart);
 });
 
 
