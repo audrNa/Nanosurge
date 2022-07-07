@@ -42,16 +42,17 @@ function turnUpdate(message)
 {
     // End surgery and show modal if surgery is complete 
     const checkResult = check();
-    if (checkResult[0]) 
+    if (checkResult[0] != 0)
     {
-        modals.surgeryEnd.header = "Surgery Successful";
+        const headers = ["Surgery Successful", "Surgery Failed"];
+        modals.surgeryEnd.header = headers[checkResult[0] - 1];
         modals.surgeryEnd.desc = checkResult[1];
         modal(modals.surgeryEnd);
         return 0;
     }
 
     // Status
-    document.getElementById('case').innerHTML = caseName; 
+    document.getElementById('case').innerHTML = caseName;
     document.getElementById('pulse').innerHTML = PULSES[pulse];
     document.getElementById('status').innerHTML = (!heart) ? 'HEART STOPPED' : STATES[state];
     document.getElementById('temp').innerHTML = (temp).toFixed(1);
@@ -89,20 +90,20 @@ function turnUpdate(message)
     return 0;
 }
 
-// Some logic, check for death scenarios, change up stats, check if surgery complete
-// Returns an array of a boolean and a string
+// Check if job is done or keep going and make things harder
+// Returns an array of a number and a string
 function check() 
 {
     // Lose conditions
 
     if (temp > 120)
     {
-        return [true, "The patient died of a fever."];
+        return [2, "The patient died of a fever."];
     }
 
     if (!heart && resuscitationTime <= 0)
     {
-        return [true, "You failed to resuscitate the patient's heart in time!"];
+        return [2, "You failed to resuscitate the patient's heart in time!"];
     }
 
 
@@ -113,7 +114,7 @@ function check()
         && pulse <= 1) 
     {
         
-        return [true, "You've cured your patient!"];
+        return [1, "You've cured your patient!"];
     }
 
 
@@ -125,7 +126,7 @@ function check()
     bacteriaSpread();
 
     // Keep going
-    return [false, ""];
+    return [0, ""];
 }
 
 // Toggles buttons depending on condition
