@@ -51,10 +51,10 @@ const bleedingTexts = [
 ];
 function bleed()
 {
-    // If patient wake up while incisions then pain then patient panik then bleed
-    if (incisions > 0 && state == 0)
+    // If patient wake up while casings then pain then patient panik then bleed
+    if (casings > 0 && state == 0)
     {
-        bleeding += 0.5 + incisions * 0.5;
+        bleeding += 0.5 + casings * 0.5;
     }
 
     // Min 0 | Max 3
@@ -64,7 +64,7 @@ function bleed()
     // Damage heart
     if (bleeding > 0 && rng(1, 10 / bleeding) == 1)
     {
-        pulse++;
+        eCurrent++;
     }
 
     // Extra Message
@@ -77,8 +77,8 @@ function bleed()
 // Heart
 function heartbeat()
 {
-    // No more pulse
-    if (heart && pulse >= 4)
+    // No more eCurrent
+    if (heart && eCurrent >= 4)
     {
         heart = false;
         resuscitationTime = 4;
@@ -98,7 +98,7 @@ function bacteriaSpread()
     if (bacteria < 0) { bacteria = 0; }
 
     // + Bacteria every turn
-    bacteria += 1 * (1 + incisions * 0.5) * (1 + site * 0.5) * (1 + bleeding * 0.5);
+    bacteria += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + bleeding * 0.5);
 
     // Bacteria make operation site dirty
     vision = true;

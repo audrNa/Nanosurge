@@ -1,9 +1,9 @@
 // + surgery_cases.js, surgery_tools.js, surgery_check_helpers.js, surgery_modal.js
 
 // Definitions
-const STATES = ['AWAKE', 'COMING TO', 'UNCONSCIOUS'];
-const SITE_CONDITIONS = ['Clean', 'Unsanitized', 'Unsanitary'];
-const PULSES = ['Strong', 'Steady', 'Weak', 'Extremely Weak'];
+const STATES = ['ACTIVE', 'REACTIVATING', 'DEACTIVATED'];
+const SITE_CONDITIONS = ['Clean', 'Dusty', 'Covered in Dust'];
+const ECURRENT_STATES = ['High', 'Medium', 'Low', 'Very Low'];
 const GOOD_TEMP = 99.8;
 
 // Status
@@ -13,14 +13,14 @@ let caseName;
 let problem;
 
 // Status variables 1
-let pulse;
+let eCurrent;
 let state;
 let temp;
 let site;
 
 // Status variables 2
-let incisions;
-let brokenBones;
+let casings;
+let brokenCables;
 let shatteredBones;
 
 // Status variables 3
@@ -43,17 +43,17 @@ function start()
     CASE = CASES[rng(0, CASES.length - 1)];
 
     caseName = '?';
-    problem = CASE.incisions;
+    problem = CASE.casings;
     
     // Status variables 1
-    pulse = CASE.pulse;
+    eCurrent = CASE.eCurrent;
     state = 0;
     temp = CASE.temp;
     site = 0;
     
     // Status variables 2
-    incisions = 0;
-    brokenBones = CASE.brokenBones;
+    casings = 0;
+    brokenCables = CASE.brokenCables;
     shatteredBones = CASE.shatteredBones;
     
     // Status variables 3
@@ -87,15 +87,15 @@ function turnUpdate(message)
 
     // Status
     document.getElementById('case').innerHTML = caseName;
-    document.getElementById('pulse').innerHTML = PULSES[pulse];
+    document.getElementById('pulse').innerHTML = ECURRENT_STATES[eCurrent];
     document.getElementById('status').innerHTML = (!heart) ? 'HEART STOPPED' : STATES[state];
     document.getElementById('temp').innerHTML = (temp).toFixed(1);
     document.getElementById('site').innerHTML = SITE_CONDITIONS[site];
 
     // Status 2
     const bodyInfo = [
-        ['incisions', incisions],
-        ['broken-bones', brokenBones],
+        ['casings', casings],
+        ['broken-cables', brokenCables],
         ['shattered-bones', shatteredBones]
     ];
     for (const item of bodyInfo)
@@ -143,9 +143,9 @@ function check()
 
     // Win
 
-    if (problem <= 0 && !fever && temp <= 103 && incisions <= 0 && 
-        brokenBones <= 0 && shatteredBones <= 0 && heart && bleeding <= 0
-        && pulse <= 1) 
+    if (problem <= 0 && !fever && temp <= 103 && casings <= 0 && 
+        brokenCables <= 0 && shatteredBones <= 0 && heart && bleeding <= 0
+        && eCurrent <= 1) 
     {
         
         return [1, "You've cured your patient!"];
@@ -184,13 +184,13 @@ function toolToggle()
 
     // Patient not scanned / No problem / Problem not yet reached
     // -> disable Fix It
-    if (caseName == '?' || problem == 0 || incisions < problem)
+    if (caseName == '?' || problem == 0 || casings < problem)
     {
         killList.add(12);
     }
 
-    // No incisions: disable Pins and Clamps
-    if (incisions <= 0)
+    // No casings: disable Pins and Clamps
+    if (casings <= 0)
     {
         killList.add(7);
         killList.add(8);

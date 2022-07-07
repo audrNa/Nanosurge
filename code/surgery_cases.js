@@ -2,10 +2,10 @@
 
 /* Required Keys */
 // name             String
-// incisions        Number  *Required number of incisions until Fix It can be used
-// pulse            Number
+// casings        Number  *Required number of casings until Fix It can be used
+// eCurrent            Number
 // temp             Number
-// brokenBones      Number
+// brokenCables      Number
 // shatteredBones   Number
 // fever            Boolean
 // bleeding         Number
@@ -14,10 +14,10 @@
 const CASES = [
     {
         name:           'Flu',
-        incisions:      0,
-        pulse:          0,
+        casings:      0,
+        eCurrent:          0,
         temp:           100,
-        brokenBones:    0,
+        brokenCables:    0,
         shatteredBones: 0,
         fever:          true,
         bleeding:       0,
@@ -26,10 +26,10 @@ const CASES = [
 
     {
         name:           'Broken Everything',
-        incisions:      4,
-        pulse:          3,
+        casings:      4,
+        eCurrent:          3,
         temp:           100,
-        brokenBones:    4,
+        brokenCables:    4,
         shatteredBones: 4,
         fever:          true,
         bleeding:       2,
@@ -38,10 +38,10 @@ const CASES = [
 
     {
         name:           'COVID-19',
-        incisions:      1,
-        pulse:          0,
+        casings:      1,
+        eCurrent:          0,
         temp:           100,
-        brokenBones:    0,
+        brokenCables:    0,
         shatteredBones: 0,
         fever:          true,
         bleeding:       0,
@@ -50,10 +50,10 @@ const CASES = [
 
     {
         name:           'osu!',
-        incisions:      8,
-        pulse:          0,
+        casings:      8,
+        eCurrent:          0,
         temp:           99.8,
-        brokenBones:    3,
+        brokenCables:    3,
         shatteredBones: 1,
         fever:          true,
         bleeding:       1,
