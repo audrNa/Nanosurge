@@ -9,6 +9,7 @@
 // shatteredBones   Number
 // fever            Boolean
 // bleeding         Number
+// bacteria         Number  *This will also affect site and vision
 
 const CASES = [
     {
@@ -19,7 +20,8 @@ const CASES = [
         brokenBones:    0,
         shatteredBones: 0,
         fever:          true,
-        bleeding:       0
+        bleeding:       0,
+        bacteria:       0
     },
 
     {
@@ -30,7 +32,8 @@ const CASES = [
         brokenBones:    4,
         shatteredBones: 4,
         fever:          false,
-        bleeding:       2
+        bleeding:       2,
+        bacteria:       50
     },
 
     {
@@ -41,6 +44,7 @@ const CASES = [
         brokenBones:    0,
         shatteredBones: 0,
         fever:          true,
-        bleeding:       0
+        bleeding:       0,
+        bacteria:       76
     }
 ];

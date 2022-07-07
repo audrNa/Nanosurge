@@ -103,7 +103,7 @@ button.tool {
 }
 
 button.tool:hover {
-    background-color: rgba(108, 117, 125, 0.3);
+    background-color: rgba(108, 117, 125, 1);
     border-color: rgb(200, 200, 200);
 }
 
