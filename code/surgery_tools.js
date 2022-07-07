@@ -14,16 +14,23 @@ const TOOLS = [
         }
     },
 
-    // Fix broken bones
+    // Fix broken cables
     {
-        name: 'Splint',
+        name: 'Soldering Iron',
         use() {
-            if (brokenBones > 0)
+            if (casings <= 0)
             {
-                brokenBones--;
-                return turnUpdate("Splinted a broken bone.");
+                return turnUpdate("You need to remove a casing first.");
             }
-            return turnUpdate("There are no broken bones to splint.");
+
+            if (brokenCables <= 0)
+            {
+                return turnUpdate("There are no broken cables to solder.");
+            }
+
+            // There are broken cables
+            brokenCables--;
+            return turnUpdate("Soldered the broken wire.");
         }
     },
 
@@ -38,7 +45,7 @@ const TOOLS = [
 
     // Help temperature
     {
-        name: 'Antibiotics',
+        name: 'Coolant',
         use() {
             temp -= 5;
             // Doesn't do anything when already GOOD_TEMP
@@ -52,31 +59,31 @@ const TOOLS = [
             {
                 fever = false;
             }
-            return turnUpdate("Gave the patient antibotics.");
+            return turnUpdate("Gave the robot a bit of coolant through its mouth.");
         }
     },
 
     // Put patient to sleep
     {
-        name: 'Anesthetic',
+        name: 'Disable',
         use() {
             sleepTime = 26;
-            return turnUpdate("The patient is sleeping now.");
+            return turnUpdate("Disabled the robot temporarily.");
         }
     },
 
-    // Make incision
+    // Unscrew a casing
     {
-        name: 'Scalpel',
+        name: 'Unscrew',
         use() {
             // Can't stab awake person
             if (state == 0)
             {
-                return turnUpdate("The patient is still awake.");
+                return turnUpdate("The robot is still active.");
             }
 
             // stabby stabby
-            incisions++;
+            casings++;
 
             // 5% chance to give bleeding
             if (rng(1, 20) == 1)
@@ -84,31 +91,24 @@ const TOOLS = [
                 bleeding++;
             }
 
-            return turnUpdate("Made a neat incision.");
+            return turnUpdate("Unscrewed a casing.");
         }
     },
 
-    // Stitch up incision and fix bleeding
+    // Undo unscrew
     {
-        name: 'Stitches',
+        name: 'Rescrew',
         use() {
             // Nothing to fix
-            if (incisions <= 0 && bleeding <= 0)
+            if (casings <= 0)
             {
-                return turnUpdate("There are no incisions to stich up.");
+                return turnUpdate("There are no missing casings.");
             }
 
-            // No incisions but there is bleeding
-            if (incisions <= 0 && bleeding > 0)
-            {
-                bleeding--;
-                return turnUpdate("Badged up some wounds.");
-            }
-
-            // Fix incisions and bleeding if there is any 
+            // Fix casings and bleeding if there is any 
             bleeding--;
-            incisions--;
-            return turnUpdate("Stitched up some incisions.");
+            casings--;
+            return turnUpdate("Rescrewed a casing.");
         }
     },
 
@@ -121,24 +121,24 @@ const TOOLS = [
                 return turnUpdate("There are no shattered bones to pin together.");
             }
 
-            if (incisions <= 0)
+            if (casings <= 0)
             {
                 return turnUpdate("You need to make an incision first.");
             }
 
             shatteredBones--;
-            brokenBones++;
+            brokenCables++;
             return turnUpdate("Pinned a shattered bone together.");
         }
     },
     
-    // Fix bleeding without reducing incisions
+    // Fix bleeding without reducing casings
     {
         name: 'Clamps',
         use() {
-            if (incisions <= 0)
+            if (casings <= 0)
             {
-                return turnUpdate("There are no incisions yet.");
+                return turnUpdate("There are no casings yet.");
             }
 
             if (bleeding <= 0)
@@ -151,28 +151,28 @@ const TOOLS = [
         }
     },
 
-    // Fix pulse
+    // Fix electrical current
     {
-        name: 'Transfusion',
+        name: 'Generator',
         use() {
-            if (pulse > 0) 
+            if (eCurrent > 0) 
             {
-                pulse--;
+                eCurrent--;
             }
-            return turnUpdate("Transfused several pints of bloods into your patient.");
+            return turnUpdate("Reenergized the robot with energy from the generator.");
         }
     },
     
     // Get patient's case
     {
-        name: 'Ultrasound',
+        name: 'Scanner',
         use() {
             if (caseName == '?') 
             {
                 caseName = CASE.name;
-                return turnUpdate(`The patient has a case of ${caseName}.`);
+                return turnUpdate(`This robot has a case of ${caseName}.`);
             }
-            return turnUpdate("You don't need to scan the patient again.");
+            return turnUpdate("You don't need to scan the robot again.");
         }
     },
 
@@ -182,7 +182,7 @@ const TOOLS = [
         use() {
             if (!heart) 
             {
-                pulse = 1;
+                eCurrent = 1;
                 heart = true;
                 return turnUpdate("You shocked the patient back to life!");
             }
@@ -192,22 +192,22 @@ const TOOLS = [
 
     // Fix "problem"
     {
-        name: 'Fix It',
+        name: 'Repair',
         use() {
             if (caseName == '?')
             {
-                return turnUpdate("You haven't scanned the patient yet.");
+                return turnUpdate("You haven't scanned the robot yet.");
             }
 
             if (problem == 0) 
             {
-                return turnUpdate("There is no problem.");
+                return turnUpdate("There is nothing to repair.");
             } 
             
-            if (incisions >= problem)
+            if (casings >= problem)
             {
                 problem = 0;
-                return turnUpdate("Fixed the problem.");
+                return turnUpdate("Fixed the problem with magic!");
             }
         
             return turnUpdate("You need to get to the problem first.");
