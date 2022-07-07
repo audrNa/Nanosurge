@@ -101,6 +101,7 @@ function bacteriaSpread()
     bacteria += 1 * (1 + incisions * 0.5) * (1 + site * 0.5) * (1 + bleeding * 0.5);
 
     // Bacteria make operation site dirty
+    vision = true;
     let feverN = 0;
     if (bacteria <= 25)
     {
