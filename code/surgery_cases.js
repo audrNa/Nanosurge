@@ -2,61 +2,61 @@
 
 /* Required Keys */
 // name             String
-// casings        Number  *Required number of casings until Fix It can be used
-// eCurrent            Number
+// casings          Number  *Required number of casings until Fix It can be used
+// eCurrent         Number
 // temp             Number
-// brokenCables      Number
-// shatteredBones   Number
-// fever            Boolean
-// bleeding         Number
-// bacteria         Number  *This will also affect site and vision
+// brokenCables     Number
+// burntCables      Number
+// overheating      Boolean
+// sparks           Number
+// dust             Number  *This will also affect site and vision
 
 const CASES = [
     {
-        name:           'Flu',
-        casings:      0,
-        eCurrent:          0,
+        name:           'Mechaflu',
+        casings:        0,
+        eCurrent:       0,
         temp:           100,
-        brokenCables:    0,
-        shatteredBones: 0,
-        fever:          true,
-        bleeding:       0,
-        bacteria:       0
+        brokenCables:   0,
+        burntCables:    0,
+        overheating:    true,
+        sparks:         0,
+        dust:           0
     },
 
     {
         name:           'Broken Everything',
-        casings:      4,
-        eCurrent:          3,
-        temp:           100,
+        casings:         4,
+        eCurrent:        3,
+        temp:            100,
         brokenCables:    4,
-        shatteredBones: 4,
-        fever:          true,
-        bleeding:       2,
-        bacteria:       50
+        burntCables:     4,
+        overheating:     true,
+        sparks:          2,
+        dust:            76
     },
 
     {
-        name:           'COVID-19',
-        casings:      1,
-        eCurrent:          0,
+        name:           'COVID-19 for Robots',
+        casings:        1,
+        eCurrent:       0,
         temp:           100,
-        brokenCables:    0,
-        shatteredBones: 0,
-        fever:          true,
-        bleeding:       0,
-        bacteria:       76
+        brokenCables:   0,
+        burntCables:    0,
+        overheating:    true,
+        sparks:         0,
+        dust:           50
     },
 
     {
         name:           'osu!',
-        casings:      8,
-        eCurrent:          0,
+        casings:        8,
+        eCurrent:       0,
         temp:           99.8,
-        brokenCables:    3,
-        shatteredBones: 1,
-        fever:          true,
-        bleeding:       1,
-        bacteria:       75
+        brokenCables:   3,
+        burntCables:    1,
+        overheating:    true,
+        sparks:         1,
+        dust:           75
     }
 ];
