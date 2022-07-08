@@ -37,10 +37,10 @@ let bleeding;
 let extraMessage = "";
 
 // Start a surgery
-function start()
+function start(s)
 {
     // Get a random case
-    CASE = CASES[rng(0, CASES.length - 1)];
+    CASE = s != undefined ? CASES[s] : CASES[rng(0, CASES.length - 1)];
 
     caseName = '?';
     problem = CASE.casings;
@@ -69,6 +69,7 @@ function start()
 
     // Start game
     turnUpdate('You are ready to kill the patient');
+    return `CASE ${s}: ${CASE.name}`;
 }
 
 // Update status
