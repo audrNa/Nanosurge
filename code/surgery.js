@@ -1,4 +1,4 @@
-// + surgery_cases.js, surgery_tools.js, surgery_check_helpers.js, surgery_modal.js
+// + surgery_cases.js, surgery_tools.js, surgery_check.js, surgery_modal.js
 
 // Definitions
 const STATES = ['ACTIVE', 'REACTIVATING', 'DEACTIVATED'];
@@ -21,18 +21,18 @@ let site;
 // Status variables 2
 let casings;
 let brokenCables;
-let shatteredBones;
+let burntCables;
 
 // Status variables 3
-let heart;
+let core;
 let vision;
 
 // Changes over turns
-let fever;
+let overheating;
 let sleepTime;
 let resuscitationTime;
-let bacteria;
-let bleeding;
+let dust;
+let sparks;
 
 let extraMessage = "";
 
@@ -54,18 +54,18 @@ function start(s)
     // Status variables 2
     casings = 0;
     brokenCables = CASE.brokenCables;
-    shatteredBones = CASE.shatteredBones;
+    burntCables = CASE.burntCables;
     
     // Status variables 3
-    heart = true;
+    core = true;
     vision = true;
     
     // Changes over turns
-    fever = CASE.fever;
+    overheating = CASE.overheating;
     sleepTime = 0;
     resuscitationTime = 0;
-    bacteria = CASE.bacteria;
-    bleeding = CASE.bleeding;
+    dust = CASE.dust;
+    sparks = CASE.sparks;
 
     // Start game
     turnUpdate('You are ready to kill the patient');
@@ -75,21 +75,13 @@ function start(s)
 // Update status
 function turnUpdate(message) 
 {
-    // End surgery and show modal if surgery is complete 
+    // Check stats and store result
     const checkResult = check();
-    if (checkResult[0] != 0)
-    {
-        const headers = ["Surgery Successful", "Surgery Failed"];
-        modals.surgeryEnd.header = headers[checkResult[0] - 1];
-        modals.surgeryEnd.desc = checkResult[1];
-        modal(modals.surgeryEnd);
-        return 0;
-    }
 
     // Status
     document.getElementById('case').innerHTML = caseName;
-    document.getElementById('pulse').innerHTML = ECURRENT_STATES[eCurrent];
-    document.getElementById('status').innerHTML = (!heart) ? 'HEART STOPPED' : STATES[state];
+    document.getElementById('e-current').innerHTML = ECURRENT_STATES[eCurrent];
+    document.getElementById('status').innerHTML = (!core) ? 'OUT OF POWER' : STATES[state];
     document.getElementById('temp').innerHTML = (temp).toFixed(1);
     document.getElementById('site').innerHTML = SITE_CONDITIONS[site];
 
@@ -97,7 +89,7 @@ function turnUpdate(message)
     const bodyInfo = [
         ['casings', casings],
         ['broken-cables', brokenCables],
-        ['shattered-bones', shatteredBones]
+        ['burnt-cables', burntCables]
     ];
     for (const item of bodyInfo)
     {
@@ -122,46 +114,18 @@ function turnUpdate(message)
     
     // Disable tools if needed
     toolToggle();
+
+    // Check result
+    if (checkResult[0] != 0)
+    {
+        const headers = ["Surgery Successful", "Surgery Failed"];
+        modals.surgeryEnd.header = headers[checkResult[0] - 1];
+        modals.surgeryEnd.desc = checkResult[1];
+        modal(modals.surgeryEnd);
+        return 0;
+    }
+
     return 0;
-}
-
-// Check if job is done or keep going and make things harder
-// Returns an array of a number and a string
-function check() 
-{
-    // Lose conditions
-
-    if (temp > 120)
-    {
-        return [2, "The patient died of a fever."];
-    }
-
-    if (!heart && resuscitationTime <= 0)
-    {
-        return [2, "You failed to resuscitate the patient's heart in time!"];
-    }
-
-
-    // Win
-
-    if (problem <= 0 && !fever && temp <= 103 && casings <= 0 && 
-        brokenCables <= 0 && shatteredBones <= 0 && heart && bleeding <= 0
-        && eCurrent <= 1) 
-    {
-        
-        return [1, "You've cured your patient!"];
-    }
-
-
-    // Stat Changes
-    tempChange();
-    statusCheck();
-    bleed();
-    heartbeat();
-    bacteriaSpread();
-
-    // Keep going
-    return [0, ""];
 }
 
 // Toggles buttons depending on condition
@@ -184,20 +148,20 @@ function toolToggle()
     }
 
     // Patient not scanned / No problem / Problem not yet reached
-    // -> disable Fix It
+    // -> disable Repair
     if (caseName == '?' || problem == 0 || casings < problem)
     {
-        killList.add(12);
+        killList.add(11);
     }
 
-    // No casings: disable Pins and Clamps
+    // No removed casings: disable Rescrew
     if (casings <= 0)
     {
-        killList.add(7);
-        killList.add(8);
+        // Rescrew
+        killList.add(6);
     }
 
-    // Patient awake: disable Scalpel
+    // Robot active: disable Unscrew
     if (state == 0)
     {
         killList.add(5);

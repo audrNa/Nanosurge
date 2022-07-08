@@ -5,12 +5,18 @@
 const TOOLS = [
     // Fix vision
     {
-        name: 'Sponge',
+        name: 'Blower',
         use() {
-            // Kill bacteria up to 25
-            bacteria -= 50;
-            if (bacteria < 25) { bacteria = 25; }
-            return turnUpdate("Mopped up the operation site.");
+            // Can't kill dust below 25
+            if (dust < 25)
+            {
+                return turnUpdate("Your blower is too powerful to clear smaller pieces of dust.")
+            }
+
+            // Kill dust up to 25
+            dust -= 50;
+            if (dust < 25) { dust = 25; }
+            return turnUpdate("Blew most of the dust away.");
         }
     },
 
@@ -18,14 +24,14 @@ const TOOLS = [
     {
         name: 'Soldering Iron',
         use() {
-            if (casings <= 0)
-            {
-                return turnUpdate("You need to remove a casing first.");
-            }
-
             if (brokenCables <= 0)
             {
                 return turnUpdate("There are no broken cables to solder.");
+            }
+            
+            if (casings <= 0)
+            {
+                return turnUpdate("You need to remove a casing first.");
             }
 
             // There are broken cables
@@ -36,10 +42,10 @@ const TOOLS = [
 
     // Clean site
     {
-        name: 'Antiseptic',
+        name: 'Brush',
         use() {
-            bacteria -= 10;
-            return turnUpdate("Disinfected the operation site.");
+            dust -= 10;
+            return turnUpdate("Brushed off small pieces of dusts.");
         }
     },
 
@@ -54,10 +60,10 @@ const TOOLS = [
                 temp = GOOD_TEMP;
             }
         
-            // 1/3 chance to kill fever 
+            // 1/3 chance to kill overheating 
             if (rng(0, 2) == 0)
             {
-                fever = false;
+                overheating = false;
             }
             return turnUpdate("Gave the robot a bit of coolant through its mouth.");
         }
@@ -67,7 +73,7 @@ const TOOLS = [
     {
         name: 'Disable',
         use() {
-            sleepTime = 26;
+            sleepTime += 26;
             return turnUpdate("Disabled the robot temporarily.");
         }
     },
@@ -85,10 +91,10 @@ const TOOLS = [
             // stabby stabby
             casings++;
 
-            // 5% chance to give bleeding
+            // 5% chance to give sparks
             if (rng(1, 20) == 1)
             {
-                bleeding++;
+                sparks++;
             }
 
             return turnUpdate("Unscrewed a casing.");
@@ -99,55 +105,42 @@ const TOOLS = [
     {
         name: 'Rescrew',
         use() {
-            // Nothing to fix
             if (casings <= 0)
             {
                 return turnUpdate("There are no missing casings.");
             }
 
-            // Fix casings and bleeding if there is any 
-            bleeding--;
             casings--;
             return turnUpdate("Rescrewed a casing.");
         }
     },
 
-    // Fix shattered bones
+    // Fix burnt cables
     {
-        name: 'Pins',
+        name: 'Electrical Tape',
         use() {
-            if (shatteredBones <= 0)
+            // Nothing to fix
+            if (burntCables <= 0 && sparks <= 0)
             {
-                return turnUpdate("There are no shattered bones to pin together.");
+                return turnUpdate("There are no burnt cables to retape.");
+            }
+
+            // Fix sparks first
+            if (sparks > 0)
+            {
+                sparks--;
+                return turnUpdate("Taped a sparking wire.");
             }
 
             if (casings <= 0)
             {
-                return turnUpdate("You need to make an incision first.");
+                return turnUpdate("You need to remove a casing first.");
             }
 
-            shatteredBones--;
+            // Fix burnt cables
+            burntCables--;
             brokenCables++;
-            return turnUpdate("Pinned a shattered bone together.");
-        }
-    },
-    
-    // Fix bleeding without reducing casings
-    {
-        name: 'Clamps',
-        use() {
-            if (casings <= 0)
-            {
-                return turnUpdate("There are no casings yet.");
-            }
-
-            if (bleeding <= 0)
-            {
-                return turnUpdate("There is no bleeding to fix.");
-            }
-            
-            bleeding--;
-            return turnUpdate("Clamped up some blood vessels.");
+            return turnUpdate("Retaped a burnt wire.");
         }
     },
 
@@ -167,26 +160,29 @@ const TOOLS = [
     {
         name: 'Scanner',
         use() {
-            if (caseName == '?') 
+            // Check if already scanned
+            if (caseName != '?') 
             {
-                caseName = CASE.name;
-                return turnUpdate(`This robot has a case of ${caseName}.`);
+                return turnUpdate("You don't need to scan the robot again.");
             }
-            return turnUpdate("You don't need to scan the robot again.");
+
+            // "Scan" and give case name
+            caseName = CASE.name;
+            return turnUpdate(`This robot has a case of <code>${caseName}</code>.`);
         }
     },
 
     // Fix stopped heart
     {
-        name: 'Defibrillator',
+        name: 'Taser',
         use() {
-            if (!heart) 
+            if (!core) 
             {
-                eCurrent = 1;
-                heart = true;
-                return turnUpdate("You shocked the patient back to life!");
+                eCurrent = 2;
+                core = true;
+                return turnUpdate("You shocked the robot's core back to life.");
             }
-            return turnUpdate("The patient's heart is still beating.");
+            return turnUpdate("The robot's core is still alive.");
         }
     },
 
