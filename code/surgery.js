@@ -69,7 +69,7 @@ function start(s)
 
     // Start game
     turnUpdate('You are ready to kill the patient');
-    return `CASE: ${CASE.name}`;
+    return `CASE ${s}: ${CASE.name}`;
 }
 
 // Update status
