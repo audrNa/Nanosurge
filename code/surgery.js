@@ -1,11 +1,5 @@
 // + surgery_cases.js, surgery_tools.js, surgery_check.js, surgery_modal.js
 
-// Definitions
-const STATES = ['ACTIVE', 'REACTIVATING', 'DEACTIVATED'];
-const SITE_CONDITIONS = ['Clean', 'Dusty', 'Covered in Dust'];
-const ECURRENT_STATES = ['High', 'Medium', 'Low', 'Very Low'];
-const GOOD_TEMP = 99.8;
-
 // Status
 let CASE;
 
@@ -34,7 +28,13 @@ let resuscitationTime;
 let dust;
 let sparks;
 
-let extraMessage = "";
+// Body Data
+let extraMessage = {
+    text: "",
+    add(message) {
+        this.text += `<div class="text-${message[1]}">> ${message[0]}</div>`; 
+    }
+};
 
 // Start a surgery
 function start(s)
@@ -72,18 +72,80 @@ function start(s)
     return `CASE: ${CASE.name}`;
 }
 
+// Status items
+const STATUS = [
+    {
+        id: 'case',
+        value() { return [caseName, '']; }
+    },
+
+    {
+        id: 'e-current',
+        items: [
+            ['High', 'good'],
+            ['Medium', 'normal'],
+            ['Low', 'warning'],
+            ['Very Low', 'bad'],
+            ['undefined', 'bad'],
+            ['null', 'bad']
+        ],
+        value() { return this.items[eCurrent]; }
+    },
+
+    {
+        id: 'status',
+        items: [
+            ['ACTIVE', 'normal'], 
+            ['REACTIVATING', 'warning'], 
+            ['DEACTIVATED', 'good']
+        ],
+        value() { return (!core) ? ['OUT OF POWER', 'bad'] : this.items[state]; },
+    },
+
+    {
+        id: 'temp',
+        items: [
+            [100, 'good'],
+            [105, 'normal'],
+            [110, 'warning'],
+            [115, 'bad'],
+            [727, 'bad']
+        ],
+        value() {
+            for (const item of this.items)
+            {
+                if (temp < item[0])
+                {
+                    return [temp.toFixed(1), item[1]];
+                }
+            }
+        }
+    },
+
+    {
+        id: 'site',
+        items: [
+            ['Clean', 'good'], 
+            ['Dusty', 'warning'], 
+            ['Covered in Dust', 'bad']
+        ],
+        value() { return this.items[site]; }
+    }
+];
+
 // Update status
 function turnUpdate(message) 
 {
     // Check stats and store result
     const checkResult = check();
 
-    // Status
-    document.getElementById('case').innerHTML = caseName;
-    document.getElementById('e-current').innerHTML = ECURRENT_STATES[eCurrent];
-    document.getElementById('status').innerHTML = (!core) ? 'OUT OF POWER' : STATES[state];
-    document.getElementById('temp').innerHTML = (temp).toFixed(1);
-    document.getElementById('site').innerHTML = SITE_CONDITIONS[site];
+    // Status 
+    for (const item of STATUS)
+    {
+        const element = document.getElementById(item.id);
+        element.innerHTML = item.value()[0];
+        element.className = "text-" + item.value()[1];
+    }
 
     // Status 2
     const bodyInfo = [
@@ -106,8 +168,8 @@ function turnUpdate(message)
     }
 
     // Extra Info
-    document.getElementById('extra-message').innerHTML = extraMessage;
-    extraMessage = "";   // Reset so it can checked again
+    document.getElementById('extra-message').innerHTML = extraMessage.text ? extraMessage.text : "<div class='text-good'>All Good</div>";
+    extraMessage.text = "";   // Reset so it can be checked again
     
     // Message
     document.getElementById('message').innerHTML = message;

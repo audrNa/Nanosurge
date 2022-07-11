@@ -44,7 +44,7 @@ const TOOLS = [
     {
         name: 'Brush',
         use() {
-            dust -= 10;
+            dust -= 15;
 
             // Tell user if they should use a different tool now
             if (dust <= 0)
