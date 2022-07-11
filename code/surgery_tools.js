@@ -7,8 +7,8 @@ const TOOLS = [
     {
         name: 'Blower',
         use() {
-            // Can't kill dust below 25
-            if (dust < 25)
+            // Can't kill dust below 30
+            if (dust < 30)
             {
                 return turnUpdate("Your blower is too powerful to clear smaller pieces of dust.")
             }
@@ -60,11 +60,12 @@ const TOOLS = [
                 temp = GOOD_TEMP;
             }
         
-            // 1/3 chance to kill overheating 
-            if (rng(0, 2) == 0)
+            // 50% chance to kill overheating 
+            if (rng(0, 1) == 0)
             {
                 overheating = false;
             }
+
             return turnUpdate("Gave the robot a bit of coolant through its mouth.");
         }
     },
@@ -176,12 +177,22 @@ const TOOLS = [
     {
         name: 'Taser',
         use() {
+            // Fix core if dead
             if (!core) 
             {
-                eCurrent = 2;
+                eCurrent = 3;
                 core = true;
-                return turnUpdate("You shocked the robot's core back to life.");
+                return turnUpdate("You shocked the robot's core back to life!");
             }
+
+            // Kill core if patient is awake
+            if (state == 0)
+            {
+                eCurrent = 5;
+                core = false;
+                return turnUpdate("You shocked the robot's core.");
+            }
+
             return turnUpdate("The robot's core is still alive.");
         }
     },
