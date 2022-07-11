@@ -45,6 +45,13 @@ const TOOLS = [
         name: 'Brush',
         use() {
             dust -= 10;
+
+            // Tell user if they should use a different tool now
+            if (dust <= 0)
+            {
+                return turnUpdate("The operation site is clean enough.");
+            }
+            // Otherwise they can keep using Brush
             return turnUpdate("Brushed off small pieces of dusts.");
         }
     },
