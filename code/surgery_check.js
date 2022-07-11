@@ -1,4 +1,5 @@
 // check() stuff
+const GOOD_TEMP = 99.8;
 
 // Check if job is done or keep going and make things harder
 // Returns an array of a number and a string
@@ -58,7 +59,7 @@ function tempChange()
     {
         // Increase temperature
         temp += 3 + rng(0, 10) / 10;
-        extraMessage += "The robot's temperature is rising.\n";
+        extraMessage.add(["The robot's temperature is rising.", 'warning']);
     }
     else if (temp != GOOD_TEMP)
     {
@@ -71,7 +72,7 @@ function tempChange()
 function statusCheck()
 {
     // Make time "go" so that the patient will wake up soon
-    if (sleepTime > 0)
+    if (sleepTime > -1)
     {
         sleepTime--;
     }
@@ -96,15 +97,20 @@ function statusCheck()
 
 // Blood loss
 const sparksTexts = [
-    "The robot's current is slowly leaking out.",
-    "The robot's current is leaking out.",
-    "The robot's current is leaking out fast!"
+    ["The robot's current is slowly leaking out.", 'normal'],
+    ["The robot's current is leaking out.", 'warning'],
+    ["The robot's current is leaking out fast!", 'bad']
 ];
 function spark()
 {
     // If patient wake up while casings then pain then patient panik then bleed
     if (casings > 0 && state == 0)
     {
+        if (sleepTime == 0)
+        {
+            extraMessage.add(["The robot screams and flails!", 'bad']);
+        }
+
         sparks += 0.5 + casings * 0.5;
     }
 
@@ -121,7 +127,7 @@ function spark()
     // Extra Message
     if (sparks > 0)
     {
-        extraMessage += sparksTexts[Math.floor(sparks) - 1] + '\n';
+        extraMessage.add(sparksTexts[Math.floor(sparks) - 1]);
     }
 }
 
@@ -166,13 +172,13 @@ function dustSpread()
     {
         // oh no
         site = 2;
-        extraMessage += "It's getting harder to see what you're doing.\n";
+        extraMessage.add(["It's getting harder to see what you're doing.", 'warning']);
     }
     else
     {
         // oh fuck
         vision = false;
-        extraMessage += "You can't see what you're doing!\n";
+        extraMessage.add(["You can't see what you're doing!", 'bad']);
     }
 
     // Chance to give overheating if dusty
