@@ -167,6 +167,24 @@ function toolToggle()
         killList.add(5);
     }
 
+    // Nothing to fix / No removed casings: disable Soldering Iron
+    if (brokenCables <= 0 || casings <= 0)
+    {
+        killList.add(1);
+    }
+
+    // Nothing to fix / No removed casings / No sparks: disable Electrical Tape 
+    if ((burntCables <= 0 || casings <= 0) && sparks <= 0)
+    {
+        killList.add(7);
+    }
+
+    // Robot already scanned: disable Scanner
+    if (caseName != '?')
+    {
+        killList.add(9);
+    }
+
 
     // Disable buttons in killList
     for (const i of killList)
