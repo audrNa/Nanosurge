@@ -11,14 +11,20 @@ function check()
         return [2, "The robot exploded from overheating!"];
     }
 
+    if (eCurrent >= 5)
+    {
+        return [2, "You killed the robot's core!"];
+    }
+
+
     if (!core && resuscitationTime <= 0)
     {
         return [2, "You failed to resuscitate the robot's core in time!"];
     }
 
-    if (sleepTime > 45)
+    if (sleepTime > 40)
     {
-        return [2, "You permanently disabled the robot!"]
+        return [2, "You permanently disabled the robot!"];
     }
 
 
@@ -107,7 +113,7 @@ function spark()
     if (sparks > 3) { sparks = 3; }
 
     // Damage heart
-    if (sparks > 0 && rng(1, 6 / sparks) == 1)
+    if (eCurrent < 4 && sparks > 0 && rng(1, 6 / sparks) == 1)
     {
         eCurrent++;
     }
@@ -147,7 +153,6 @@ function dustSpread()
 
     // dust make operation site dirty
     vision = true;
-    let overheatingN = 0;
     if (dust <= 25)
     {
         site = 0;
@@ -156,13 +161,11 @@ function dustSpread()
     {
         // it's still fine
         site = 1;
-        overheatingN = 1;
     }
     else if (dust <= 75)
     {
         // oh no
         site = 2;
-        overheatingN = 2;
         extraMessage += "It's getting harder to see what you're doing.\n";
     }
     else
@@ -172,8 +175,8 @@ function dustSpread()
         extraMessage += "You can't see what you're doing!\n";
     }
 
-    // Chance to give overheating
-    if (overheatingN != 0 && rng(1, 20 / overheatingN) == 1)
+    // Chance to give overheating if dusty
+    if (site != 0 && rng(1, 20 / site) == 1)
     {
         overheating = true;
     }
