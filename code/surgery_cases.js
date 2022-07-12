@@ -62,7 +62,7 @@ const CASES = [
 
     {
         name:           'High Fall Damage',
-        problem:        8,
+        problem:        6,
         eCurrent:       2,
         temp:           99.8,
         brokenCables:   10,
@@ -77,10 +77,118 @@ const CASES = [
         problem:        1,
         eCurrent:       0,
         temp:           99.8,
-        brokenCables:   2,
-        burntCables:    1,
+        brokenCables:   0,
+        burntCables:    0,
         overheating:    false,
         sparks:         0,
         dust:           0
+    },
+
+    {
+        name:           'Broken Leg',
+        problem:        2,
+        eCurrent:       1,
+        temp:           99.8,
+        brokenCables:   4,
+        burntCables:    0,
+        overheating:    false,
+        sparks:         1,
+        dust:           0
+    },
+
+    {
+        name:           'Broken Head',
+        problem:        6,
+        eCurrent:       1,
+        temp:           99.8,
+        brokenCables:   0,
+        burntCables:    2,
+        overheating:    false,
+        sparks:         0,
+        dust:           0
+    },
+
+    {
+        name:           'File Corruption',
+        problem:        1,
+        eCurrent:       0,
+        temp:           99.8,
+        brokenCables:   0,
+        burntCables:    0,
+        overheating:    true,
+        sparks:         0,
+        dust:           0
+    },
+
+    {
+        name:           'Missing Internal Part',
+        problem:        3,
+        eCurrent:       1,
+        temp:           99.8,
+        brokenCables:   2,
+        burntCables:    1,
+        overheating:    false,
+        sparks:         1,
+        dust:           0
+    },
+
+    {
+        name:           'Misplaced Limbs',
+        problem:        3,
+        eCurrent:       1,
+        temp:           99.8,
+        brokenCables:   4,
+        burntCables:    2,
+        overheating:    true,
+        sparks:         2,
+        dust:           25
+    },
+
+    {
+        name:           'Core Overclock',
+        problem:        4,
+        eCurrent:       2,
+        temp:           110,
+        brokenCables:   0,
+        burntCables:    5,
+        overheating:    true,
+        sparks:         1,
+        dust:           0
+    },
+
+    {
+        name:           'Rat Infestation',
+        problem:        5,
+        eCurrent:       0,
+        temp:           99.8,
+        brokenCables:   10,
+        burntCables:    3,
+        overheating:    false,
+        sparks:         1,
+        dust:           25
+    },
+
+    {
+        name:           'Drenched in Water',
+        problem:        6,
+        eCurrent:       2,
+        temp:           99.8,
+        brokenCables:   0,
+        burntCables:    0,
+        overheating:    false,
+        sparks:         3,
+        dust:           50
+    },
+
+    {
+        name:           'Incinerated',
+        problem:        6,
+        eCurrent:       2,
+        temp:           99.8,
+        brokenCables:   0,
+        burntCables:    15,
+        overheating:    false,
+        sparks:         0,
+        dust:           50
     }
 ];
