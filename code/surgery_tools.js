@@ -174,9 +174,18 @@ const TOOLS = [
                 return turnUpdate("You don't need to scan the robot again.");
             }
 
-            // "Scan" and give case name
+            // Give case name and required removed casings
             caseName = CASE.name;
-            return turnUpdate(`This robot has a case of <code>${caseName}</code>.`);
+            let message = `This robot has a case of <code>${caseName}</code>.\n`;
+            if (problem > 0)
+            {
+                message += `You will need to remove <code>${problem}</code> casings to get to one of the problems.`;
+            }
+            else
+            {
+                message += `You don't need to remove any casings.`;
+            }
+            return turnUpdate(message);
         }
     },
 
@@ -187,7 +196,7 @@ const TOOLS = [
             // Fix core if dead
             if (!core) 
             {
-                eCurrent = 3;
+                eCurrent = 2;
                 core = true;
                 return turnUpdate("You shocked the robot's core back to life!");
             }
