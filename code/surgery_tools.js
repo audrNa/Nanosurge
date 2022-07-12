@@ -61,12 +61,7 @@ const TOOLS = [
         name: 'Coolant',
         use() {
             temp -= 5;
-            // Doesn't do anything when already GOOD_TEMP
-            if (temp < GOOD_TEMP)
-            {
-                temp = GOOD_TEMP;
-            }
-        
+            
             // 50% chance to kill overheating 
             if (rng(0, 1) == 0)
             {
@@ -179,7 +174,7 @@ const TOOLS = [
             let message = `This robot has a case of <code>${caseName}</code>.\n`;
             if (problem > 0)
             {
-                message += `You will need to remove <code>${problem}</code> casings to get to one of the problems.`;
+                message += `You will need to remove <code>${problem}</code> casings to solve all problem(s).`;
             }
             else
             {
@@ -230,7 +225,7 @@ const TOOLS = [
             if (casings >= problem)
             {
                 problem = 0;
-                return turnUpdate("Fixed the problem with magic!");
+                return turnUpdate("Magically fixed all problem(s)!");
             }
         
             return turnUpdate("You need to get to the problem first.");

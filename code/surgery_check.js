@@ -118,7 +118,7 @@ function spark()
     if (sparks < 0) { sparks = 0; }
     if (sparks > 3) { sparks = 3; }
 
-    // Damage heart
+    // "Leak current"
     if (eCurrent < 4 && sparks > 0 && rng(1, 6 / sparks) == 1)
     {
         eCurrent++;
