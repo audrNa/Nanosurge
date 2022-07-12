@@ -43,7 +43,7 @@ function start(s)
     CASE = s != undefined ? CASES[s] : CASES[rng(0, CASES.length - 1)];
 
     caseName = '?';
-    problem = CASE.casings;
+    problem = CASE.problem;
     
     // Status variables 1
     eCurrent = CASE.eCurrent;
@@ -68,7 +68,7 @@ function start(s)
     sparks = CASE.sparks;
 
     // Start game
-    turnUpdate('You are ready to kill the patient');
+    turnUpdate("You are ready to operate on the robot.");
     return `CASE: ${CASE.name}`;
 }
 
@@ -149,16 +149,16 @@ function turnUpdate(message)
 
     // Status 2
     const bodyInfo = [
-        ['casings', casings],
-        ['broken-cables', brokenCables],
-        ['burnt-cables', burntCables]
+        ['casings', casings, 'bad'],
+        ['broken-cables', brokenCables, 'warning'],
+        ['burnt-cables', burntCables, 'bad']
     ];
     for (const item of bodyInfo)
     {
         if (item[1] > 0)
         {
             let row = document.getElementById(item[0]);
-            row.childNodes[3].innerHTML = `<code>${item[1]}</code>`;
+            row.childNodes[3].innerHTML = `<code class="text-${item[2]}">${item[1]}</code>`;
             row.removeAttribute('hidden');
         }
         else
@@ -168,7 +168,9 @@ function turnUpdate(message)
     }
 
     // Extra Info
-    document.getElementById('extra-message').innerHTML = extraMessage.text ? extraMessage.text : "<div class='text-good'>All Good</div>";
+    document.getElementById('extra-message').innerHTML = extraMessage.text ? 
+    extraMessage.text : "<div class='text-good'>No other abnormalities detected.</div>";
+
     extraMessage.text = "";   // Reset so it can be checked again
     
     // Message
