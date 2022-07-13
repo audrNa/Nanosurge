@@ -60,7 +60,7 @@ const TOOLS = [
     {
         name: 'Coolant',
         use() {
-            temp -= 5;
+            temp -= 6;
             
             // 50% chance to kill overheating 
             if (rng(0, 1) == 0)

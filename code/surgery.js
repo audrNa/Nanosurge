@@ -39,9 +39,11 @@ let extraMessage = {
 // Start a surgery
 function start(s)
 {
+    // Hide modal
+    document.getElementById('modal').style.display = 'none'; 
+
     // Get a random case
     CASE = s != undefined ? CASES[s] : CASES[rng(0, CASES.length - 1)];
-
     caseName = '?';
     problem = CASE.problem;
     
@@ -69,7 +71,7 @@ function start(s)
 
     // Start game
     turnUpdate("You are ready to operate on the robot.");
-    return `CASE: ${CASE.name}`;
+    return `CASE: [${CASE.name}]  hey you are cheating`;
 }
 
 // Status items
@@ -136,6 +138,12 @@ const STATUS = [
 // Update status
 function turnUpdate(message) 
 {
+    // Special code from case if there's any
+    if (CASE.special)
+    {
+        CASE.special();
+    }
+
     // Check stats and store result
     const checkResult = check();
 

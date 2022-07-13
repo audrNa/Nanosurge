@@ -54,12 +54,17 @@ function check()
 // Temperature changes
 function tempChange()
 {
+    // Min 90
+    if (temp < 90) { temp = 90; }
+
+    // Fever
     if (overheating)
     {
         // Increase temperature
         temp += 3 + rng(0, 10) / 10;
         extraMessage.add("The robot's temperature is rising.", 'warning');
     }
+    // Stabilize temperature
     else if (temp != 99.8)
     {
         // Get it closer to 99.8

@@ -57,7 +57,7 @@ const modals = {
             {
                 class: 'good',
                 text: 'Perform another surgery',
-                code() { start(); document.getElementById('modal').style.display = 'none'; }
+                code() { start(); }
             }
         ]
     },
@@ -75,7 +75,7 @@ const modals = {
             {
                 class: 'good',
                 text: 'Yes, I am ready',
-                code() { start(); document.getElementById('modal').style.display = 'none'; }
+                code() { start(); }
             }
         ]
     }
