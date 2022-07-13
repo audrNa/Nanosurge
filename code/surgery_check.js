@@ -46,6 +46,13 @@ function check()
     heartbeat();
     dustSpread();
 
+    // Problem in Body Data
+    if (caseName != '?' && problem > 0)
+    {
+        extraMessage.add(`Problems detected under ${problem} casings.`, 'normal');
+    }
+
+
     // Keep going
     return [0, ""];
 }
