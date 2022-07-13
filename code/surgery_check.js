@@ -59,7 +59,7 @@ function tempChange()
     {
         // Increase temperature
         temp += 3 + rng(0, 10) / 10;
-        extraMessage.add(["The robot's temperature is rising.", 'warning']);
+        extraMessage.add("The robot's temperature is rising.", 'warning');
     }
     else if (temp != GOOD_TEMP)
     {
@@ -108,7 +108,7 @@ function spark()
     {
         if (sleepTime == 0)
         {
-            extraMessage.add(["The robot screams and flails!", 'bad']);
+            extraMessage.add("The robot screams and flails!", 'bad');
         }
 
         sparks += 0.5 + casings * 0.5;
@@ -127,7 +127,8 @@ function spark()
     // Extra Message
     if (sparks > 0)
     {
-        extraMessage.add(sparksTexts[Math.floor(sparks) - 1]);
+        let text = sparksTexts[Math.floor(sparks) - 1];
+        extraMessage.add(text[0], text[1]);
     }
 }
 
@@ -172,13 +173,13 @@ function dustSpread()
     {
         // oh no
         site = 2;
-        extraMessage.add(["It's getting harder to see what you're doing.", 'warning']);
+        extraMessage.add("It's getting harder to see what you're doing.", 'warning');
     }
     else
     {
         // oh fuck
         vision = false;
-        extraMessage.add(["You can't see what you're doing!", 'bad']);
+        extraMessage.add("You can't see what you're doing!", 'bad');
     }
 
     // Chance to give overheating if dusty

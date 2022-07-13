@@ -31,8 +31,8 @@ let sparks;
 // Body Data
 let extraMessage = {
     text: "",
-    add(message) {
-        this.text += `<div class="text-${message[1]}">> ${message[0]}</div>`; 
+    add(text, color) {
+        this.text += `<div class="text-${color}">> ${text}</div>`; 
     }
 };
 
