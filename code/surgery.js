@@ -89,7 +89,7 @@ const STATUS = [
             ['undefined', 'bad'],
             ['null', 'bad']
         ],
-        value() { return this.items[eCurrent]; }
+        value() { return this.items[Math.floor(eCurrent)]; }
     },
 
     {
@@ -148,6 +148,7 @@ function turnUpdate(message)
     }
 
     // Status 2
+    // this is here because the variables inside need to be checked each time
     const bodyInfo = [
         ['casings', casings, 'bad'],
         ['broken-cables', brokenCables, 'warning'],

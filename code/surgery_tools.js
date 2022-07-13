@@ -151,9 +151,10 @@ const TOOLS = [
     {
         name: 'Generator',
         use() {
-            if (eCurrent > 0) 
+            eCurrent--;
+            if (eCurrent < 0) 
             {
-                eCurrent--;
+                eCurrent = 0;
             }
             return turnUpdate("Reenergized the robot with energy from the generator.");
         }

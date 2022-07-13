@@ -1,5 +1,4 @@
 // check() stuff
-const GOOD_TEMP = 99.8;
 
 // Check if job is done or keep going and make things harder
 // Returns an array of a number and a string
@@ -61,10 +60,10 @@ function tempChange()
         temp += 3 + rng(0, 10) / 10;
         extraMessage.add("The robot's temperature is rising.", 'warning');
     }
-    else if (temp != GOOD_TEMP)
+    else if (temp != 99.8)
     {
-        // Get it closer to GOOD_TEMP
-        temp += (GOOD_TEMP - temp) / 2
+        // Get it closer to 99.8
+        temp += (99.8 - temp) / 2
     }
 }
 
@@ -118,10 +117,11 @@ function spark()
     if (sparks < 0) { sparks = 0; }
     if (sparks > 3) { sparks = 3; }
 
-    // "Leak current"
-    if (eCurrent < 4 && sparks > 0 && rng(1, 6 / sparks) == 1)
+    // "Leak current" until 4
+    if (eCurrent < 4 && rng(1, 4) < 4)
     {
-        eCurrent++;
+        eCurrent += 0.5 * sparks;
+        if (eCurrent > 4) { eCurrent = 4; }
     }
 
     // Extra Message
@@ -132,14 +132,14 @@ function spark()
     }
 }
 
-// Heart
+// Core 
 function heartbeat()
 {
     // No more electric current
     if (core && eCurrent >= 4)
     {
         core = false;
-        resuscitationTime = 3;
+        resuscitationTime = 2;
     }
 
     // Pass time until patient dies if heart dead
@@ -156,7 +156,7 @@ function dustSpread()
     if (dust < 0) { dust = 0; }
 
     // + dust every turn
-    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks * 0.5);
+    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks);
 
     // dust make operation site dirty
     vision = true;
