@@ -1,11 +1,14 @@
 // + surgery_cases.js, surgery_tools.js, surgery_check.js, surgery_modal.js
 
+const MALPRACTICE_COST = -50;
+
 // Status
 let CASE;
 
 let caseName;
 let description;
 let problem;
+let price;
 
 // Status variables 1
 let eCurrent;
@@ -48,6 +51,7 @@ function start(s)
     caseName = '?';
     description = 'Waiting for scan...';
     problem = CASE.problem;
+    price = CASE.price;
     
     // Status variables 1
     eCurrent = CASE.eCurrent;
@@ -73,6 +77,17 @@ function start(s)
 
     // Start game
     turnUpdate("You are ready to operate on the robot.");
+
+    // Warning when closing tab
+    window.onbeforeunload = () => {
+        return 2;
+    };
+    
+    // Make player lose if they close tab
+    window.onunload = () => {
+        pay(MALPRACTICE_COST);
+    };
+
     return `CASE: [${CASE.name}]  hey you are cheating`;
 }
 
@@ -190,20 +205,31 @@ function turnUpdate(message)
 
     extraMessage.text = "";   // Reset so it can be checked again
     
-    // Message
+    // Turn Message
     document.getElementById('message').innerHTML = message;
     
     // Disable tools if needed
     toolToggle();
 
-    // Check result
+    // Check result if end
     if (checkResult[0] != 0)
     {
+        // Make modal stuff
         const headers = ["Surgery Successful", "Surgery Failed"];
         modals.surgeryEnd.header = headers[checkResult[0] - 1];
         modals.surgeryEnd.desc = checkResult[1];
+
+        const earnings = pay(checkResult[0] == 1 ? price : MALPRACTICE_COST);
+        modals.surgeryEnd.desc += `<hr>
+        ${earnings[0] > 0 ? '+' : '-'} <code class="alt">⏣${Math.abs(earnings[0])}</code> <br>
+        You now have <code class="alt">⏣${earnings[1]}</code>.`;
+
+        // Flash modal
         modal(modals.surgeryEnd);
-        return 0;
+
+        // Allow player to safely close tab
+        window.onbeforeunload = () => {};
+        window.onunload = () => {};
     }
 
     return 0;
@@ -283,9 +309,19 @@ function toolToggle()
     }
 }
 
+// Pay user for successful surgery
+function pay(x)
+{
+    const earnings = x ? x : 0;                             // Handle invalid amount
+    const item = Number(localStorage.getItem('benzene'));   // Get player's current amount of benzene
+    const newAmount = item ? item + earnings : earnings;    // Handle invalid amount part 2
+    localStorage.setItem('benzene', newAmount);
+    return [earnings, newAmount];
+}
+
 
 // Load game
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     // Surgery Tools
     const toolsContainer = document.getElementById('tools');
     for (const item of TOOLS)

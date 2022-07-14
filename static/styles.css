@@ -9,21 +9,40 @@ body {
     font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
 }
 
-/* Surgery Status and some extra */
-.blue-container {
+/* Navigation Bar */
+#navbar {
+    display: flex;
+    justify-content: center;
+}
+
+#navbar > button {
+    background: none;
+    color: white;
+}
+
+/* Containers */
+.container {
     /* Container */
-    --iro: 52, 186, 227;
     max-width: 400px; 
-    background: rgba(var(--iro), 0.3);
     border-width: 1px;
     border-style: solid;
-    border-color: rgb(var(--iro));
     border-radius: 3px;
     /* Margin & Padding */
     margin-top: 1rem;
     margin-right: auto;
     margin-left: auto;
-    padding: 5px 10px;
+    padding: 10px;
+}
+
+.container.cntr-blue {
+    --iro: 52, 186, 227;
+    background: rgba(var(--iro), 0.3);
+    border-color: rgb(var(--iro));
+}
+
+.container.cntr-whiteb {
+    background: var(--bg-color);
+    border-color: #fff;
 }
 
 hr {
@@ -174,4 +193,9 @@ code {
     color: #fff;
     padding-inline: 3px;
     border-radius: 2px;
+}
+
+code.alt {
+    background-color: #343434;
+    padding: 2px 3px;
 }

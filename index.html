@@ -5,14 +5,38 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./static/styles.css" rel="stylesheet">
+        <script>
+            // Get money as a number
+            let benzene = Number(localStorage.getItem('benzene'));
+
+            // Set money to 0 if it doesn't exist
+            if (!benzene) 
+            {
+                localStorage.setItem('benzene', 0);
+                benzene = 0;
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('benzene').innerHTML = '⏣' + benzene.toFixed(2);
+            });
+        </script>
 
         <title>Home</title>
     </head>
     <body>
+        <!-- Navigation Bar -->
+        <div id="navbar">
+            <button disabled>Home</button>
+            <button onclick="document.location='./surgery.html'">Surgery</button>
+        </div>
+
         <!-- TODO -->
-        <div>TODO</div>
-        <div>Money: <code>$0.00</code> haha u dont get paid</div>
-        
-        <button class="good" onclick="document.location='./surgery.html';">Perform a Surgery</button>
+        <div class="container cntr-whiteb">
+            <div style="font-weight: bold;">most important thing </div>
+            <div>Money: <code id="benzene" class="alt">⏣-</code></div>
+            <hr>
+            <div>Welcome home, human</div>
+            <div>your home is boring</div>
+        </div>
     </body>
 </html>

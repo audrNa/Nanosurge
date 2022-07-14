@@ -32,9 +32,8 @@ function check()
 
     if (problem <= 0 && !overheating && casings <= 0 && 
         brokenCables <= 0 && burntCables <= 0 && core && sparks <= 0
-        && eCurrent <= 1) 
+        && eCurrent <= 1)
     {
-        
         return [1, "You've successfully fixed the robot!"];
     }
 
@@ -196,7 +195,7 @@ function dustSpread()
     }
 
     // Chance to give overheating if dusty
-    if (site != 0 && rng(1, 20 / site) == 1)
+    if (site != 0 && rng(1, 50 / site) == 1)
     {
         overheating = true;
     }

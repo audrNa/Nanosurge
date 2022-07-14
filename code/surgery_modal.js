@@ -11,8 +11,8 @@
 function modal(modalItems)
 {
     // Set header and description
-    document.getElementById('modal-header').innerText = modalItems.header;
-    document.getElementById('modal-desc').innerText = modalItems.desc;
+    document.getElementById('modal-header').innerHTML = modalItems.header;
+    document.getElementById('modal-desc').innerHTML = modalItems.desc;
 
     const modalOptions = document.getElementById('modal-options');
     
@@ -46,7 +46,7 @@ function modal(modalItems)
 const modals = {
     surgeryEnd: {
         header: 'Surgery Ended',
-        desc: 'congrats',
+        desc: `congrats`,
         buttons: [
             {
                 class: 'normal',
