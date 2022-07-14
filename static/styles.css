@@ -10,7 +10,7 @@ body {
 }
 
 /* Surgery Status and some extra */
-.surgery-status {
+.blue-container {
     /* Container */
     --iro: 52, 186, 227;
     max-width: 400px; 
@@ -104,7 +104,7 @@ button.tool {
 }
 
 button.tool:hover {
-    background-color: rgba(108, 117, 125, 1);
+    background-color: rgba(108, 117, 125, 0.8);
     border-color: rgb(200, 200, 200);
 }
 

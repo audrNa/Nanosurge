@@ -154,10 +154,11 @@ function heartbeat()
         resuscitationTime = 2;
     }
 
-    // Pass time until patient dies if heart dead
+    // Pass time until patient dies if heart dead and alert player
     if (!core)
     {
         resuscitationTime--;
+        extraMessage.add("The core is dead!", 'bad');
     }
 }
 

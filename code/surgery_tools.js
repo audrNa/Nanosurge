@@ -170,8 +170,9 @@ const TOOLS = [
                 return turnUpdate("You don't need to scan the robot again.");
             }
 
-            // Give case name and required removed casings
+            // Give case name, description, and required removed casings
             caseName = CASE.name;
+            description = CASE.description;
             let message = `This robot has a case of <code>${caseName}</code>.\n`;
             if (problem > 0)
             {

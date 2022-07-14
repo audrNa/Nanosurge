@@ -2,6 +2,7 @@
 
 /* Required Keys */
 // name             String
+// description:     String
 // problem          Number      *Required number of removed casings until Fix It can be used
 // eCurrent         Number
 // temp             Number
@@ -15,6 +16,7 @@
 const CASES = [
     {
         name:           'Mechaflu',
+        description:    "A mysterious condition where robots heat up like a human fever.",
         problem:        0,
         eCurrent:       0,
         temp:           105,
@@ -27,6 +29,7 @@ const CASES = [
 
     {
         name:           'Core Malfunction',
+        description:    "A condition where the core doesn't work properly. Symptoms include blacking out, confusion, death, etc..",
         problem:        4,
         eCurrent:       1,
         temp:           99.8,
@@ -39,6 +42,7 @@ const CASES = [
 
     {
         name:           'Inner Explosion',
+        description:    "A condition where the core explodes due to some problems. The core can explode at random times and destroy the insides of a robot.",
         problem:        4,
         eCurrent:       2,
         temp:           110,
@@ -71,7 +75,8 @@ const CASES = [
     },
 
     {
-        name:           'War Injuries',
+        name:           'Major Injuries',
+        description:    "many thing broken, battle robots usually have this condition. Sparks appear often due to a broken thing.",
         problem:        2,
         eCurrent:       1,
         temp:           99.8,
@@ -97,6 +102,7 @@ const CASES = [
 
     {
         name:           'High Fall Damage',
+        description:    "The robot fell from a 20-storey building.",
         problem:        6,
         eCurrent:       2,
         temp:           99.8,
@@ -109,6 +115,7 @@ const CASES = [
 
     {
         name:           'Broken Hand',
+        description:    "The hand was either twisted, smashed, destroyed, or just not working or whatever it's broken ok",
         problem:        1,
         eCurrent:       0,
         temp:           99.8,
@@ -121,6 +128,7 @@ const CASES = [
 
     {
         name:           'Broken Leg',
+        description:    "The leg was either twisted, smashed, destroyed, or just not working or whatever it's broken ok",
         problem:        2,
         eCurrent:       1,
         temp:           99.8,
@@ -133,6 +141,7 @@ const CASES = [
 
     {
         name:           'Broken Head',
+        description:    "The head was either twisted, smashed, destroyed, or just not working or whatever it's broken ok",
         problem:        6,
         eCurrent:       1,
         temp:           99.8,
@@ -145,6 +154,7 @@ const CASES = [
 
     {
         name:           'File Corruption',
+        description:    "The robot doesn't respond properly due to a corruption or change in the files in the robot's computer system.",
         problem:        1,
         eCurrent:       0,
         temp:           99.8,
@@ -157,6 +167,7 @@ const CASES = [
 
     {
         name:           'Missing Internal Part',
+        description:    "After manufacturing, the robot broke down due a missing part inside.",
         problem:        3,
         eCurrent:       1,
         temp:           99.8,
@@ -169,6 +180,7 @@ const CASES = [
 
     {
         name:           'Misplaced Limbs',
+        description:    "Error on manufacturing, now the robot is stupid",
         problem:        3,
         eCurrent:       1,
         temp:           99.8,
@@ -181,6 +193,7 @@ const CASES = [
 
     {
         name:           'Core Overclock',
+        description:    "A condition where the core abnormally heats up to dangerous levels.",
         problem:        4,
         eCurrent:       2,
         temp:           105,
@@ -213,6 +226,7 @@ const CASES = [
 
     {
         name:           'Rat Infestation',
+        description:    "There are rats living inside and breaking parts of the robot.",
         problem:        5,
         eCurrent:       0,
         temp:           99.8,
@@ -232,6 +246,7 @@ const CASES = [
 
     {
         name:           'Drenched in Water',
+        description:    "This non-waterproof robot fell into a river and fried all its electronics.",
         problem:        6,
         eCurrent:       2,
         temp:           99.8,
@@ -244,6 +259,7 @@ const CASES = [
 
     {
         name:           'Incinerated',
+        description:    "The robot was thrown into an incinerator. Fortunately, it was strong enough to survive but almost everything inside was burnt.",
         problem:        6,
         eCurrent:       2,
         temp:           99.8,

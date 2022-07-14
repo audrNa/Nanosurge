@@ -4,6 +4,7 @@
 let CASE;
 
 let caseName;
+let description;
 let problem;
 
 // Status variables 1
@@ -45,6 +46,7 @@ function start(s)
     // Get a random case
     CASE = s != undefined ? CASES[s] : CASES[rng(0, CASES.length - 1)];
     caseName = '?';
+    description = 'Waiting for scan...';
     problem = CASE.problem;
     
     // Status variables 1
@@ -79,6 +81,12 @@ const STATUS = [
     {
         id: 'case',
         value() { return [caseName, '']; }
+    },
+
+    // not status but i need it this way
+    {
+        id: 'case-description',
+        value() {return [description, '']; }
     },
 
     {
