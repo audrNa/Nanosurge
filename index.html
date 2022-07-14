@@ -5,23 +5,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="./static/styles.css" rel="stylesheet">
-        <script>
-            // Get money as a number
-            let benzene = Number(localStorage.getItem('benzene'));
+        <script src="./code/misc.js"></script>
+        <script src="./code/home.js"></script>
 
-            // Set money to 0 if it doesn't exist
-            if (!benzene) 
-            {
-                localStorage.setItem('benzene', 0);
-                benzene = 0;
-            }
-
-            document.addEventListener('DOMContentLoaded', () => {
-                document.getElementById('benzene').innerHTML = '⏣' + benzene.toFixed(2);
-            });
-        </script>
-
-        <title>Home</title>
+        <title>Nanosurge: Home</title>
     </head>
     <body>
         <!-- Navigation Bar -->
@@ -36,7 +23,7 @@
             <div>Money: <code id="benzene" class="alt">⏣-</code></div>
             <hr>
             <div>Welcome home, human</div>
-            <div>your home is boring</div>
+            <div id="rng-text"></div>
         </div>
     </body>
 </html>

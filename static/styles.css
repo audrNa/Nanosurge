@@ -2,6 +2,11 @@
     --bg-color: #181a1c;
 }
 
+a {
+    color: #5cdbf7;
+}
+
+
 body {
     display: block;
     background-color: var(--bg-color);
