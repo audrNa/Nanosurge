@@ -19,6 +19,6 @@ const homeTexts = [
 
 // Load some data
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('benzene').innerHTML = '⏣' + benzene.toFixed(2);
+    document.getElementById('benzene').innerHTML = '⏣' + benzene;
     document.getElementById('rng-text').innerHTML = homeTexts[rng(0, homeTexts.length - 1)];
 });
