@@ -36,7 +36,7 @@ let sparks;
 let extraMessage = {
     text: "",
     add(text, color) {
-        this.text += `<div class="text-${color}">> ${text}</div>`; 
+        this.text += `<div class="text-${color}">> ${text}</div>`;
     }
 };
 
@@ -44,7 +44,7 @@ let extraMessage = {
 function start(s)
 {
     // Hide modal
-    document.getElementById('modal').style.display = 'none'; 
+    document.getElementById('modal').style.display = 'none';
 
     // Get a random case
     CASE = s != undefined ? CASES[s] : CASES[rng(0, CASES.length - 1)];
@@ -52,22 +52,22 @@ function start(s)
     description = 'Waiting for scan...';
     problem = CASE.problem;
     price = CASE.price;
-    
+
     // Status variables 1
     eCurrent = CASE.eCurrent;
     state = 0;
     temp = CASE.temp;
     site = 0;
-    
+
     // Status variables 2
     casings = 0;
     brokenCables = CASE.brokenCables;
     burntCables = CASE.burntCables;
-    
+
     // Status variables 3
     core = true;
     vision = true;
-    
+
     // Changes over turns
     overheating = CASE.overheating;
     sleepTime = 0;
@@ -82,7 +82,7 @@ function start(s)
     window.onbeforeunload = () => {
         return 2;
     };
-    
+
     // Make player lose if they close tab
     window.onunload = () => {
         pay(MALPRACTICE_COST);
@@ -120,8 +120,8 @@ const STATUS = [
     {
         id: 'status',
         items: [
-            ['ACTIVE', 'normal'], 
-            ['REACTIVATING', 'warning'], 
+            ['ACTIVE', 'normal'],
+            ['REACTIVATING', 'warning'],
             ['DEACTIVATED', 'good']
         ],
         value() { return (!core) ? ['OUT OF POWER', 'bad'] : this.items[state]; },
@@ -150,8 +150,8 @@ const STATUS = [
     {
         id: 'site',
         items: [
-            ['Clean', 'good'], 
-            ['Dusty', 'warning'], 
+            ['Clean', 'good'],
+            ['Dusty', 'warning'],
             ['Covered in Dust', 'bad']
         ],
         value() { return this.items[site]; }
@@ -159,7 +159,7 @@ const STATUS = [
 ];
 
 // Update status
-function turnUpdate(message) 
+function turnUpdate(message)
 {
     // Special code from case if there's any
     if (CASE.special)
@@ -170,7 +170,7 @@ function turnUpdate(message)
     // Check stats and store result
     const checkResult = check();
 
-    // Status 
+    // Status
     for (const item of STATUS)
     {
         const element = document.getElementById(item.id);
@@ -200,14 +200,14 @@ function turnUpdate(message)
     }
 
     // Extra Info
-    document.getElementById('extra-message').innerHTML = extraMessage.text ? 
+    document.getElementById('extra-message').innerHTML = extraMessage.text ?
     extraMessage.text : "<div class='text-good'>No other abnormalities detected.</div>";
 
     extraMessage.text = "";   // Reset so it can be checked again
-    
+
     // Turn Message
     document.getElementById('message').innerHTML = message;
-    
+
     // Disable tools if needed
     toolToggle();
 
@@ -280,7 +280,7 @@ function toolToggle()
         killList.add(1);
     }
 
-    // Nothing to fix / No removed casings / No sparks: disable Electrical Tape 
+    // Nothing to fix / No removed casings / No sparks: disable Electrical Tape
     if ((burntCables <= 0 || casings <= 0) && sparks <= 0)
     {
         killList.add(7);
@@ -313,9 +313,9 @@ function toolToggle()
 function pay(x)
 {
     const earnings = x ? x : 0;                             // Handle invalid amount
-    const item = Number(localStorage.getItem('benzene'));   // Get player's current amount of benzene
+    const item = Number(localStorage.getItem('nanosurge-benzene'));   // Get player's current amount of benzene
     const newAmount = item ? item + earnings : earnings;    // Handle invalid amount part 2
-    localStorage.setItem('benzene', newAmount);
+    localStorage.setItem('nanosurge-benzene', newAmount);
     return [earnings, newAmount];
 }
 

@@ -1,18 +1,18 @@
 // index.html
 
 // Get money as a number
-let benzene = Number(localStorage.getItem('benzene'));
+let benzene = Number(localStorage.getItem('nanosurge-benzene'));
 
 // Set money to 0 if it doesn't exist
-if (!benzene) 
+if (!benzene)
 {
-    localStorage.setItem('benzene', 0);
+    localStorage.setItem('nanosurge-benzene', 0);
     benzene = 0;
 }
 
 // Random text everytime you load this page
 const homeTexts = [
-    'your home is boring', 
+    'your home is boring',
     'Money here is called <code class="alt">⏣ Benzene</code>',
     '<a href="https://twitter.com/Nepteruno" target="_blank">nep</a>'
 ];
