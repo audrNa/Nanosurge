@@ -307,6 +307,7 @@ function pay(x)
 
 
 // Load game
+const clickSound = new Audio('./static/Modern6.wav');
 document.addEventListener('DOMContentLoaded', () => {
     // Surgery Tools
     const toolsContainer = document.getElementById('tools');
@@ -324,6 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add function
         button.addEventListener('click', item.use);
+        button.addEventListener('click', () => { clickSound.cloneNode(true).play(); });
     }
 
     // Save for toolToggle()

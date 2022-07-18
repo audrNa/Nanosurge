@@ -7,15 +7,16 @@ const TOOLS = [
     {
         name: 'Blower',
         use() {
-            // Can't kill dust below 35
-            if (dust < 35)
+            const LIMIT = 20;
+            // Can't kill dust near LIMIT
+            if (dust < LIMIT * 1.2)
             {
                 return turnUpdate("Your blower is too powerful to clear smaller pieces of dust.");
             }
 
-            // Kill dust up to 25
+            // Kill dust up to LIMIT
             dust -= 50;
-            if (dust < 25) { dust = 25; }
+            if (dust < LIMIT) { dust = LIMIT; }
             return turnUpdate("Blew most of the dust away.");
         }
     },
