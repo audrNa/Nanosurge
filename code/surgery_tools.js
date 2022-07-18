@@ -6,6 +6,7 @@ const TOOLS = [
     // Fix vision
     {
         name: 'Blower',
+        keybind: 'r',
         use() {
             const LIMIT = 20;
             // Can't kill dust near LIMIT
@@ -24,6 +25,7 @@ const TOOLS = [
     // Fix broken cables
     {
         name: 'Soldering Iron',
+        keybind: 't',
         use() {
             if (brokenCables <= 0)
             {
@@ -44,6 +46,7 @@ const TOOLS = [
     // Clean site
     {
         name: 'Brush',
+        keybind: 'y',
         use() {
             dust -= 15;
 
@@ -60,6 +63,7 @@ const TOOLS = [
     // Help temperature
     {
         name: 'Coolant',
+        keybind: 'u',
         use() {
             temp -= 6;
 
@@ -76,6 +80,7 @@ const TOOLS = [
     // Put patient to sleep
     {
         name: 'Disable',
+        keybind: 'f',
         use() {
             sleepTime += 26;
             return turnUpdate("Disabled the robot temporarily.");
@@ -85,6 +90,7 @@ const TOOLS = [
     // Unscrew a casing
     {
         name: 'Unscrew',
+        keybind: 'g',
         use() {
             // Can't stab awake person
             if (state == 0)
@@ -108,6 +114,7 @@ const TOOLS = [
     // Undo unscrew
     {
         name: 'Rescrew',
+        keybind: 'h',
         use() {
             if (casings <= 0)
             {
@@ -122,6 +129,7 @@ const TOOLS = [
     // Fix burnt cables
     {
         name: 'Electrical Tape',
+        keybind: 'j',
         use() {
             // Nothing to fix
             if (burntCables <= 0 && sparks <= 0)
@@ -151,6 +159,7 @@ const TOOLS = [
     // Fix electrical current
     {
         name: 'Generator',
+        keybind: 'v',
         use() {
             eCurrent--;
             if (eCurrent < 0)
@@ -164,6 +173,7 @@ const TOOLS = [
     // Get patient's case
     {
         name: 'Scanner',
+        keybind: 'b',
         use() {
             // Check if already scanned
             if (caseName != '?')
@@ -190,6 +200,7 @@ const TOOLS = [
     // Fix stopped heart
     {
         name: 'Taser',
+        keybind: 'n',
         use() {
             // Fix core if dead
             if (!core)
@@ -214,6 +225,7 @@ const TOOLS = [
     // Fix "problem"
     {
         name: 'Repair',
+        keybind: 'm',
         use() {
             if (caseName == '?')
             {

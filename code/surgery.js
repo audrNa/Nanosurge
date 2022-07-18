@@ -1,5 +1,6 @@
 // + surgery_cases.js, surgery_tools.js, surgery_check.js, surgery_modal.js
 
+const clickSound = new Audio('./static/Modern6.wav');
 const MALPRACTICE_COST = -50;
 
 // Status
@@ -307,7 +308,7 @@ function pay(x)
 
 
 // Load game
-const clickSound = new Audio('./static/Modern6.wav');
+const keyBinds = new Object();
 document.addEventListener('DOMContentLoaded', () => {
     // Surgery Tools
     const toolsContainer = document.getElementById('tools');
@@ -315,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         // Make button
         const button = document.createElement('button');
-        button.innerHTML = item.name;
+        button.innerHTML = `<code>${item.keybind.toUpperCase()}</code> ${item.name}`;
         button.setAttribute('type', 'button');
         button.setAttribute('disabled', '');
         button.className = "tool";
@@ -326,10 +327,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add function
         button.addEventListener('click', item.use);
         button.addEventListener('click', () => { clickSound.cloneNode(true).play(); });
+
+        // Save for toolToggle() and keybinds
+        buttons.push(button);
+        keyBinds[item.keybind] = button;
     }
 
-    // Save for toolToggle()
-    buttons = toolsContainer.getElementsByClassName('tool');
+    // Keybinds to tools
+    document.addEventListener('keydown', (event) => {
+        const tool = keyBinds[event.key];
+        try {
+            tool.focus();
+            tool.click();
+        } catch (e) {}
+    });
 
     // Confirmation modal
     modal(modals.surgeryStart);
