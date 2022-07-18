@@ -7,10 +7,10 @@ const TOOLS = [
     {
         name: 'Blower',
         use() {
-            // Can't kill dust below 30
-            if (dust < 30)
+            // Can't kill dust below 35
+            if (dust < 35)
             {
-                return turnUpdate("Your blower is too powerful to clear smaller pieces of dust.")
+                return turnUpdate("Your blower is too powerful to clear smaller pieces of dust.");
             }
 
             // Kill dust up to 25
@@ -28,7 +28,7 @@ const TOOLS = [
             {
                 return turnUpdate("There are no broken cables to solder.");
             }
-            
+
             if (casings <= 0)
             {
                 return turnUpdate("You need to remove a casing first.");
@@ -47,7 +47,7 @@ const TOOLS = [
             dust -= 15;
 
             // Tell user if they should use a different tool now
-            if (dust <= 0)
+            if (dust <= 1)
             {
                 return turnUpdate("The operation site is clean enough.");
             }
@@ -61,8 +61,8 @@ const TOOLS = [
         name: 'Coolant',
         use() {
             temp -= 6;
-            
-            // 50% chance to kill overheating 
+
+            // 50% chance to kill overheating
             if (rng(0, 1) == 0)
             {
                 overheating = false;
@@ -152,20 +152,20 @@ const TOOLS = [
         name: 'Generator',
         use() {
             eCurrent--;
-            if (eCurrent < 0) 
+            if (eCurrent < 0)
             {
                 eCurrent = 0;
             }
             return turnUpdate("Reenergized the robot with energy from the generator.");
         }
     },
-    
+
     // Get patient's case
     {
         name: 'Scanner',
         use() {
             // Check if already scanned
-            if (caseName != '?') 
+            if (caseName != '?')
             {
                 return turnUpdate("You don't need to scan the robot again.");
             }
@@ -191,7 +191,7 @@ const TOOLS = [
         name: 'Taser',
         use() {
             // Fix core if dead
-            if (!core) 
+            if (!core)
             {
                 eCurrent = 2;
                 core = true;
@@ -219,17 +219,17 @@ const TOOLS = [
                 return turnUpdate("You haven't scanned the robot yet.");
             }
 
-            if (problem == 0) 
+            if (problem == 0)
             {
                 return turnUpdate("There is nothing to repair.");
-            } 
-            
+            }
+
             if (casings >= problem)
             {
                 problem = 0;
                 return turnUpdate("Magically fixed all problem(s)!");
             }
-        
+
             return turnUpdate("You need to get to the problem first.");
         }
     }

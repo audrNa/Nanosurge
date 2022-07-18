@@ -214,7 +214,7 @@ function turnUpdate(message)
     // Check result if end
     if (checkResult[0] != 0)
     {
-        // Make modal stuff
+        // Make modal
         const headers = ["Surgery Successful", "Surgery Failed"];
         modals.surgeryEnd.header = headers[checkResult[0] - 1];
         modals.surgeryEnd.desc = checkResult[1];
@@ -223,6 +223,12 @@ function turnUpdate(message)
         modals.surgeryEnd.desc += `<hr>
         ${earnings[0] > 0 ? '+' : '-'} <code class="alt">⏣${Math.abs(earnings[0])}</code> <br>
         You now have <code class="alt">⏣${earnings[1]}</code>.`;
+
+        // Disable all tools
+        for (const button of buttons)
+        {
+            button.setAttribute('disabled', '');
+        }
 
         // Flash modal
         modal(modals.surgeryEnd);
@@ -292,6 +298,24 @@ function toolToggle()
         killList.add(9);
     }
 
+    // Blower is useless: disable Blower
+    if (dust < 35)
+    {
+        killList.add(0);
+    }
+
+    // Clean enough: disable Brush
+    if (dust < 15)
+    {
+        killList.add(2);
+    }
+
+    // No overheating: disable Coolant
+    if (!overheating)
+    {
+        killList.add(3);
+    }
+
 
     // Disable buttons in killList
     for (const i of killList)
@@ -312,9 +336,9 @@ function toolToggle()
 // Pay user for successful surgery
 function pay(x)
 {
-    const earnings = x ? x : 0;                             // Handle invalid amount
-    const item = Number(localStorage.getItem('nanosurge-benzene'));   // Get player's current amount of benzene
-    const newAmount = item ? item + earnings : earnings;    // Handle invalid amount part 2
+    const earnings = (x > 0 || x < 0) ? x : 0;                              // Handle invalid values
+    const item = Number(localStorage.getItem('nanosurge-benzene'));         // Get player's current amount of benzene
+    const newAmount = (item > 0 || item < 0) ? item + earnings : earnings;  // Handle invalid values part 2
     localStorage.setItem('nanosurge-benzene', newAmount);
     return [earnings, newAmount];
 }
@@ -330,6 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const button = document.createElement('button');
         button.innerHTML = item.name;
         button.setAttribute('type', 'button');
+        button.setAttribute('disabled', '');
         button.className = "tool";
 
         // Insert to page
