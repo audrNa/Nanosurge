@@ -2,7 +2,7 @@
 
 // Check if job is done or keep going and make things harder
 // Returns an array of a number and a string
-function check() 
+function check()
 {
     // Lose conditions
 
@@ -30,9 +30,9 @@ function check()
 
     // Win
 
-    if (problem <= 0 && !overheating && casings <= 0 && 
+    if (problem <= 0 && !overheating && casings <= 0 &&
         brokenCables <= 0 && burntCables <= 0 && core && sparks <= 0
-        && eCurrent <= 1)
+        && eCurrent < 2)
     {
         return [1, "You've successfully fixed the robot!"];
     }
@@ -143,7 +143,7 @@ function spark()
     }
 }
 
-// Core 
+// Core
 function heartbeat()
 {
     // No more electric current
