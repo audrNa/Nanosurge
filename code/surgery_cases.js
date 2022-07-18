@@ -56,12 +56,6 @@ const CASES = [
         sparks:         2,
         dust:           25,
         special() {
-            // Don't do this if it's fixed
-            if (!problem)
-            {
-                return;
-            }
-
             // 5% chance to explode and burn & more cables
             if (rng(1, 20) == 1)
             {
@@ -91,12 +85,6 @@ const CASES = [
         sparks:         1,
         dust:           35,
         special() {
-            // Don't do this if it's fixed
-            if (!problem)
-            {
-                return;
-            }
-
             // 1/5 chance to get more sparks
             if (rng(1, 5) == 1)
             {
@@ -216,12 +204,6 @@ const CASES = [
         sparks:         1,
         dust:           0,
         special() {
-            // Don't do this if it's fixed
-            if (!problem)
-            {
-                return;
-            }
-
             // Buff overheating by +2.5 temp
             if (overheating)
             {
@@ -250,8 +232,8 @@ const CASES = [
         sparks:         1,
         dust:           25,
         special() {
-            // 10% chance rats break more cables if they're still alive
-            if (problem && rng(1, 10) == 1)
+            // 10% chance rats break more cables
+            if (rng(1, 10) == 1)
             {
                 brokenCables++;
             }

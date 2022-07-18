@@ -4,6 +4,20 @@
 // Returns an array of a number and a string
 function check()
 {
+    // Special code from case if there's any
+    // Disabled if problem is fixed
+    if (problem && CASE.special)
+    {
+        CASE.special();
+    }
+
+    // Stat Changes
+    tempChange();
+    statusCheck();
+    spark();
+    heartbeat();
+    dustSpread();
+
     // Lose conditions
 
     if (temp > 120)
@@ -37,13 +51,6 @@ function check()
         return [1, "You've successfully fixed the robot!"];
     }
 
-
-    // Stat Changes
-    tempChange();
-    statusCheck();
-    spark();
-    heartbeat();
-    dustSpread();
 
     // Problem in Body Data
     if (caseName != '?' && problem > 0)
@@ -146,17 +153,18 @@ function spark()
 // Core
 function heartbeat()
 {
-    // No more electric current
-    if (core && eCurrent >= 4)
-    {
-        core = false;
-        resuscitationTime = 2;
-    }
-
-    // Pass time until patient dies if heart dead and alert player
+    // Pass time until robot dies if core dead and alert player
     if (!core)
     {
         resuscitationTime--;
+        extraMessage.add("The core is dead!", 'bad');
+    }
+
+    // No more electric current
+    if (core && eCurrent >= 4)
+    {
+        core = false;           // kill core
+        resuscitationTime = 2;  // set 2 turns before player loses
         extraMessage.add("The core is dead!", 'bad');
     }
 }

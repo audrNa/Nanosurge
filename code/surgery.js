@@ -161,12 +161,6 @@ const STATUS = [
 // Update status
 function turnUpdate(message)
 {
-    // Special code from case if there's any
-    if (CASE.special)
-    {
-        CASE.special();
-    }
-
     // Check stats and store result
     const checkResult = check();
 
@@ -263,58 +257,26 @@ function toolToggle()
     // Patient not scanned / No problem / Problem not yet reached
     // -> disable Repair
     if (caseName == '?' || problem == 0 || casings < problem)
-    {
-        killList.add(11);
-    }
+    { killList.add(11); }
 
     // No removed casings: disable Rescrew
-    if (casings <= 0)
-    {
-        // Rescrew
-        killList.add(6);
-    }
+    if (casings <= 0) { killList.add(6); }
 
     // Robot active: disable Unscrew
-    if (state == 0)
-    {
-        killList.add(5);
-    }
+    if (state == 0) { killList.add(5); }
 
     // Nothing to fix / No removed casings: disable Soldering Iron
-    if (brokenCables <= 0 || casings <= 0)
-    {
-        killList.add(1);
-    }
+    if (brokenCables <= 0 || casings <= 0) { killList.add(1); }
 
     // Nothing to fix / No removed casings / No sparks: disable Electrical Tape
     if ((burntCables <= 0 || casings <= 0) && sparks <= 0)
-    {
-        killList.add(7);
-    }
+    { killList.add(7); }
 
     // Robot already scanned: disable Scanner
-    if (caseName != '?')
-    {
-        killList.add(9);
-    }
-
-    // Blower is useless: disable Blower
-    if (dust < 35)
-    {
-        killList.add(0);
-    }
-
-    // Clean enough: disable Brush
-    if (dust < 15)
-    {
-        killList.add(2);
-    }
+    if (caseName != '?') { killList.add(9); }
 
     // No overheating: disable Coolant
-    if (!overheating)
-    {
-        killList.add(3);
-    }
+    if (!overheating) { killList.add(3); }
 
 
     // Disable buttons in killList
