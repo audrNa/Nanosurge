@@ -1,4 +1,4 @@
-// Modal 
+// Modal
 
 // Makes modals
 // modalItems           Object
@@ -7,7 +7,7 @@
 //  buttons             Array of Objects
 //  buttons[i].class    String
 //  buttons[i].text     String
-//  buttons[i].code     Function 
+//  buttons[i].code     Function
 function modal(modalItems)
 {
     // Set header and description
@@ -15,9 +15,9 @@ function modal(modalItems)
     document.getElementById('modal-desc').innerHTML = modalItems.desc;
 
     const modalOptions = document.getElementById('modal-options');
-    
+
     // Delete previously created buttons
-    while (modalOptions.children.length > 1)
+    while (modalOptions.children.length > 0)
     {
         modalOptions.removeChild(modalOptions.lastChild);
     }
@@ -32,7 +32,7 @@ function modal(modalItems)
         button.className = item.class;
 
         // Insert to page
-        modalOptions.insertBefore(button, modalOptions.lastElementChild.nextSibling);
+        modalOptions.appendChild(button);
 
         // Add function
         button.addEventListener('click', item.code);
@@ -53,7 +53,7 @@ const modals = {
                 text: 'Home',
                 code() { document.location='./index.html'; }
             },
-    
+
             {
                 class: 'good',
                 text: 'Perform another surgery',

@@ -316,13 +316,14 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         // Make button
         const button = document.createElement('button');
-        button.innerHTML = `<code>${item.keybind.toUpperCase()}</code> ${item.name}`;
+        button.innerHTML = `<code>${item.keybind.toUpperCase()}</code> <img draggable="false" src="./static/${item.sprite}">`;
         button.setAttribute('type', 'button');
         button.setAttribute('disabled', '');
+        button.title = item.name;
         button.className = "tool";
 
         // Insert to page
-        toolsContainer.insertBefore(button, toolsContainer.lastElementChild.nextSibling);
+        toolsContainer.appendChild(button);
 
         // Add function
         button.addEventListener('click', item.use);

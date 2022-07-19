@@ -7,6 +7,7 @@ const TOOLS = [
     {
         name: 'Blower',
         keybind: 'r',
+        sprite: 'blower.png',
         use() {
             const LIMIT = 20;
             // Can't kill dust near LIMIT
@@ -26,6 +27,7 @@ const TOOLS = [
     {
         name: 'Soldering Iron',
         keybind: 't',
+        sprite: 'soldering_iron.png',
         use() {
             if (brokenCables <= 0)
             {
@@ -47,6 +49,7 @@ const TOOLS = [
     {
         name: 'Brush',
         keybind: 'y',
+        sprite: 'brush.png',
         use() {
             dust -= 15;
 
@@ -64,6 +67,7 @@ const TOOLS = [
     {
         name: 'Coolant',
         keybind: 'u',
+        sprite: 'coolant.png',
         use() {
             temp -= 6;
 
@@ -81,6 +85,7 @@ const TOOLS = [
     {
         name: 'Disable',
         keybind: 'f',
+        sprite: 'disable.png',
         use() {
             sleepTime += 26;
             return turnUpdate("Disabled the robot temporarily.");
@@ -89,8 +94,9 @@ const TOOLS = [
 
     // Unscrew a casing
     {
-        name: 'Unscrew',
+        name: 'Screwdriver: Unscrew',
         keybind: 'g',
+        sprite: 'unscrew.png',
         use() {
             // Can't stab awake person
             if (state == 0)
@@ -113,8 +119,9 @@ const TOOLS = [
 
     // Undo unscrew
     {
-        name: 'Rescrew',
+        name: 'Screwdriver: Rescrew',
         keybind: 'h',
+        sprite: 'rescrew.png',
         use() {
             if (casings <= 0)
             {
@@ -130,6 +137,7 @@ const TOOLS = [
     {
         name: 'Electrical Tape',
         keybind: 'j',
+        sprite: 'electrical_tape.png',
         use() {
             // Nothing to fix
             if (burntCables <= 0 && sparks <= 0)
@@ -160,6 +168,7 @@ const TOOLS = [
     {
         name: 'Generator',
         keybind: 'v',
+        sprite: 'generator.png',
         use() {
             eCurrent--;
             if (eCurrent < 0)
@@ -174,6 +183,7 @@ const TOOLS = [
     {
         name: 'Scanner',
         keybind: 'b',
+        sprite: 'scanner.png',
         use() {
             // Check if already scanned
             if (caseName != '?')
@@ -201,6 +211,7 @@ const TOOLS = [
     {
         name: 'Taser',
         keybind: 'n',
+        sprite: 'taser.png',
         use() {
             // Fix core if dead
             if (!core)
@@ -226,6 +237,7 @@ const TOOLS = [
     {
         name: 'Repair',
         keybind: 'm',
+        sprite: 'repair.png',
         use() {
             if (caseName == '?')
             {
