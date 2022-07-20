@@ -13,8 +13,7 @@ if (!benzene)
 // Random text everytime you load this page
 const homeTexts = [
     'your home is boring',
-    'Money here is called <code class="alt">⏣ Benzene</code>',
-    '<a href="https://twitter.com/Nepteruno" target="_blank">nep</a>'
+    'Money here is called <code class="alt">⏣ Benzene</code>'
 ];
 
 // Load some data
