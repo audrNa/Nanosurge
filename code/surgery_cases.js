@@ -257,12 +257,12 @@ const CASES = [
     {
         name:           'Incinerated',
         description:    "The robot was thrown into an incinerator. Fortunately, it was strong enough to survive but almost everything inside was burnt.",
-        problem:        6,
-        price:          25,
+        problem:        15,
+        price:          50,
         eCurrent:       2,
         temp:           99.8,
         brokenCables:   0,
-        burntCables:    15,
+        burntCables:    20,
         overheating:    false,
         sparks:         0,
         dust:           50

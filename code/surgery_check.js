@@ -12,11 +12,11 @@ function check()
     }
 
     // Stat Changes
+    dustSpread();
     tempChange();
     statusCheck();
     spark();
     heartbeat();
-    dustSpread();
 
     // Lose conditions
 
@@ -63,6 +63,46 @@ function check()
     return [0, ""];
 }
 
+
+// dust logic
+function dustSpread()
+{
+    // Minimum 0
+    if (dust < 0) { dust = 0; }
+
+    // + dust every turn
+    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks);
+
+    // dust make operation site dirty
+    vision = true;
+    if (dust <= 25)
+    {
+        site = 0;
+    }
+    else if (dust <= 50)
+    {
+        // it's still fine
+        site = 1;
+    }
+    else if (dust <= 75)
+    {
+        // oh no
+        site = 2;
+        extraMessage.add("It's getting harder to see what you're doing.", 'warning');
+    }
+    else
+    {
+        // oh fuck
+        vision = false;
+        extraMessage.add("You can't see what you're doing!", 'bad');
+    }
+
+    // Chance to give overheating if dusty
+    if (site != 0 && rng(1, 50 / site) == 1)
+    {
+        overheating = true;
+    }
+}
 
 // Temperature changes
 function tempChange()
@@ -166,45 +206,5 @@ function heartbeat()
         core = false;           // kill core
         resuscitationTime = 2;  // set 2 turns before player loses
         extraMessage.add("The core is dead!", 'bad');
-    }
-}
-
-// dust logic
-function dustSpread()
-{
-    // Minimum 0
-    if (dust < 0) { dust = 0; }
-
-    // + dust every turn
-    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks);
-
-    // dust make operation site dirty
-    vision = true;
-    if (dust <= 25)
-    {
-        site = 0;
-    }
-    else if (dust <= 50)
-    {
-        // it's still fine
-        site = 1;
-    }
-    else if (dust <= 75)
-    {
-        // oh no
-        site = 2;
-        extraMessage.add("It's getting harder to see what you're doing.", 'warning');
-    }
-    else
-    {
-        // oh fuck
-        vision = false;
-        extraMessage.add("You can't see what you're doing!", 'bad');
-    }
-
-    // Chance to give overheating if dusty
-    if (site != 0 && rng(1, 50 / site) == 1)
-    {
-        overheating = true;
     }
 }
