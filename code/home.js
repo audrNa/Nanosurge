@@ -1,14 +1,8 @@
 // index.html
 
-// Get money as a number
-let benzene = Number(localStorage.getItem('nanosurge-benzene'));
-
-// Set money to 0 if it doesn't exist
-if (!benzene)
-{
-    localStorage.setItem('nanosurge-benzene', 0);
-    benzene = 0;
-}
+// Player stats
+let benzene = numbind(localStorage.getItem('nanosurge-benzene'));
+let level = numbind(localStorage.getItem('nanosurge-level'));
 
 // Random text everytime you load this page
 const homeTexts = [

@@ -299,10 +299,12 @@ function toolToggle()
 // Pay user for successful surgery
 function pay(x)
 {
-    const earnings = (x > 0 || x < 0) ? x : 0;                              // Handle invalid values
-    const item = Number(localStorage.getItem('nanosurge-benzene'));         // Get player's current amount of benzene
-    const newAmount = (item > 0 || item < 0) ? item + earnings : earnings;  // Handle invalid values part 2
+    const earnings = numbind(x);
+    const item = numbind(localStorage.getItem('nanosurge-benzene'));
+
+    const newAmount = item + earnings;
     localStorage.setItem('nanosurge-benzene', newAmount);
+
     return [earnings, newAmount];
 }
 

@@ -8,6 +8,14 @@ function rng(min, max)
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+// Convert strings to number / others to 0
+function numbind(n)
+{
+    const num = Number(n);
+    if (num) { return num; }
+    return 0;
+}
+
 // Put version at the top of each page this file is included in
 document.addEventListener('DOMContentLoaded', () => {
     const div = document.createElement('div');
