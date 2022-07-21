@@ -216,8 +216,8 @@ function turnUpdate(message)
 
         const earnings = pay(checkResult[0] == 1 ? price : MALPRACTICE_COST);
         modals.surgeryEnd.desc += `<hr>
-        ${earnings[0] > 0 ? '+' : '-'} <code class="alt">⏣${Math.abs(earnings[0])}</code> <br>
-        You now have <code class="alt">⏣${earnings[1]}</code>.`;
+        ${earnings[0] > 0 ? '+' : '-'} <code class="alt">${CURRENCY}${Math.abs(earnings[0])}</code> <br>
+        You now have <code class="alt">${CURRENCY}${earnings[1]}</code>.`;
 
         // Disable all tools
         for (const button of buttons)
@@ -321,8 +321,8 @@ document.addEventListener('DOMContentLoaded', () => {
         button.innerHTML = `<code>${item.keybind.toUpperCase()}</code> <img draggable="false" src="./static/${item.sprite}">`;
         button.setAttribute('type', 'button');
         button.setAttribute('disabled', '');
+        button.setAttribute('class', 'tool');
         button.title = item.name;
-        button.className = "tool";
 
         // Insert to page
         toolsContainer.appendChild(button);

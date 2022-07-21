@@ -1,6 +1,11 @@
 // Surgery tools
 
-// Each tool needs 'name' (string) and 'use()'
+/* Required Keys */
+// name
+// keybind
+// sprite   always in static/
+// use()
+
 // use() must always execute turnUpdate()
 const TOOLS = [
     // Fix vision

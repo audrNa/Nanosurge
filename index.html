@@ -12,6 +12,8 @@
 
         <link href="./static/styles.css" rel="stylesheet">
         <script src="./code/misc.js"></script>
+        <script src="./code/modal.js"></script>
+        <script src="./code/home_perks.js"></script>
         <script src="./code/home.js"></script>
     </head>
     <body>
@@ -21,13 +23,45 @@
             <button onclick="document.location='./surgery.html'">Surgery</button>
         </div>
 
-        <!-- TODO -->
+        <!-- Benzene + random text -->
         <div class="container cntr-whiteb">
-            <div style="font-weight: bold;">most important thing </div>
+            <strong>most important thing    </strong>
             <div>Money: <code id="benzene" class="alt">⏣-</code></div>
             <hr>
             <div>Welcome home, human</div>
             <div id="rng-text"></div>
+        </div>
+
+        <!-- Perks -->
+        <div class="container cntr-whiteb">
+            <strong>Perks</strong>
+            <hr>
+            <!-- Level -->
+            <div id="level" title="Level">
+                <div id="level-n">1</div>
+                <div>&#9733;</div>
+            </div>
+            <hr>
+            <!-- the actual perks -->
+            <div id="perks-list">
+                <!-- perks go here -->
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal">
+            <!-- Content -->
+            <div id="modal-content">
+                <div id="modal-header">
+                    <!-- title -->
+                </div>
+                <div id="modal-desc">
+                    <!-- longer text here -->
+                </div>
+                <div id="modal-options">
+                    <!-- buttons here -->
+                </div>
+            </div>
         </div>
     </body>
 </html>

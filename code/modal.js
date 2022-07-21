@@ -5,6 +5,7 @@
 //  header              String
 //  desc                String
 //  buttons             Array of Objects
+//  disabled            Boolean *Optional
 //  buttons[i].class    String
 //  buttons[i].text     String
 //  buttons[i].code     Function
@@ -30,6 +31,7 @@ function modal(modalItems)
         button.innerHTML = item.text;
         button.setAttribute('type', 'button');
         button.className = item.class;
+        if (item.disabled) { button.setAttribute('disabled', ''); }
 
         // Insert to page
         modalOptions.appendChild(button);
@@ -76,6 +78,24 @@ const modals = {
                 class: 'good',
                 text: 'Yes, I am ready',
                 code() { start(); }
+            }
+        ]
+    },
+
+    purchaseConfirmation: {
+        header: 'Item Name',
+        desc: 'this is a cool item',
+        buttons: [
+            {
+                class: 'normal',
+                text: 'Back',
+                code() { document.getElementById('modal').style.display = 'none'; }
+            },
+
+            {
+                class: 'good',
+                text: 'Invaluable',
+                code() { /* purchase(item) */ }
             }
         ]
     }

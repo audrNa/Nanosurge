@@ -15,15 +15,15 @@ body {
 }
 
 #version {
-    display: flex;
-    justify-content: center;
+    width: max-content;
+    margin: 0 auto;
     color: #5cdbf7;
 }
 
 /* Navigation Bar */
 #navbar {
-    display: flex;
-    justify-content: center;
+    width: max-content;
+    margin: 0 auto;
 }
 
 #navbar > button {
@@ -233,4 +233,49 @@ code {
 code.alt {
     background-color: #343434;
     padding: 2px 3px;
+}
+
+/* Perks */
+
+#level {
+    width: max-content;
+    margin: 0 auto;
+    display: flex;
+    border: 1.5px solid #00e5ff;
+    border-radius: 7.5px;
+    padding: 4px;
+    font-weight: bold;
+    font-size: x-large;
+    user-select: none;
+}
+
+#perks-list {
+    display: inline-flex;
+}
+
+.perks {
+    --iro: #1a8dc7;
+    width: max-content;
+    padding: 4px;
+    margin: 2px;
+    border: 1px solid var(--iro);
+    border-radius: 5px;
+    color: var(--iro);
+    user-select: none;
+    cursor: pointer;
+}
+
+.perks:hover {
+    background-color: var(--iro);
+    color: #fff;
+}
+
+.perks:active {
+    filter: brightness(75%);
+}
+
+.p-price {
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: normal;
 }
