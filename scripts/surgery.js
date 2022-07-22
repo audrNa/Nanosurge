@@ -1,6 +1,6 @@
 // + surgery_cases.js, surgery_tools.js, surgery_check.js, surgery_modal.js
 
-const clickSound = new Audio('./static/Modern6.wav');
+const clickSound = new Audio('./static/sounds/Modern6.wav');
 const MALPRACTICE_COST = -50;
 
 // Status
@@ -318,7 +318,10 @@ document.addEventListener('DOMContentLoaded', () => {
     {
         // Make button
         const button = document.createElement('button');
-        button.innerHTML = `<code>${item.keybind.toUpperCase()}</code> <img draggable="false" src="./static/${item.sprite}">`;
+        button.innerHTML = `
+        <code>${item.keybind.toUpperCase()}</code>
+        <img draggable="false" src="./static/sprites/${item.sprite}">
+        `;
         button.setAttribute('type', 'button');
         button.setAttribute('disabled', '');
         button.setAttribute('class', 'tool');
