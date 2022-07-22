@@ -1,4 +1,5 @@
 // Surgery tools
+const nanodrillers = numbind(localStorage.getItem('nanosurge-perk-0'));
 
 /* Required Keys */
 // name
@@ -103,14 +104,21 @@ const TOOLS = [
         keybind: 'g',
         sprite: 'unscrew.png',
         use() {
-            // Can't stab awake person
+            // doing something like this to someone is kinda weird
             if (state == 0)
             {
                 return turnUpdate("The robot is still active.");
             }
 
-            // stabby stabby
-            casings++;
+            // Nanodrillers guaranteed and random bonus
+            const C = 4;
+            const bonus = Math.floor(nanodrillers / C);
+            const partialBonus = nanodrillers % C > 0 ? rng(0, 1) : 0;
+            const protection = casings < problem;
+
+            // Remove casing until requirement
+            casings += 1 + bonus + partialBonus;
+            if (protection && casings > problem) { casings = problem; }
 
             // 5% chance to give sparks
             if (rng(1, 20) == 1)
@@ -133,7 +141,17 @@ const TOOLS = [
                 return turnUpdate("There are no missing casings.");
             }
 
-            casings--;
+            // Nanodrillers guaranteed and random bonus
+            const C = 4;
+            const bonus = Math.floor(nanodrillers / C);
+            const partialBonus = nanodrillers % C > 0 ? rng(0, 1) : 0;
+            const protection = casings > problem;
+
+            // Rescrew casing until 0 or before requirement
+            casings -= 1 + bonus + partialBonus;
+            if (casings < 0) { casings = 0; }
+            if (protection && casings < problem) { casings = problem; }
+
             return turnUpdate("Rescrewed a casing.");
         }
     },

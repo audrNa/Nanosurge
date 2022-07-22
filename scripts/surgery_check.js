@@ -185,7 +185,7 @@ function spark()
     // Extra Message
     if (sparks > 0)
     {
-        let text = sparksTexts[Math.floor(sparks) - 1];
+        let text = sparksTexts[Math.round(sparks) - 1];
         extraMessage.add(text[0], text[1]);
     }
 }

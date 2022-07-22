@@ -250,7 +250,8 @@ code.alt {
 }
 
 #perks-list {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .perks {
@@ -265,17 +266,22 @@ code.alt {
     cursor: pointer;
 }
 
+.perks.p-max {
+    --iro: #5c29ba;
+}
+
 .perks:hover {
     background-color: var(--iro);
     color: #fff;
 }
 
-.perks:active {
-    filter: brightness(75%);
+.p-lvl {
+    color: #fff;
 }
 
 .p-price {
     font-family: monospace;
     font-size: 15px;
     font-weight: normal;
+    color: #fff;
 }

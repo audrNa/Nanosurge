@@ -216,8 +216,8 @@ function turnUpdate(message)
 
         const earnings = pay(checkResult[0] == 1 ? price : MALPRACTICE_COST);
         modals.surgeryEnd.desc += `<hr>
-        ${earnings[0] > 0 ? '+' : '-'} <code class="alt">${CURRENCY}${Math.abs(earnings[0])}</code> <br>
-        You now have <code class="alt">${CURRENCY}${earnings[1]}</code>.`;
+        ${earnings[0] > 0 ? '+' : '-'} <code class="alt">${CURRENCY}${thsp(Math.abs(earnings[0]))}</code> <br>
+        You now have <code class="alt">${CURRENCY}${thsp(earnings[1])}</code>.`;
 
         // Disable all tools
         for (const button of buttons)

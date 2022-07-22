@@ -17,6 +17,12 @@ function numbind(n)
     return 0;
 }
 
+// Thousands separator
+function thsp(n)
+{
+    return n.toLocaleString('en-US');
+}
+
 // Put version at the top of each page this file is included in
 document.addEventListener('DOMContentLoaded', () => {
     const div = document.createElement('div');
