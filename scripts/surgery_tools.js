@@ -212,8 +212,8 @@ const TOOLS = [
 
             // Magic Plier guaranteed and random bonus
             const C = 2;
-            const gB = Math.floor(scLvl / C);
-            const rngB = chance(scLvl % C / C);
+            const gB = Math.floor(mpLvl / C);
+            const rngB = chance(mpLvl % C / C);
             let bonus = gB + rngB;
 
             // Try to fix burnt cables
