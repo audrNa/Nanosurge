@@ -31,7 +31,7 @@ const CASES = [
 
     {
         name:           'Core Malfunction',
-        description:    "A condition where the core doesn't work properly. Symptoms include blacking out, confusion, death, etc..",
+        description:    "A condition where the core doesn't work properly. Symptoms include blacking out, confusion, sudden death, etc..",
         problem:        4,
         price:          20,
         eCurrent:       1,
@@ -46,7 +46,7 @@ const CASES = [
     {
         name:           'Inner Explosion',
         description:    "A condition where the core explodes due to some problems. The core can explode at random times and destroy the insides of a robot.",
-        problem:        4,
+        problem:        6,
         price:          50,
         eCurrent:       2,
         temp:           110,
@@ -74,8 +74,8 @@ const CASES = [
 
     {
         name:           'Major Injuries',
-        description:    "many thing broken, battle robots usually have this condition. Sparks appear often due to a broken thing.",
-        problem:        2,
+        description:    "Many broken parts, usual battle robot have this condition. Sparks may appear due to an internal injury.",
+        problem:        3,
         price:          20,
         eCurrent:       1,
         temp:           99.8,
@@ -109,9 +109,9 @@ const CASES = [
 
     {
         name:           'Broken Hand',
-        description:    "The hand was either twisted, smashed, destroyed, or just not working or whatever it's broken ok",
-        problem:        1,
-        price:          10,
+        description:    "hand brokey",
+        problem:        2,
+        price:          15,
         eCurrent:       0,
         temp:           99.8,
         brokenCables:   0,
@@ -123,9 +123,9 @@ const CASES = [
 
     {
         name:           'Broken Leg',
-        description:    "The leg was either twisted, smashed, destroyed, or just not working or whatever it's broken ok",
-        problem:        2,
-        price:          15,
+        description:    "leg brokey",
+        problem:        4,
+        price:          20,
         eCurrent:       1,
         temp:           99.8,
         brokenCables:   4,
@@ -137,12 +137,12 @@ const CASES = [
 
     {
         name:           'Broken Head',
-        description:    "The head was either twisted, smashed, destroyed, or just not working or whatever it's broken ok",
+        description:    "robot dumb",
         problem:        6,
         price:          30,
         eCurrent:       1,
         temp:           99.8,
-        brokenCables:   0,
+        brokenCables:   4,
         burntCables:    2,
         overheating:    false,
         sparks:         0,
@@ -165,13 +165,13 @@ const CASES = [
 
     {
         name:           'Missing Internal Part',
-        description:    "After manufacturing, the robot broke down due a missing part inside.",
+        description:    "After manufacturing, the robot broke down due a missing internal part.",
         problem:        3,
         price:          15,
         eCurrent:       1,
         temp:           99.8,
-        brokenCables:   2,
-        burntCables:    1,
+        brokenCables:   4,
+        burntCables:    0,
         overheating:    false,
         sparks:         1,
         dust:           0
@@ -181,7 +181,7 @@ const CASES = [
         name:           'Misplaced Limbs',
         description:    "Error on manufacturing, now the robot is stupid",
         problem:        3,
-        price:          15,
+        price:          20,
         eCurrent:       1,
         temp:           99.8,
         brokenCables:   4,
@@ -240,31 +240,31 @@ const CASES = [
         }
     },
 
-    {
-        name:           'Drenched in Water',
-        description:    "This non-waterproof robot fell into a river and fried all its electronics.",
-        problem:        6,
-        price:          25,
-        eCurrent:       2,
-        temp:           99.8,
-        brokenCables:   0,
-        burntCables:    0,
-        overheating:    false,
-        sparks:         3,
-        dust:           50
-    },
+    // {
+    //     name:           'Drenched in Water',
+    //     description:    "This non-waterproof robot fell into a river and fried all its electronics.",
+    //     problem:        10,
+    //     price:          50,
+    //     eCurrent:       2,
+    //     temp:           99.8,
+    //     brokenCables:   0,
+    //     burntCables:    0,
+    //     overheating:    false,
+    //     sparks:         3,
+    //     dust:           50
+    // },
 
-    {
-        name:           'Incinerated',
-        description:    "The robot was thrown into an incinerator. Fortunately, it was strong enough to survive but almost everything inside was burnt.",
-        problem:        15,
-        price:          50,
-        eCurrent:       2,
-        temp:           99.8,
-        brokenCables:   0,
-        burntCables:    20,
-        overheating:    false,
-        sparks:         0,
-        dust:           50
-    }
+    // {
+    //     name:           'Incinerated',
+    //     description:    "The robot was thrown into an incinerator. Fortunately, it was strong enough to survive but almost everything inside was burnt.",
+    //     problem:        15,
+    //     price:          75,
+    //     eCurrent:       2,
+    //     temp:           99.8,
+    //     brokenCables:   0,
+    //     burntCables:    20,
+    //     overheating:    false,
+    //     sparks:         0,
+    //     dust:           50
+    // }
 ];
