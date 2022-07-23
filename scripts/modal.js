@@ -84,7 +84,7 @@ const modals = {
 
     purchaseConfirmation: {
         header: 'Item Name',
-        desc: 'this is a cool item',
+        desc: 'this is a cool item, this field can contain html code and it will render the elements!',
         buttons: [
             {
                 class: 'normal',
@@ -94,7 +94,7 @@ const modals = {
 
             {
                 class: 'good',
-                text: 'Invaluable',
+                text: 'Price',
                 code() { /* purchase(item) */ }
             }
         ]

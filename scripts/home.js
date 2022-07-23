@@ -1,22 +1,45 @@
 // index.html
 
-// Player stats
-let benzene = numbind(localStorage.getItem('nanosurge-benzene'));
-let level = numbind(localStorage.getItem('nanosurge-level'));
-
 // Random text everytime you load this page
 const homeTexts = [
     'your home is boring',
     'Money here is called <code class="alt">⏣ Benzene</code>'
 ];
 
-// Create a button for a perk
-// Takes perk object as parameter
-function perkButton(perk)
+// List of loaded perks
+const pagePerks = new Object();
+
+// Update page data
+function update(perkId)
 {
-    // Variables
-    const perkPr = numbind(localStorage.getItem('nanosurge-perk-' + perk.id));
-    var price = CURRENCY + perk.price * (perkPr + 1);
+    // Get stats
+    const benzene = numbind(localStorage.getItem('nanosurge-benzene'));
+    const level = numbind(localStorage.getItem('nanosurge-level'));
+
+    // Update page
+    document.getElementById('benzene').innerHTML = CURRENCY + thsp(benzene);
+    document.getElementById('rng-text').innerHTML = homeTexts[rng(0, homeTexts.length - 1)];
+
+    // Update button if requested
+    if (perkId != null)
+    {
+        // get old and new button
+        const oldButton = pagePerks[perkId];
+        const newButton = perkButton(perkId);
+
+        // replace old button in page and list
+        oldButton.replaceWith(newButton);
+        pagePerks[perkId] = newButton;
+    }
+}
+
+// Create a button for a perk
+function perkButton(perkId)
+{
+    // Get perk data
+    const perk = PERKS[perkId];
+    const perkPr = fetchPerkPr(perkId);
+    var price = CURRENCY + fetchPerkPrice(perkId);
     var classes = 'perks';
 
     // Check if player has already maxed this perk
@@ -45,26 +68,27 @@ function perkButton(perk)
     div.appendChild(pricetag);
 
     // Add function
-    div.addEventListener('click', () => { itemPage(perk.id) });
+    div.addEventListener('click', () => { itemPage(perkId) });
 
     // Return the new element
     return div;
 }
 
 // Make modals for items
-function itemPage(item)
+function itemPage(perkId)
 {
-    // Get user info
-    const playerBenzene = numbind(localStorage.getItem('nanosurge-benzene'));
-    const perkPr = numbind(localStorage.getItem('nanosurge-perk-' + item));
-
-    // Get item info
+    // Get perk data and modal
+    const perk = PERKS[perkId];
     const itemModal = modals.purchaseConfirmation;
-    const price = PERKS[item].price * (perkPr + 1);
-    var priceDisplay = CURRENCY + thsp(price);
+
+    // Get player and item info
+    const playerBenzene = fetchPlayerBenzene();
+    const perkPr = fetchPerkPr(perkId);
+    const price = fetchPerkPrice(perkId);
+    let priceDisplay = CURRENCY + thsp(price);
 
     // Disable purchase button if they already maxed this perk
-    if (perkPr >= PERKS[item].limit)
+    if (perkPr >= perk.limit)
     {
         itemModal.buttons[1].disabled = true;
         priceDisplay = 'MAX';
@@ -79,14 +103,14 @@ function itemPage(item)
     {
         itemModal.buttons[1].disabled = false;
         itemModal.buttons[1].code = () => {
-            purchase(item);
+            purchase(perkId);
             document.getElementById('modal').style.display = 'none';
         };
     }
 
     // Set info
-    itemModal.header = `${PERKS[item].name} &#8212; LVL ${perkPr} / ${PERKS[item].limit}`;
-    itemModal.desc = PERKS[item].desc;
+    itemModal.header = `${perk.name} &#8212; LVL ${perkPr} / ${perk.limit}`;
+    itemModal.desc = perk.desc;
     itemModal.buttons[1].text = priceDisplay;
 
     // Make and flash modal
@@ -94,21 +118,23 @@ function itemPage(item)
 }
 
 // Purchase a perk
-function purchase(item)
+function purchase(perkId)
 {
-    const perkVar = 'nanosurge-perk-' + item;
-    const perkPr = numbind(localStorage.getItem(perkVar));
+    // Get perk and player data
+    const perkVar = 'nanosurge-perk-' + perkId;
+    const perk = PERKS[perkId];
+    const price = fetchPerkPrice(perkId);
     const playerBenzene = numbind(localStorage.getItem('nanosurge-benzene'));
-    const price = PERKS[item].price * (perkPr + 1);
+    const perkPr = numbind(localStorage.getItem(perkVar));
 
     // Check if perk exists
-    if (!PERKS[item])
+    if (!perk)
     {
         return 1;
     }
 
     // Check if perk is already maxed
-    if (perkPr >= PERKS[item].limit)
+    if (perkPr >= perk.limit)
     {
         return 2;
     }
@@ -125,11 +151,8 @@ function purchase(item)
     localStorage.setItem(perkVar, newLvl);
     localStorage.setItem('nanosurge-benzene', newAmount);
 
-    // Update page
-    document.getElementById('benzene').innerHTML = CURRENCY + thsp(newAmount);
-    const oldItem = document.getElementById('perks-list').children[item];
-    const newItem = perkButton(PERKS[item]);
-    oldItem.replaceWith(newItem);
+    // Update page and perk button
+    update(perkId);
 
     return 0;
 }
@@ -137,17 +160,38 @@ function purchase(item)
 // Load data
 document.addEventListener('DOMContentLoaded', () => {
     // Player benzene and random text
-    document.getElementById('benzene').innerHTML = CURRENCY + thsp(benzene);
-    document.getElementById('rng-text').innerHTML = homeTexts[rng(0, homeTexts.length - 1)];
+    update();
 
     // Perks
     const perksList = document.getElementById('perks-list');
-    for (const item of PERKS)
+    for (const item in PERKS)
     {
         // Create button
         const button = perkButton(item);
 
         // Insert to page
         perksList.appendChild(button);
+
+        // Put to list
+        pagePerks[item] = button;
     }
 });
+
+// Get player's progress on a perk
+function fetchPerkPr(perkId)
+{
+    return numbind(localStorage.getItem('nanosurge-perk-' + perkId));
+}
+
+// Get price of a perk based on player's perk progress
+function fetchPerkPrice(perkId)
+{
+    const pr = fetchPerkPr(perkId);
+    return PERKS[perkId].price * (pr * 0.5 + 1);
+}
+
+// Get player's money
+function fetchPlayerBenzene()
+{
+    return numbind(localStorage.getItem('nanosurge-benzene'));
+}
