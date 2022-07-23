@@ -2,8 +2,9 @@
 
 // Random text everytime you load this page
 const homeTexts = [
-    'your home is boring',
-    'Money here is called <code class="alt">⏣ Benzene</code>'
+    "your home is boring",
+    "Money here is called <code class='alt'>⏣ Benzene</code>",
+    "If a perk has over 100% bonus chance, you'll have chance for another bonus such as triple bonus at once!"
 ];
 
 // List of loaded perks
@@ -13,12 +14,13 @@ const pagePerks = new Object();
 function update(perkId)
 {
     // Get stats
-    const benzene = numbind(localStorage.getItem('nanosurge-benzene'));
-    const level = numbind(localStorage.getItem('nanosurge-level'));
+    const benzene = fetchPlayerBenzene();
+    const level = fetchPlayerLevel();
 
     // Update page
     document.getElementById('benzene').innerHTML = CURRENCY + thsp(benzene);
     document.getElementById('rng-text').innerHTML = homeTexts[rng(0, homeTexts.length - 1)];
+    document.getElementById('level-n').innerHTML = level;
 
     // Update button if requested
     if (perkId != null)
@@ -177,21 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Get player's progress on a perk
-function fetchPerkPr(perkId)
-{
-    return numbind(localStorage.getItem('nanosurge-perk-' + perkId));
-}
 
 // Get price of a perk based on player's perk progress
 function fetchPerkPrice(perkId)
 {
     const pr = fetchPerkPr(perkId);
     return PERKS[perkId].price * (pr * 0.5 + 1);
-}
-
-// Get player's money
-function fetchPlayerBenzene()
-{
-    return numbind(localStorage.getItem('nanosurge-benzene'));
 }

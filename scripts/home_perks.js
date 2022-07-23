@@ -1,6 +1,6 @@
 // Perks
 
-// Perks' key values can be used only once
+// Perks' key values can be used only once once released
 /* Required Keys */
 // name
 // desc
@@ -9,31 +9,35 @@
 
 const PERKS = {
     0: {
+        name: 'Soldering Certificate',
+        desc: `"Upgrade your soldering skills with money"
+        <ul>
+            <li>Allows you to solder an extra broken cable on the same turn.</li>
+            <li>Each level increases the bonus chance by <code class="alt">+50%</code>.</li>
+        </ul>`,
+        limit: 6,
+        price: 150
+    },
+
+    1: {
+        name: 'Magic Plier',
+        desc: `"A plier that may or may not be able to duplicate tape."
+        <ul>
+            <li>Allows you to fix an extra burnt cable on the same turn.</li>
+            <li>Each level increases the bonus chance by <code class="alt">+50%</code>.</li>
+        </ul>`,
+        limit: 6,
+        price: 150
+    },
+
+    2: {
         name: 'Nanodrillers',
         desc: `"Summon a few tiny robots to help unscrew and rescrew some casings for you!"
         <ul>
             <li>They kinda suck so there's only a chance they actually unscrew or rescrew on a turn.</li>
-            <li>Each level increases the chances of them helping, at some point they can do guaranteed help and have a chance for even more casings unscrewed/rescrewed at once!</li>
+            <li>Each level increases the chances of them helping by <code class="alt">+25%</code>.</li>
         </ul>`,
-        limit: 6,
-        price: 500
-    },
-
-    1: {
-        name: '2nd Perk',
-        desc: `"pls work
-        <ul>
-            <li>They kinda suck so there's only a chance they actually unscrew or rescrew on a turn.</li>
-            <li>Each level increases the chances of them helping, at some point they can do guaranteed help and have a chance for even more casings unscrewed/rescrewed at once!</li>
-        </ul>`,
-        limit: 6,
-        price: 100
-    },
-
-    2: {
-        name: '????',
-        desc: `a`,
-        limit: 6,
-        price: 500
+        limit: 8,
+        price: 250
     }
 };

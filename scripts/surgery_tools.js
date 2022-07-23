@@ -1,5 +1,9 @@
 // Surgery tools
-const nanodrillers = numbind(localStorage.getItem('nanosurge-perk-0'));
+
+// Perk levels
+const scLvl = fetchPerkPr(0);
+const mpLvl = fetchPerkPr(1);
+const ndLvl = fetchPerkPr(2);
 
 /* Required Keys */
 // name
@@ -45,9 +49,26 @@ const TOOLS = [
                 return turnUpdate("You need to remove a casing first.");
             }
 
-            // There are broken cables
-            brokenCables--;
-            return turnUpdate("Soldered the broken wire.");
+            // Soldering Certificate guaranteed and random bonus
+            const C = 2;
+            const gB = Math.floor(scLvl / C);
+            const rngB = chance(scLvl % C / C);
+            let bonus = gB + rngB;
+
+            // Try to fix broken cables
+            const past = brokenCables;
+            brokenCables -= 1 + bonus;
+
+            // Fix negative values
+            if (brokenCables < 0) { brokenCables = 0; }
+            bonus = past - brokenCables - 1;
+
+            // Update turn
+            let message = "Soldered <code>1</code> broken wire.";
+            if (bonus) {
+                message += `\n[SC]: You accidentally soldered an extra <code>${bonus}</code> broken cables!`;
+            }
+            return turnUpdate(message);
         }
     },
 
@@ -110,23 +131,24 @@ const TOOLS = [
                 return turnUpdate("The robot is still active.");
             }
 
+            // 5% chance to give sparks
+            sparks += chance(0.05);
+
             // Nanodrillers guaranteed and random bonus
             const C = 4;
-            const bonus = Math.floor(nanodrillers / C);
-            const partialBonus = nanodrillers % C > 0 ? rng(0, 1) : 0;
-            const protection = casings < problem;
+            const gB = Math.floor(ndLvl / C);
+            const rngB = chance(ndLvl % C / C);
+            const bonus = gB + rngB;
 
-            // Remove casing until requirement
-            casings += 1 + bonus + partialBonus;
-            if (protection && casings > problem) { casings = problem; }
+            // Remove casings
+            casings += 1 + bonus;
 
-            // 5% chance to give sparks
-            if (rng(1, 20) == 1)
-            {
-                sparks++;
+            // Update turn
+            let message = "Unscrewed <code>1</code> casing.";
+            if (bonus) {
+                message += `\n[Nanodrillers]: Unscrewed <code>${bonus}</code> casings!`;
             }
-
-            return turnUpdate("Unscrewed a casing.");
+            return turnUpdate(message);
         }
     },
 
@@ -143,16 +165,24 @@ const TOOLS = [
 
             // Nanodrillers guaranteed and random bonus
             const C = 4;
-            const bonus = Math.floor(nanodrillers / C);
-            const partialBonus = nanodrillers % C > 0 ? rng(0, 1) : 0;
-            const protection = casings > problem;
+            const gB = Math.floor(ndLvl / C);
+            const rngB = chance(ndLvl % C / C);
+            let bonus = gB + rngB;
 
-            // Rescrew casing until 0 or before requirement
-            casings -= 1 + bonus + partialBonus;
+            // Try to rescrew casings
+            const past = casings;
+            casings -= 1 + bonus;
+
+            // Fix negative values
             if (casings < 0) { casings = 0; }
-            if (protection && casings < problem) { casings = problem; }
+            bonus = past - casings - 1;
 
-            return turnUpdate("Rescrewed a casing.");
+            // Update turn
+            let message = "Rescrewed <code>1</code> casing.";
+            if (bonus) {
+                message += `\n[Nanodrillers]: Rescrewed <code>${bonus}</code> casings!`;
+            }
+            return turnUpdate(message);
         }
     },
 
@@ -180,10 +210,29 @@ const TOOLS = [
                 return turnUpdate("You need to remove a casing first.");
             }
 
-            // Fix burnt cables
-            burntCables--;
-            brokenCables++;
-            return turnUpdate("Retaped a burnt wire.");
+            // Magic Plier guaranteed and random bonus
+            const C = 2;
+            const gB = Math.floor(scLvl / C);
+            const rngB = chance(scLvl % C / C);
+            let bonus = gB + rngB;
+
+            // Try to fix burnt cables
+            const past = burntCables;
+            burntCables -= 1 + bonus;
+
+            // Fix negative values
+            if (burntCables < 0) { burntCables = 0; }
+            bonus = past - burntCables - 1;
+
+            // Convert to broken cables
+            brokenCables += 1 + bonus;
+
+            // Update turn
+            let message = "Retaped <code>1</code> burnt cable.";
+            if (bonus) {
+                message += `\n[Magic Plier]: You retaped <code>${bonus}</code> other cables with a cut of same tape!`;
+            }
+            return turnUpdate(message);
         }
     },
 

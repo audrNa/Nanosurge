@@ -9,6 +9,12 @@ function rng(min, max)
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+// Randomly return 1 based on c (0.0 to 1.0)
+function chance(c)
+{
+    return rng(1, 100) <= c * 100 ? 1 : 0;
+}
+
 // Convert strings to number / others to 0
 function numbind(n)
 {
