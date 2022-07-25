@@ -16,7 +16,7 @@ const TOOLS = [
     // Fix vision
     {
         name: 'Blower',
-        keybind: 'r',
+        keybind: 'q',
         sprite: 'blower.png',
         use() {
             const LIMIT = 20;
@@ -36,7 +36,7 @@ const TOOLS = [
     // Fix broken cables
     {
         name: 'Soldering Iron',
-        keybind: 't',
+        keybind: 'w',
         sprite: 'soldering_iron.png',
         use() {
             if (brokenCables <= 0)
@@ -75,7 +75,7 @@ const TOOLS = [
     // Clean site
     {
         name: 'Brush',
-        keybind: 'y',
+        keybind: 'e',
         sprite: 'brush.png',
         use() {
             dust -= 15;
@@ -93,7 +93,7 @@ const TOOLS = [
     // Help temperature
     {
         name: 'Coolant',
-        keybind: 'u',
+        keybind: 'i',
         sprite: 'coolant.png',
         use() {
             temp -= 6;
@@ -111,7 +111,7 @@ const TOOLS = [
     // Put patient to sleep
     {
         name: 'Disable',
-        keybind: 'f',
+        keybind: 'o',
         sprite: 'disable.png',
         use() {
             sleepTime += 26;
@@ -122,7 +122,7 @@ const TOOLS = [
     // Unscrew a casing
     {
         name: 'Screwdriver: Unscrew',
-        keybind: 'g',
+        keybind: 'p',
         sprite: 'unscrew.png',
         use() {
             // doing something like this to someone is kinda weird
@@ -155,7 +155,7 @@ const TOOLS = [
     // Undo unscrew
     {
         name: 'Screwdriver: Rescrew',
-        keybind: 'h',
+        keybind: 'a',
         sprite: 'rescrew.png',
         use() {
             if (casings <= 0)
@@ -189,7 +189,7 @@ const TOOLS = [
     // Fix burnt cables
     {
         name: 'Electrical Tape',
-        keybind: 'j',
+        keybind: 's',
         sprite: 'electrical_tape.png',
         use() {
             // Nothing to fix
@@ -239,7 +239,7 @@ const TOOLS = [
     // Fix electrical current
     {
         name: 'Generator',
-        keybind: 'v',
+        keybind: 'd',
         sprite: 'generator.png',
         use() {
             eCurrent--;
@@ -254,7 +254,7 @@ const TOOLS = [
     // Get patient's case
     {
         name: 'Scanner',
-        keybind: 'b',
+        keybind: 'k',
         sprite: 'scanner.png',
         use() {
             // Check if already scanned
@@ -282,7 +282,7 @@ const TOOLS = [
     // Fix stopped heart
     {
         name: 'Taser',
-        keybind: 'n',
+        keybind: 'l',
         sprite: 'taser.png',
         use() {
             // Fix core if dead
@@ -308,7 +308,7 @@ const TOOLS = [
     // Fix "problem"
     {
         name: 'Repair',
-        keybind: 'm',
+        keybind: ';',
         sprite: 'repair.png',
         use() {
             if (caseName == '?')
