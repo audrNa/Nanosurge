@@ -240,19 +240,19 @@ const CASES = [
         }
     },
 
-    // {
-    //     name:           'Drenched in Water',
-    //     description:    "This non-waterproof robot fell into a river and fried all its electronics.",
-    //     problem:        10,
-    //     price:          50,
-    //     eCurrent:       2,
-    //     temp:           99.8,
-    //     brokenCables:   0,
-    //     burntCables:    0,
-    //     overheating:    false,
-    //     sparks:         3,
-    //     dust:           50
-    // },
+    {
+        name:           'Drenched in Water',
+        description:    "This non-waterproof robot fell into a river and fried all its electronics.",
+        problem:        10,
+        price:          40,
+        eCurrent:       2,
+        temp:           99.8,
+        brokenCables:   0,
+        burntCables:    0,
+        overheating:    false,
+        sparks:         3,
+        dust:           50
+    },
 
     // {
     //     name:           'Incinerated',
