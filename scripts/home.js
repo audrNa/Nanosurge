@@ -164,6 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Player benzene and random text
     update();
 
+    // Level
+    document.getElementById('level').addEventListener('click', levelPage);
+
     // Perks
     const perksList = document.getElementById('perks-list');
     for (const item in PERKS)

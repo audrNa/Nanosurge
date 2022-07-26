@@ -296,15 +296,18 @@ function toolToggle()
     }
 }
 
-// Pay user for successful surgery
+// Add to player's money after surgery
 function pay(x)
 {
-    const earnings = numbind(x);
-    const item = numbind(localStorage.getItem('nanosurge-benzene'));
+    // Calculate earnings | x * 1.5 * (playerLevel - 1)
+    const earnings = Math.round(numbind(x) * Math.pow(1.5, fetchPlayerLevel() - 1));
 
-    const newAmount = item + earnings;
+    // Set new money
+    const money = fetchPlayerBenzene();
+    const newAmount = money + earnings;
     localStorage.setItem('nanosurge-benzene', newAmount);
 
+    // Return gain and player's new amount of money
     return [earnings, newAmount];
 }
 
