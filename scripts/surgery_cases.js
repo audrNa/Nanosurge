@@ -21,8 +21,10 @@ switch (fetchPlayerLevel())
         // Level 4 up: All
     case 4:
         // TODO
+        setCaseLevel(4);
     case 3:
         // TODO
+        setCaseLevel(3);
     case 2:
         // TODO
         CASES.push(
@@ -60,7 +62,7 @@ switch (fetchPlayerLevel())
 
         {
             name:           'Destroyed Robot',
-            description:    "A robot that has been entirely destroyed but somehow still alive. Nearly every part of it doesn't work, it has been partially repaired to not spark a lot.",
+            description:    "A robot that has been entirely destroyed but somehow still alive. Nearly every part of it doesn't work. It has been partially repaired to not spark a lot.",
             problem:        20,
             price:          40,
             eCurrent:       1,
@@ -72,7 +74,28 @@ switch (fetchPlayerLevel())
             dust:           25
         },
 
+        {
+            name:           'Rusty Robot',
+            description:    "A rusty old robot, been running for years or even decades depending on the quality. These robots are still good enough to be upgraded, this one requires some surgery to replace a few parts before getting upgraded.",
+            problem:        6,
+            price:          35,
+            eCurrent:       2,
+            temp:           99.8,
+            brokenCables:   10,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           40,
+            special() {
+                // NepTec (Perk) from surgery_check.js
+
+                // More dust
+                dust += 7 * Math.pow(0.5, NepTec);
+            }
+        },
+
         );
+        setCaseLevel(2);
 
     case 1:
         CASES.push(
@@ -326,8 +349,40 @@ switch (fetchPlayerLevel())
             overheating:    false,
             sparks:         3,
             dust:           50
+        },
+
+        {
+            name:           'Brain Lag',
+            description:    "A condition where robots have issues processing information. They can be slow to respond at times, sometimes they don't respond at all and forget the situation. Their system crashes sometimes and fall asleep.",
+            problem:        6,
+            price:          0,
+            eCurrent:       1,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // While active, 10% chance to fall asleep (deactivate) for 10 turns
+                if (sleepTime < 0 && rng(1, 10) == 1)
+                {
+                    sleepTime = 10;
+                }
+            }
         }
 
         );
+        setCaseLevel(1);
+}
 
+// Sets level x for each case without a level
+function setCaseLevel(x)
+{
+    for (const item of CASES)
+    {
+        if (!item.level) {
+            item.level = x;
+        }
+    }
 }

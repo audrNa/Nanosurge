@@ -7,6 +7,7 @@ const MALPRACTICE_COST = -50;
 let CASE;
 
 let caseName;
+let caseLevel;
 let description;
 let problem;
 let price;
@@ -50,6 +51,7 @@ function start(s)
     // Get a random case
     CASE = s != undefined ? CASES[s] : CASES[rng(0, CASES.length - 1)];
     caseName = '?';
+    caseLevel = 0;
     description = 'Waiting for scan...';
     problem = CASE.problem;
     price = CASE.price;
@@ -155,6 +157,18 @@ const STATUS = [
     {
         id: 'case-description',
         value() {return [description, '']; }
+    },
+
+    {
+        id: 'case-level-n',
+        items: [
+            'normal',
+            'good',
+            'normal',
+            'warning',
+            'bad'
+        ],
+        value() { return [caseLevel ? caseLevel : '?', this.items[caseLevel]]; }
     }
 ];
 
