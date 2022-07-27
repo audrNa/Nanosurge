@@ -99,12 +99,6 @@ const STATUS = [
         value() { return [caseName, '']; }
     },
 
-    // not status but i need it this way
-    {
-        id: 'case-description',
-        value() {return [description, '']; }
-    },
-
     {
         id: 'e-current',
         items: [
@@ -156,6 +150,32 @@ const STATUS = [
             ['Covered in Dust', 'bad']
         ],
         value() { return this.items[site]; }
+    },
+
+    {
+        id: 'case-description',
+        value() {return [description, '']; }
+    }
+];
+
+// Status items that hide themselves if not an issue
+const STATUS_2 = [
+    {
+        id: 'casings',
+        class: 'bad',
+        value() { return casings; }
+    },
+
+    {
+        id: 'broken-cables',
+        class: 'warning',
+        value() { return brokenCables; }
+    },
+
+    {
+        id: 'burnt-cables',
+        class: 'bad',
+        value() { return burntCables; }
     }
 ];
 
@@ -174,50 +194,56 @@ function turnUpdate(message)
     }
 
     // Status 2
-    // this is here because the variables inside need to be checked each time
-    const bodyInfo = [
-        ['casings', casings, 'bad'],
-        ['broken-cables', brokenCables, 'warning'],
-        ['burnt-cables', burntCables, 'bad']
-    ];
-    for (const item of bodyInfo)
+    for (const item of STATUS_2)
     {
-        if (item[1] > 0)
+        const itemValue = item.value();
+        // Show item if relevant
+        if (itemValue > 0)
         {
-            let row = document.getElementById(item[0]);
-            row.childNodes[3].innerHTML = `<code class="text-${item[2]}">${item[1]}</code>`;
+            let row = document.getElementById(item.id);
+            row.childNodes[3].innerHTML = `<code class="text-${item.class}">${itemValue}</code>`;
             row.removeAttribute('hidden');
         }
+        // Hide if this is not a problem
         else
         {
-            document.getElementById(item[0]).setAttribute('hidden', '');
+            document.getElementById(item.id).setAttribute('hidden', '');
         }
     }
 
-    // Extra Info
+    // Body Data
     document.getElementById('extra-message').innerHTML = extraMessage.text ?
     extraMessage.text : "<div class='text-good'>No other abnormalities detected.</div>";
 
-    extraMessage.text = "";   // Reset so it can be checked again
+    // Reset so it can be checked again
+    extraMessage.text = "";
 
     // Turn Message
     document.getElementById('message').innerHTML = message;
 
-    // Disable tools if needed
+    // Disable irrelevant tools
     toolToggle();
 
     // Check result if end
     if (checkResult[0] != 0)
     {
-        // Make modal
+        /* Make modal */
         const headers = ["Surgery Successful", "Surgery Failed"];
-        modals.surgeryEnd.header = headers[checkResult[0] - 1];
-        modals.surgeryEnd.desc = checkResult[1];
+        const endModal = modals.surgeryEnd;
+        endModal.header = headers[checkResult[0] - 1];
+        endModal.desc = checkResult[1];
 
+        // Pay based on success or loss
         const earnings = pay(checkResult[0] == 1 ? price : MALPRACTICE_COST);
-        modals.surgeryEnd.desc += `<hr>
-        ${earnings[0] > 0 ? '+' : '-'} <code class="alt">${CURRENCY}${thsp(Math.abs(earnings[0]))}</code> <br>
-        You now have <code class="alt">${CURRENCY}${thsp(earnings[1])}</code>.`;
+
+        // Description
+        const intSign = earnings[0] > 0 ? '+' : '-';
+        const moneyChange = CURRENCY + thsp(Math.abs(earnings[0]));
+        const newTotal = CURRENCY + thsp(earnings[1]);
+        endModal.desc += `<hr>
+        ${intSign} <code class="alt">${moneyChange}</code>
+        <br>
+        You now have <code class="alt">${newTotal}</code>.`;
 
         // Disable all tools
         for (const button of buttons)
@@ -226,13 +252,12 @@ function turnUpdate(message)
         }
 
         // Flash modal
-        modal(modals.surgeryEnd);
+        modal(endModal);
 
         // Allow player to safely close tab
         window.onbeforeunload = () => {};
         window.onunload = () => {};
     }
-
     return 0;
 }
 
