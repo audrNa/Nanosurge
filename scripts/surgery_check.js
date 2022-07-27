@@ -1,4 +1,5 @@
 // check() stuff
+const NepTec = fetchPerkPr(5);
 
 // Check if job is done or keep going and make things harder
 // Returns an array of a number and a string
@@ -71,7 +72,7 @@ function dustSpread()
     if (dust < 0) { dust = 0; }
 
     // + dust every turn
-    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks);
+    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks) * Math.pow(0.5, NepTec);
 
     // dust make operation site dirty
     vision = true;

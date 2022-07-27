@@ -41,7 +41,7 @@ switch (fetchPlayerLevel())
         },
 
         {
-            name:           'EX-0727 Virus',
+            name:           'Nanoextremus Parasite',
             description:    "A tiny (nano) robot that invades robots' bodies and attacks the core. They make it so that the core is always heating up until it explodes.",
             problem:        4,
             price:          30,

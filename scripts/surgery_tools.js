@@ -1,9 +1,11 @@
 // Surgery tools
 
 // Perk levels
-const scLvl = fetchPerkPr(0);
-const mpLvl = fetchPerkPr(1);
-const ndLvl = fetchPerkPr(2);
+const SolCer = fetchPerkPr(0);
+const MagPlr = fetchPerkPr(1);
+const NanDlr = fetchPerkPr(2);
+const ResAdh = fetchPerkPr(3);
+const ExtFue = fetchPerkPr(4);
 
 /* Required Keys */
 // name
@@ -51,8 +53,8 @@ const TOOLS = [
 
             // Soldering Certificate guaranteed and random bonus
             const C = 2;
-            const gB = Math.floor(scLvl / C);
-            const rngB = chance(scLvl % C / C);
+            const gB = Math.floor(SolCer / C);
+            const rngB = chance(SolCer % C / C);
             let bonus = gB + rngB;
 
             // Try to fix broken cables
@@ -136,8 +138,8 @@ const TOOLS = [
 
             // Nanodrillers guaranteed and random bonus
             const C = 4;
-            const gB = Math.floor(ndLvl / C);
-            const rngB = chance(ndLvl % C / C);
+            const gB = Math.floor(NanDlr / C);
+            const rngB = chance(NanDlr % C / C);
             const bonus = gB + rngB;
 
             // Remove casings
@@ -165,8 +167,8 @@ const TOOLS = [
 
             // Nanodrillers guaranteed and random bonus
             const C = 4;
-            const gB = Math.floor(ndLvl / C);
-            const rngB = chance(ndLvl % C / C);
+            const gB = Math.floor(NanDlr / C);
+            const rngB = chance(NanDlr % C / C);
             let bonus = gB + rngB;
 
             // Try to rescrew casings
@@ -201,8 +203,23 @@ const TOOLS = [
             // Fix sparks first
             if (sparks > 0)
             {
-                sparks--;
-                return turnUpdate("Taped a sparking wire.");
+                // Resistant Adhesive bonus
+                let bonus = ResAdh;
+
+                // Try to fix sparks
+                const past = sparks;
+                sparks -= 1 + bonus;
+
+                // Fix negative values
+                if (sparks < 0) { sparks = 0; }
+                bonus = past - sparks - 1;
+
+                // Update turn
+                let message = "Taped a sparking wire.";
+                if (bonus) {
+                    message += `\n[Res. Adhesive] The tape resisted <code>${bonus}</code> other sparks!`;
+                }
+                return turnUpdate(message);
             }
 
             if (casings <= 0)
@@ -212,8 +229,8 @@ const TOOLS = [
 
             // Magic Plier guaranteed and random bonus
             const C = 2;
-            const gB = Math.floor(mpLvl / C);
-            const rngB = chance(mpLvl % C / C);
+            const gB = Math.floor(MagPlr / C);
+            const rngB = chance(MagPlr % C / C);
             let bonus = gB + rngB;
 
             // Try to fix burnt cables
@@ -242,12 +259,24 @@ const TOOLS = [
         keybind: 'd',
         sprite: 'generator.png',
         use() {
-            eCurrent--;
-            if (eCurrent < 0)
-            {
-                eCurrent = 0;
+            // Extra Fuel bonus
+            let bonus = ExtFue;
+
+            // Try to subtract
+            const past = eCurrent;
+            eCurrent -= 1 + bonus;
+
+            // Fix negative values
+            if (eCurrent < 0) { eCurrent = 0; }
+            bonus = past - eCurrent - 1;
+            if (bonus < 0) { bonus = 0; }
+
+            // Update turn
+            let message = "Reenergized the robot with energy from the generator.";
+            if (bonus) {
+                message += `\n[Extra Fuel]: The generator gave <code>${bonus}x</code> more energy!`;
             }
-            return turnUpdate("Reenergized the robot with energy from the generator.");
+            return turnUpdate(message);
         }
     },
 
@@ -288,7 +317,7 @@ const TOOLS = [
             // Fix core if dead
             if (!core)
             {
-                eCurrent = 2;
+                if (eCurrent > 2) {eCurrent = 2; }
                 core = true;
                 return turnUpdate("You shocked the robot's core back to life!");
             }

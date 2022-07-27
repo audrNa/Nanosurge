@@ -1,6 +1,6 @@
 // Perks
 
-// Perks' key values can be used only once once released
+// Perks' key numbers can be used only once once released
 /* Required Keys */
 // name
 // desc
@@ -31,9 +31,34 @@ function setPerks()
             {
                 3: {
                     name: 'Resistant Adhesive',
-                    desc: 'kikuohana',
-                    limit: 100,
-                    price: 100
+                    desc: `"Better electrical tapes"
+                    <ul>
+                        <li>Allows you to fix more sparks at once.</li>
+                        <li>Each level increases the bonus fixes by <code class="alt">1</code>.</li>
+                    </ul>`,
+                    limit: 3,
+                    price: 500
+                },
+
+                4: {
+                    name: 'Extra Fuel',
+                    desc: `"Extra fuel to use for generating more electrical current!"
+                    <ul>
+                        <li>Allows you to supply more electrical current at once.</li>
+                        <li>Each level increases the bonus supplies by <code class="alt">1</code>.</li>
+                    </ul>`,
+                    limit: 2,
+                    price: 300
+                },
+
+                5: {
+                    name: 'Anti-dust Tech',
+                    desc: `"From <code class="alt">Nep Co.</code>, they provide amazing technology to decrease the appearance of dust!"
+                    <ul>
+                        <li>Passive Perk: Halves dust accumulation per turn.</li>
+                    </ul>`,
+                    limit: 1,
+                    price: 1500
                 }
             });
         case 1:
