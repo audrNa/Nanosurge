@@ -18,10 +18,7 @@ function modal(modalItems)
     const modalOptions = document.getElementById('modal-options');
 
     // Delete previously created buttons
-    while (modalOptions.children.length > 0)
-    {
-        modalOptions.removeChild(modalOptions.lastChild);
-    }
+    modalOptions.innerHTML = '';
 
     // Make buttons
     for (const item of modalItems.buttons)

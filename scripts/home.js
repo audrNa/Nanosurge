@@ -76,6 +76,28 @@ function perkButton(perkId)
     return div;
 }
 
+// Updates all perks and elements in perks-list
+function perksListUpdate()
+{
+    // Set unlocked perks
+    setPerks();
+
+    // Update perks list
+    const perksList = document.getElementById('perks-list');
+    perksList.innerHTML = '';
+    for (const item in PERKS)
+    {
+        // Create button
+        const button = perkButton(item);
+
+        // Insert to page
+        perksList.appendChild(button);
+
+        // Put to list
+        pagePerks[item] = button;
+    }
+}
+
 // Make modals for items
 function itemPage(perkId)
 {
@@ -168,18 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('level').addEventListener('click', levelPage);
 
     // Perks
-    const perksList = document.getElementById('perks-list');
-    for (const item in PERKS)
-    {
-        // Create button
-        const button = perkButton(item);
-
-        // Insert to page
-        perksList.appendChild(button);
-
-        // Put to list
-        pagePerks[item] = button;
-    }
+    perksListUpdate();
 });
 
 

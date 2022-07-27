@@ -61,8 +61,9 @@ function levelUp()
     localStorage.setItem('nanosurge-benzene', playerBenzene - levelUpPrice());
     localStorage.setItem('nanosurge-level', clvl + 1);
 
-    // Update page
+    // Update page and all perks
     update();
+    perksListUpdate();
 }
 
 // Check requirements

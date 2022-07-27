@@ -30,7 +30,7 @@ switch (fetchPlayerLevel())
             name:           'Incinerated',
             description:    "The robot was thrown into an incinerator. Fortunately, it was strong enough to survive but almost everything inside was burnt.",
             problem:        15,
-            price:          75,
+            price:          50,
             eCurrent:       2,
             temp:           99.8,
             brokenCables:   0,
@@ -38,14 +38,47 @@ switch (fetchPlayerLevel())
             overheating:    false,
             sparks:         0,
             dust:           50
-        }
+        },
+
+        {
+            name:           'EX-0727 Virus',
+            description:    "A tiny (nano) robot that invades robots' bodies and attacks the core. They make it so that the core is always heating up until it explodes.",
+            problem:        4,
+            price:          30,
+            eCurrent:       0,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    true,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // Always overheating until fixed
+                overheating = true;
+            }
+        },
+
+        {
+            name:           'Destroyed Robot',
+            description:    "A robot that has been entirely destroyed but somehow still alive. Nearly every part of it doesn't work, it has been partially repaired to not spark a lot.",
+            problem:        20,
+            price:          40,
+            eCurrent:       1,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           25
+        },
 
         );
+
     case 1:
         CASES.push(
         {
             name:           'Mechaflu',
-            description:    "A mysterious condition where robots heat up like a human fever.",
+            description:    "A mysterious condition where robots heat up as if they have a human fever.",
             problem:        0,
             price:          10,
             eCurrent:       0,
@@ -68,7 +101,20 @@ switch (fetchPlayerLevel())
             burntCables:    0,
             overheating:    true,
             sparks:         0,
-            dust:           0
+            dust:           0,
+            special() {
+                // Core will suddenly die (1/50 chance)
+                if (rng(1, 50) == 1)
+                {
+                    eCurrent = 4;
+                }
+
+                // Suddenly have overheating (1/10 chance)
+                if (rng(1, 10) == 1)
+                {
+                    overheating = true;
+                }
+            }
         },
 
         {
@@ -283,4 +329,5 @@ switch (fetchPlayerLevel())
         }
 
         );
+
 }
