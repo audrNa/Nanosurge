@@ -4,35 +4,38 @@ const clickSound = new Audio('./static/sounds/Modern6.wav');
 const MALPRACTICE_COST = -50;
 
 // Status
-let CASE;
+var CASE;
 
-let caseName;
-let caseLevel;
-let description;
-let problem;
-let price;
+var caseName;
+var caseLevel;
+var description;
+var problem;
+var price;
 
 // Status variables 1
-let eCurrent;
-let state;
-let temp;
-let site;
+var eCurrent;
+var state;
+var temp;
+var site;
 
 // Status variables 2
-let casings;
-let brokenCables;
-let burntCables;
+var casings;
+var brokenCables;
+var burntCables;
 
 // Status variables 3
-let core;
-let vision;
+var core;
+var vision;
 
 // Changes over turns
-let overheating;
-let sleepTime;
-let resuscitationTime;
-let dust;
-let sparks;
+var overheating;
+var sleepTime;
+var resuscitationTime;
+var dust;
+var sparks;
+
+// Global object for special cases
+var Special = {};
 
 // Body Data
 let extraMessage = {
@@ -73,10 +76,13 @@ function start(s)
 
     // Changes over turns
     overheating = CASE.overheating;
-    sleepTime = 0;
+    sleepTime = -1;
     resuscitationTime = 0;
     dust = CASE.dust;
     sparks = CASE.sparks;
+
+    // Reset global object for special cases
+    Special = {};
 
     // Start game
     turnUpdate("You are ready to operate on the robot.");

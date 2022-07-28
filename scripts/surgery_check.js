@@ -72,7 +72,7 @@ function dustSpread()
     if (dust < 0) { dust = 0; }
 
     // + dust every turn
-    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks) * Math.pow(0.5, NepTec);
+    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks * 0.5) * Math.pow(0.5, NepTec);
 
     // dust make operation site dirty
     vision = true;
@@ -186,7 +186,7 @@ function spark()
     // Extra Message
     if (sparks > 0)
     {
-        let text = sparksTexts[Math.round(sparks) - 1];
+        let text = sparksTexts[Math.ceil(sparks) - 1];
         extraMessage.add(text[0], text[1]);
     }
 }

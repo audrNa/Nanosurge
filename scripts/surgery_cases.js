@@ -44,13 +44,13 @@ switch (fetchPlayerLevel())
 
         {
             name:           'Nanoextremus Parasite',
-            description:    "A tiny (nano) robot that invades robots' bodies and attacks the core. They make it so that the core is always heating up until it explodes.",
+            description:    "A tiny robot that invades robots' bodies and attacks the core. They make it so that the core is always heating up until it explodes.",
             problem:        4,
             price:          30,
             eCurrent:       0,
             temp:           99.8,
             brokenCables:   0,
-            burntCables:    0,
+            burntCables:    8,
             overheating:    true,
             sparks:         0,
             dust:           0,
@@ -67,7 +67,7 @@ switch (fetchPlayerLevel())
             price:          40,
             eCurrent:       1,
             temp:           99.8,
-            brokenCables:   0,
+            brokenCables:   25,
             burntCables:    0,
             overheating:    false,
             sparks:         0,
@@ -93,6 +93,169 @@ switch (fetchPlayerLevel())
                 dust += 7 * Math.pow(0.5, NepTec);
             }
         },
+
+        {
+            name:           'Nightmare Trauma',
+            description:    "A condition where the robot had a traumatic experience in a dream that caused its brain and core to be paralyzed. It appears there is a spark at the robot's brain.",
+            problem:        10,
+            price:          50,
+            eCurrent:       2,
+            temp:           105,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // Always deactivated but still allow permasleep to happen
+                if (sleepTime == -1 || sleepTime == 4) {
+                    sleepTime = 5;
+                } else {
+                    sleepTime = 727 + 1;
+                }
+
+                // 1/25 chance to start overheating
+                if (rng(1, 25) == 1)
+                {
+                    overheating = true;
+                }
+
+                // While at 10 casings, start a lvl 1 spark
+                if (casings >= 10 && sparks == 0)
+                {
+                    sparks = 1;
+                }
+            }
+        },
+
+        {
+            name:           'Panicked Core',
+            description:    "A condition where the robot is unable to control their core and it could suddenly die, they also are barely able to sleep. The abused core has also caused other problems beyond itself.",
+            problem:        8,
+            price:          30,
+            eCurrent:       0,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    10,
+            overheating:    true,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // 10% chance to kill core
+                if (rng(1, 10) == 1)
+                {
+                    /* turns + 1 because this is executed before
+                       it checks if core is dead and counts down */
+                    core = false;
+                    resuscitationTime = 2 + 1;
+                }
+
+                // Wake up 2x faster
+                if (sleepTime > -1)
+                {
+                    sleepTime--;
+                }
+            }
+        },
+
+        {
+            name:           'Charged Sparks',
+            description:    "A condition where charged sparks are created inside the robot. These sparks can last long bouncing inside the robot and can create disturbance for the robot.",
+            problem:        5,
+            price:          66,
+            eCurrent:       0,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    15,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // Start some sparks when a casing is fixed
+                if (Special.pastCasings < casings)
+                {
+                    sparks += 2;
+                }
+
+                // Keep track
+                Special.pastCasings = casings;
+            }
+        },
+
+        {
+            name:           'Nanodrillers',
+            description:    "This robot is being attacked by Nanodrillers and slowly getting its casings removed. There is an object deep inside the robot that Nanodrillers are attracted to.",
+            problem:        10,
+            price:          30,
+            eCurrent:       0,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // 10% chance to automatically remove casings
+                if (rng(1, 2) == 1)
+                {
+                    casings++;
+                }
+            }
+        },
+
+        {
+            name:           'Extreme Sparks',
+            description:    "A condition where the sparks are abnormally strong and can tear through anything.",
+            problem:        10,
+            price:          50,
+            eCurrent:       0,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    8,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // Every 3 turns
+                let i = numbind(Special.i);
+                if (i != 3)
+                {
+                    Special.i = i + 1;
+                    return;
+                }
+
+                // Increase sparks
+                sparks += 1.5;
+                Special.i = 0;
+            }
+        },
+
+        {
+            name:           'Electrical Parasite',
+            description:    "An electricity-eating parasite has invaded this robot's electrical current, it eats all the electricity at an insanely fast rate. It has also caused other issues as it followed the typical route to the current.",
+            problem:        10,
+            price:          40,
+            eCurrent:       3,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // Every 2 turns
+                let i = numbind(Special.i);
+                if (i != 2)
+                {
+                    Special.i = i + 1;
+                    return;
+                }
+
+                // eat e-current
+                eCurrent += 1.5;
+                Special.i = 0;
+            }
+        }
 
         );
         setCaseLevel(2);
@@ -353,9 +516,9 @@ switch (fetchPlayerLevel())
 
         {
             name:           'Brain Lag',
-            description:    "A condition where robots have issues processing information. They can be slow to respond at times, sometimes they don't respond at all and forget the situation. Their system crashes sometimes and fall asleep.",
+            description:    "A condition where robots have issues processing information. They can be slow to respond at times, sometimes they don't respond at all and forget the situation. Sometimes their system crashes and restarts for a while.",
             problem:        6,
-            price:          0,
+            price:          20,
             eCurrent:       1,
             temp:           99.8,
             brokenCables:   0,
