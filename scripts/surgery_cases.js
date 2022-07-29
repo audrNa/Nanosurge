@@ -162,7 +162,7 @@ switch (fetchPlayerLevel())
             name:           'Charged Sparks',
             description:    "A condition where charged sparks are created inside the robot. These sparks can last long bouncing inside the robot and can create disturbance for the robot.",
             problem:        5,
-            price:          66,
+            price:          40,
             eCurrent:       0,
             temp:           99.8,
             brokenCables:   0,
@@ -216,9 +216,9 @@ switch (fetchPlayerLevel())
             sparks:         0,
             dust:           0,
             special() {
-                // Every 3 turns
+                // Every 4 turns
                 let i = numbind(Special.i);
-                if (i != 3)
+                if (i != 4)
                 {
                     Special.i = i + 1;
                     return;
@@ -253,6 +253,7 @@ switch (fetchPlayerLevel())
 
                 // eat e-current
                 eCurrent += 1.5;
+                if (eCurrent > 4) { eCurrent = 4; }
                 Special.i = 0;
             }
         }
@@ -336,7 +337,7 @@ switch (fetchPlayerLevel())
             name:           'Major Injuries',
             description:    "Many broken parts, usual battle robot have this condition. Sparks may appear due to an internal injury.",
             problem:        3,
-            price:          20,
+            price:          35,
             eCurrent:       1,
             temp:           99.8,
             brokenCables:   6,
@@ -467,7 +468,7 @@ switch (fetchPlayerLevel())
                 // Buff overheating by +2.5 temp
                 if (overheating)
                 {
-                    temp += rng(2, 3);
+                    temp += 2.5;
                     return;
                 }
 
