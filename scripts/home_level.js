@@ -113,6 +113,15 @@ const levelUpReqs = {
             [0, 4], /* Soldering Certificate LVL 4 */
             [1, 4], /* Magic Pliers LVL 4 */
             [2, 2]  /* Nanodrillers LVL 2 */
-        ],
+        ]
+    },
+
+    2: {
+        perks: [
+            [2, 4], /* Nanodrillers LVL 4 */
+            [3, 2], /* Resistant Adhesive LVL 2 */
+            [4, 1], /* Extra Fuel LVL 1 */
+            [5, 1] /* Anti-dust Tech LVL 1 */
+        ]
     }
 };

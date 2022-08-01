@@ -217,7 +217,7 @@ const TOOLS = [
                 // Update turn
                 let message = "Taped a sparking wire.";
                 if (bonus >= 1.0) {
-                    message += `\n[Res. Adhesive] The tape resisted <code>${bonus}</code> other sparks!`;
+                    message += `\n[Res. Adhesive] The tape resisted <code>${Math.ceil(bonus)}</code> other sparks!`;
                 }
                 return turnUpdate(message);
             }
@@ -274,7 +274,7 @@ const TOOLS = [
             // Update turn
             let message = "Reenergized the robot with energy from the generator.";
             if (bonus >= 1.0) {
-                message += `\n[Extra Fuel]: Bonus <code>+${bonus}</code> energy!`;
+                message += `\n[Extra Fuel]: Bonus <code>+${Math.floor(bonus)}</code> levels of energy!`;
             }
             return turnUpdate(message);
         }
