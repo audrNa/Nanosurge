@@ -72,7 +72,7 @@ function dustSpread()
     if (dust < 0) { dust = 0; }
 
     // + dust every turn
-    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks * 0.5) * Math.pow(0.5, NepTec);
+    dust += 1 * (1 + casings * 0.5) * (1 + site * 0.5) * (1 + sparks * 0.25) * Math.pow(0.5, NepTec);
 
     // dust make operation site dirty
     vision = true;

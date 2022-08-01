@@ -198,5 +198,5 @@ document.addEventListener('DOMContentLoaded', () => {
 function fetchPerkPrice(perkId)
 {
     const pr = fetchPerkPr(perkId);
-    return PERKS[perkId].price * (pr * 0.5 + 1);
+    return Math.round(PERKS[perkId].price * (pr * 0.5 + 1));
 }

@@ -36,8 +36,8 @@ function setPerks()
                         <li>Allows you to fix more sparks at once.</li>
                         <li>Each level increases the bonus fixes by <code class="alt">1</code>.</li>
                     </ul>`,
-                    limit: 3,
-                    price: 500
+                    limit: 2,
+                    price: 666.4
                 },
 
                 4: {
@@ -48,7 +48,7 @@ function setPerks()
                         <li>Each level increases the bonus supplies by <code class="alt">1</code>.</li>
                     </ul>`,
                     limit: 2,
-                    price: 300
+                    price: 500
                 },
 
                 5: {

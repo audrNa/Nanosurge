@@ -256,6 +256,59 @@ switch (fetchPlayerLevel())
                 if (eCurrent > 4) { eCurrent = 4; }
                 Special.i = 0;
             }
+        },
+
+        {
+            name:           'Acidized Body',
+            description:    "The robot was splashed with acid.",
+            problem:        25,
+            price:          55,
+            eCurrent:       1,
+            temp:           99.8,
+            brokenCables:   20,
+            burntCables:    30,
+            overheating:    false,
+            sparks:         0,
+            dust:           0
+        },
+
+        {
+            name:           'Unstable Electrical Container',
+            description:    "The storage for the robot's electrical current is broken and would sometimes leak everything out. The leaked electricity also destroyed other parts of the robot.",
+            problem:        15,
+            price:          0,
+            eCurrent:       3,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // chance to brrr sparks jumpscare
+                if (rng(1, 20) == 6)
+                {
+                    sparks = 3;
+                }
+            }
+        },
+
+        {
+            name:           'Internal Sparks',
+            description:    "The robot's current is leaking out internally and slowly getting wasted.",
+            problem:        8,
+            price:          30,
+            eCurrent:       0,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // Minimum lvl 1 spark
+                if (sparks < 1) { sparks = 1; }
+            }
         }
 
         );
