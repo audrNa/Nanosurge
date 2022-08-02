@@ -24,6 +24,29 @@ switch (fetchPlayerLevel())
         setCaseLevel(4);
     case 3:
         // TODO
+        CASES.push(
+        {
+            name:           'Unstable Electrical Container',
+            description:    "The storage for the robot's electrical current is broken and would sometimes leak everything out. The leaked electricity also destroyed other parts of the robot.",
+            problem:        15,
+            price:          40,
+            eCurrent:       3,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // chance to brrr sparks jumpscare
+                if (rng(1, 20) == 6)
+                {
+                    sparks = 3;
+                }
+            }
+        }
+
+        );
         setCaseLevel(3);
     case 2:
         // TODO
@@ -262,7 +285,7 @@ switch (fetchPlayerLevel())
             name:           'Acidized Body',
             description:    "The robot was splashed with acid.",
             problem:        25,
-            price:          55,
+            price:          60,
             eCurrent:       1,
             temp:           99.8,
             brokenCables:   20,
@@ -270,27 +293,6 @@ switch (fetchPlayerLevel())
             overheating:    false,
             sparks:         0,
             dust:           0
-        },
-
-        {
-            name:           'Unstable Electrical Container',
-            description:    "The storage for the robot's electrical current is broken and would sometimes leak everything out. The leaked electricity also destroyed other parts of the robot.",
-            problem:        15,
-            price:          0,
-            eCurrent:       3,
-            temp:           99.8,
-            brokenCables:   0,
-            burntCables:    0,
-            overheating:    false,
-            sparks:         0,
-            dust:           0,
-            special() {
-                // chance to brrr sparks jumpscare
-                if (rng(1, 20) == 6)
-                {
-                    sparks = 3;
-                }
-            }
         },
 
         {

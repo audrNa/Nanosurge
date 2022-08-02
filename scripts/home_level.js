@@ -1,5 +1,8 @@
 // Levels
 
+// Temp or Infinity
+const MAX_LVL = 2;
+
 // Make a modal for level up requirements
 function levelPage()
 {
@@ -74,6 +77,12 @@ function checkReq()
     const playerBenzene = fetchPlayerBenzene();
     const reqs = levelUpReqs[playerLevel];
 
+    // Limit level
+    if (playerLevel >= MAX_LVL)
+    {
+        return false;
+    }
+
     // Count perks that the player did not meet requirements of
     let miss = 0;
     if (reqs)
@@ -94,6 +103,7 @@ function checkReq()
     {
         return true;
     }
+
     // Did not meet req
     return false;
 }

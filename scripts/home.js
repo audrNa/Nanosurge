@@ -4,7 +4,8 @@
 const homeTexts = [
     "your home is boring",
     "Money here is called <code class='alt'>⏣ Benzene</code>",
-    "If a perk has over 100% bonus chance, you'll have chance for another bonus such as triple bonus at once!"
+    "If a perk has over 100% bonus chance, you'll have chance for another bonus allowing you to get 2 bonuses at once!",
+    "<a href='https://myanimelist.net/anime/10165/Nichijou'>Nano-chan</a> is cute~"
 ];
 
 // List of loaded perks
