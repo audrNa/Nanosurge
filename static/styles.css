@@ -291,3 +291,13 @@ code.alt {
     font-weight: normal;
     color: #fff;
 }
+
+/* Credits */
+
+#credits {
+    text-align: center;
+}
+
+#credits > div {
+    margin: 1em;
+}

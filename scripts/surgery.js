@@ -1,4 +1,4 @@
-// + surgery_cases.js, surgery_tools.js, surgery_check.js, surgery_modal.js
+// basically Frontend of surgery.html with a few non-frontend stuff
 
 const clickSound = new Audio('./static/sounds/Modern6.wav');
 const MALPRACTICE_COST = -50;

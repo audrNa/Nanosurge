@@ -21,7 +21,7 @@ const TOOLS = [
         keybind: 'q',
         sprite: 'blower.png',
         use() {
-            const LIMIT = 20;
+            const LIMIT = 25;
             // Can't kill dust near LIMIT
             if (dust < LIMIT * 1.2)
             {

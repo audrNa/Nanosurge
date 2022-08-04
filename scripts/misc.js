@@ -1,7 +1,7 @@
 // Miscellaneous functions
 
 const CURRENCY = '⏣';
-const VERSION = '0.2.0-dev';
+const VERSION = '1.0.0-alpha';
 
 // Random Number Generator between min and max inclusive
 function rng(min, max)
@@ -32,7 +32,7 @@ function thsp(n)
 // Put version at the top of each page this file is included in
 document.addEventListener('DOMContentLoaded', () => {
     const div = document.createElement('div');
-    div.appendChild(document.createTextNode('Nanosurge ' + VERSION));
+    div.appendChild(document.createTextNode('Nanosurge ' + VERSION + ' by audrNa'));
     div.setAttribute('id', 'version');
 
     document.body.prepend(div);
