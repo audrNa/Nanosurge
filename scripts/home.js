@@ -1,6 +1,9 @@
 // index.html
 
-// Random text everytime you load this page
+// SFX
+const purchaseSound = new Audio('./static/sounds/purchase.wav');
+
+// Random text every page update
 const homeTexts = [
     "your home is boring",
     "Money here is called <code class='alt'>⏣ Benzene</code>",
@@ -131,6 +134,7 @@ function itemPage(perkId)
         itemModal.buttons[1].code = () => {
             purchase(perkId);
             document.getElementById('modal').style.display = 'none';
+            playSound(purchaseSound);
         };
     }
 

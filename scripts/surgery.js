@@ -1,6 +1,10 @@
 // basically Frontend of surgery.html with a few non-frontend stuff
 
-const clickSound = new Audio('./static/sounds/Modern6.wav');
+// SFX
+const clickSound = new Audio('./static/sounds/tool_use.wav');
+const successSound = new Audio('./static/sounds/surgery_success.wav');
+const failSound = new Audio('./static/sounds/surgery_fail.wav');
+
 const MALPRACTICE_COST = -50;
 
 // Status
@@ -248,6 +252,7 @@ function turnUpdate(message)
     if (checkResult[0] != 0)
     {
         /* Make modal */
+        const sounds = [successSound, failSound];
         const headers = ["Surgery Successful", "Surgery Failed"];
         const endModal = modals.surgeryEnd;
         endModal.header = headers[checkResult[0] - 1];
@@ -273,6 +278,9 @@ function turnUpdate(message)
 
         // Flash modal
         modal(endModal);
+
+        // SFX
+        playSound(sounds[checkResult[0] - 1]);
 
         // Allow player to safely close tab
         window.onbeforeunload = () => {};
@@ -380,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add function
         button.addEventListener('click', item.use);
-        button.addEventListener('click', () => { clickSound.cloneNode(true).play(); });
+        button.addEventListener('click', () => { playSound(clickSound) });
 
         // Save for toolToggle() and keybinds
         buttons.push(button);

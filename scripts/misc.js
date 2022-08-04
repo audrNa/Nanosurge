@@ -29,6 +29,12 @@ function thsp(n)
     return n.toLocaleString('en-US');
 }
 
+// Plays an Audio that can overlap with other Audio
+function playSound(audio)
+{
+    audio.cloneNode(true).play();
+}
+
 // Put version at the top of each page this file is included in
 document.addEventListener('DOMContentLoaded', () => {
     const div = document.createElement('div');

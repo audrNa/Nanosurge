@@ -1,5 +1,8 @@
 // Levels
 
+// SFX
+const levelUpSound = new Audio('./static/sounds/level_up.wav');
+
 // Temp or Infinity
 const MAX_LVL = 2;
 
@@ -36,6 +39,7 @@ function levelPage()
         itemModal.buttons[1].code = () => {
             levelUp();
             document.getElementById('modal').style.display = 'none';
+            playSound(levelUpSound);
         };
     }
     // Can't
