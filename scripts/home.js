@@ -21,11 +21,19 @@ function update(perkId)
     // Get stats
     const benzene = fetchPlayerBenzene();
     const level = fetchPlayerLevel();
+    const st = fetchPlayerStatistics();
+    const surgTotal = st.success + st.fail;
+    const succRate = (st.success / surgTotal * 100).toFixed(2);
 
     // Update page
     document.getElementById('benzene').innerHTML = CURRENCY + thsp(benzene);
     document.getElementById('rng-text').innerHTML = homeTexts[rng(0, homeTexts.length - 1)];
     document.getElementById('level-n').innerHTML = level;
+    document.getElementById('surg-w').innerHTML = thsp(st.success);
+    document.getElementById('surg-l').innerHTML = thsp(st.fail);
+    document.getElementById('surg-total').innerHTML = thsp(surgTotal);
+    document.getElementById('surg-w-rate').innerHTML = succRate;
+    document.getElementById('benzene-total').innerHTML = CURRENCY + thsp(st.benzeneTotal);
 
     // Update button if requested
     if (perkId != null)

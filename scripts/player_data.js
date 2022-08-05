@@ -21,3 +21,13 @@ function fetchPlayerLevel()
     }
     return level;
 }
+
+// Get player statistics
+function fetchPlayerStatistics()
+{
+    let statistics = {};
+    statistics.success = numbind(localStorage.getItem('nanosurge-surg-w'));
+    statistics.fail = numbind(localStorage.getItem('nanosurge-surg-l'));
+    statistics.benzeneTotal = numbind(localStorage.getItem('nanosurge-benzene-total'));
+    return statistics;
+}

@@ -251,42 +251,72 @@ function turnUpdate(message)
     // Check result if end
     if (checkResult[0] != 0)
     {
-        /* Make modal */
-        const sounds = [successSound, failSound];
-        const headers = ["Surgery Successful", "Surgery Failed"];
-        const endModal = modals.surgeryEnd;
-        endModal.header = headers[checkResult[0] - 1];
-        endModal.desc = checkResult[1];
-
-        // Pay based on success or loss
-        const earnings = pay(checkResult[0] == 1 ? price : MALPRACTICE_COST);
-
-        // Description
-        const intSign = earnings[0] > 0 ? '+' : '-';
-        const moneyChange = CURRENCY + thsp(Math.abs(earnings[0]));
-        const newTotal = CURRENCY + thsp(earnings[1]);
-        endModal.desc += `<hr>
-        ${intSign} <code class="alt">${moneyChange}</code>
-        <br>
-        You now have <code class="alt">${newTotal}</code>.`;
-
-        // Disable all tools
-        for (const button of buttons)
-        {
-            button.setAttribute('disabled', '');
-        }
-
-        // Flash modal
-        modal(endModal);
-
-        // SFX
-        playSound(sounds[checkResult[0] - 1]);
-
-        // Allow player to safely close tab
-        window.onbeforeunload = () => {};
-        window.onunload = () => {};
+        gameEnd(checkResult);
     }
+
     return 0;
+}
+
+function gameEnd(r)
+{
+    // Result
+    // 0: Success | 1: Fail
+    const RES = r[0] - 1;
+
+
+    /* Make modal */
+    const endModal = modals.surgeryEnd;
+    endModal.header = ["Surgery Successful", "Surgery Failed"][RES];
+    endModal.desc = r[1];
+
+    // Pay if fail or success
+    const earnings = pay(RES ? MALPRACTICE_COST : price);
+
+    // Earnings on description
+    const intSign = earnings[0] > 0 ? '+' : '-';
+    const moneyChange = CURRENCY + thsp(Math.abs(earnings[0]));
+    const newTotal = CURRENCY + thsp(earnings[1]);
+    endModal.desc += `<hr>
+    ${intSign} <code class="alt">${moneyChange}</code>
+    <br>
+    You now have <code class="alt">${newTotal}</code>.`;
+
+
+    /* Record for statistics */
+    const statistics = fetchPlayerStatistics();
+
+    // Surgery
+    switch (RES)
+    {
+        case 0:
+            localStorage.setItem('nanosurge-surg-w', statistics.success + 1);
+            break;
+        case 1:
+            localStorage.setItem('nanosurge-surg-l', statistics.fail + 1);
+            break;
+    }
+
+    // Benzene
+    if (earnings[0] > 0) {
+        localStorage.setItem('nanosurge-benzene-total', statistics.benzeneTotal + earnings[0]);
+    }
+
+
+    // Disable all tools
+    for (const button of buttons)
+    {
+        button.setAttribute('disabled', '');
+    }
+
+    // Flash modal
+    modal(endModal);
+
+    // SFX
+    playSound([successSound, failSound][RES]);
+
+    // Allow player to safely close tab
+    window.onbeforeunload = () => {};
+    window.onunload = () => {};
 }
 
 // Toggles buttons depending on condition
