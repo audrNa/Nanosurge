@@ -589,6 +589,35 @@ switch (fetchPlayerLevel())
                     sleepTime = 10;
                 }
             }
+        },
+
+        {
+            name:           'Benzene Eating Disorder',
+            description:    "The robot liked Benzene so much he started eating them and now his stomache is broken. You get to keep the Benzene after extracting them out of the robot.",
+            problem:        6,
+            price:          20,
+            eCurrent:       0,
+            temp:           99.8,
+            brokenCables:   0,
+            burntCables:    0,
+            overheating:    false,
+            sparks:         0,
+            dust:           0,
+            special() {
+                // Don't run again if the price is already set
+                if (Special.x === 0) {
+                    return;
+                }
+                Special.x = 0;
+
+                // not common chance to get super stonks
+                const n = rng(1, 10000);
+                if (n === 10000) {
+                    price = 10000;
+                } else {
+                    price += rng(1, 30);
+                }
+            }
         }
 
         );
