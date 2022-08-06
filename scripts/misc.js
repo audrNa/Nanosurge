@@ -1,7 +1,7 @@
 // Miscellaneous functions
 
 const CURRENCY = '⏣';
-const VERSION = '1.0.0-beta';
+const VERSION = '1.0.0';
 
 // Random Number Generator between min and max inclusive
 function rng(min, max)

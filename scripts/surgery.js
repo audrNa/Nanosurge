@@ -98,7 +98,7 @@ function start(s)
 
     // Make player lose if they close tab
     window.onunload = () => {
-        pay(MALPRACTICE_COST);
+        gameEnd([2, "You left the operation room..."]);
     };
 
     return `CASE: [${CASE.name}]  hey you are cheating`;
@@ -257,6 +257,7 @@ function turnUpdate(message)
     return 0;
 }
 
+// End the surgery
 function gameEnd(r)
 {
     // Result
