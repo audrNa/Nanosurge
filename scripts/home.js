@@ -8,7 +8,7 @@ const homeTexts = [
     "your home is boring",
     "Money here is called <code class='alt'>⏣ Benzene</code>",
     "If a perk has over 100% bonus chance, you'll have chance for another bonus allowing you to get 2 bonuses at once!",
-    `<a href='https://myanimelist.net/anime/10165/Nichijou'><img src="./static/favicon.ico"> Nano-chan</a> is cute~`,
+    `<a href='https://myanimelist.net/anime/10165/Nichijou'> <img src="./static/favicon.ico"> </a>`,
     "This game is currently unfinished but will probably never be finished"
 ];
 
